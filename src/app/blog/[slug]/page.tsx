@@ -1,6 +1,5 @@
 export const runtime = "edge";
-export const dynamic = "force-static";
-export const dynamicParams = false;
+export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -28,10 +27,6 @@ function nodeText(children: React.ReactNode): string {
     return nodeText((children as any).props?.children);
   }
   return "";
-}
-
-export async function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ slug: p.slug }));
 }
 
 export default async function BlogPostPage({
