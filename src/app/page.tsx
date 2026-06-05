@@ -133,7 +133,7 @@ export default function Home() {
                 className="font-semibold leading-tight tracking-tight text-foreground"
                 style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)" }}
               >
-                Prepare the next generations of cybersecurity talent through research, projects, and mentorship.
+                Prepare the next generations of cybersecurity talent through <Orange>research</Orange>, <Orange>projects</Orange>, and <Orange>mentorship</Orange>.
               </p>
               <Link
                 href="/about"
