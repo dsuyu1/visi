@@ -257,7 +257,7 @@ export function HeroBackground({ className = "" }: { className?: string }) {
       const scale = Math.min(W, H) * 0.30;
       const fov   = 5;
       const cx    = W * 0.72;
-      const cy    = H * 0.46;
+      const cy    = H * 0.46; // updated
 
       const rVerts = VERTS.map(v => rotY(rotX(v, rx), ry));
       const pts = rVerts.map(v => project(v, fov, cx, cy, scale));
