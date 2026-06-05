@@ -1,3 +1,7 @@
+export const runtime = "edge";
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";

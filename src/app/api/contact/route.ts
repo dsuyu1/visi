@@ -1,6 +1,4 @@
-export const runtime = "nodejs";
-
-import nodemailer from "nodemailer";
+export const runtime = "edge";
 import { z } from "zod";
 
 const ContactSchema = z
@@ -53,47 +51,39 @@ export async function POST(request: Request) {
 
   const to = env("CONTACT_TO_EMAIL");
   const from = env("CONTACT_FROM_EMAIL");
-  const host = env("SMTP_HOST");
-  const portRaw = env("SMTP_PORT");
-  const secureRaw = env("SMTP_SECURE");
-  const user = env("SMTP_USER");
-  const pass = env("SMTP_PASS");
+  const resendApiKey = env("RESEND_API_KEY");
 
-  if (!to || !host || !portRaw || !user || !pass) {
+  if (!to || !from || !resendApiKey) {
     return Response.json(
       { ok: false, error: "Email delivery is not configured on the server." },
       { status: 501 }
     );
   }
 
-  const port = Number(portRaw);
-  if (!Number.isFinite(port) || port <= 0) {
+  const topicLabel = payload.topic ? payload.topic.toUpperCase() : "GENERAL";
+  const subject = `[${topicLabel}] ${payload.name} - website contact`;
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      subject,
+      text: buildMailText(payload),
+      reply_to: payload.email,
+    }),
+  });
+
+  if (!res.ok) {
     return Response.json(
-      { ok: false, error: "SMTP_PORT must be a valid number." },
-      { status: 500 }
+      { ok: false, error: "Failed to send email." },
+      { status: 502 }
     );
   }
 
-  const secure = secureRaw ? secureRaw.toLowerCase() === "true" : port === 465;
-
-  const transporter = nodemailer.createTransport({
-    host,
-    port,
-    secure,
-    auth: { user, pass },
-  });
-
-  const topicLabel = payload.topic ? payload.topic.toUpperCase() : "GENERAL";
-  const subject = `[${topicLabel}] ${payload.name} — website contact`;
-
-  await transporter.sendMail({
-    to,
-    from: from ?? user,
-    replyTo: payload.email,
-    subject,
-    text: buildMailText(payload),
-  });
-
   return Response.json({ ok: true });
 }
-
