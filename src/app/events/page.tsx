@@ -28,10 +28,10 @@ export default function EventsPage() {
       <h1 className="font-bold leading-[1.05] tracking-tight"
           style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)" }}>
         <span className="block">
-          <SlideReveal delay={80}>Join the</SlideReveal>
+          <SlideReveal delay={80}>Events and</SlideReveal>
         </span>
         <span className="block">
-          <SlideReveal delay={280}>initiative.</SlideReveal>
+          <SlideReveal delay={280}>workshops.</SlideReveal>
         </span>
       </h1>
 
