@@ -1,0 +1,12 @@
+
+> club-website@0.1.0 dev C:\Users\pedro\Documents\Codex\2026-06-03\https-www-figma-com-design-nsuhu3uuraam9lf4cq7189\club-website
+> next dev -p 3200
+
+▲ Next.js 16.2.7 (Turbopack)
+- Local:         http://localhost:3200
+- Network:       http://192.168.56.1:3200
+✓ Ready in 14.5s
+
+ GET / 200 in 2.6s (next.js: 1028ms, application-code: 1602ms)
+ GET / 200 in 188ms (next.js: 14ms, application-code: 173ms)
+ ELIFECYCLE  Command failed with exit code 4294967295.

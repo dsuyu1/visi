@@ -63,7 +63,7 @@ export default function Home() {
 
             <p className="mt-6 block overflow-hidden">
               <SlideReveal delay={480} className="text-lg font-light text-muted">
-                We provide students and curious minds with the resources, projects, and mentorship to close the gap in cybersecurity. Based in the Rio Grande Valley, we’re building a community for students to explore, experiment, and produce work that matters.
+                We provide students and curious minds with the resources, projects, and mentorship to close the gap in cybersecurity. Based in the Rio Grande Valley, we’re building a community for students to explore, experiment, and educate others.
               </SlideReveal>
             </p>
 
