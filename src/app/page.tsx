@@ -35,32 +35,13 @@ export default function Home() {
     <div className="relative">
 
       {/* --- HERO ----------------------------------------------------------- */}
-      <section className="sticky top-[88px] z-0 relative flex h-[calc(100svh-88px)] flex-col justify-center overflow-hidden bg-background">
+      <section className="home-hero sticky top-[88px] z-0 relative flex h-[calc(100svh-88px)] flex-col justify-center overflow-hidden bg-background">
         <HeroBackground />
 
-        {/* Gradient: solid left -> transparent right so 3D shows */}
+        {/* Solid mask behind the left text column (keeps 3D clear on the right) */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              [
-                "linear-gradient(to right, var(--background) 0%, var(--background) 52%, transparent 82%)",
-              ].join(", "),
-          }}
-        />
-
-        {/* Accent wash anchored to the bottom and bleeding into the page below */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -bottom-[160px] h-[560px]"
-          style={{
-            background: [
-              "radial-gradient(60% 60% at 22% 62%, rgba(var(--accent-rgb), 0.26) 0%, transparent 74%)",
-              "radial-gradient(60% 60% at 78% 62%, rgba(var(--accent-rgb), 0.26) 0%, transparent 74%)",
-              "radial-gradient(85% 70% at 50% 80%, rgba(var(--accent-2-rgb), 0.22) 0%, transparent 76%)",
-            ].join(", "),
-          }}
+          className="home-hero-mask pointer-events-none absolute inset-y-0 left-0 w-[62%] bg-background"
         />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-24 pt-20 md:pt-28">
@@ -125,7 +106,7 @@ export default function Home() {
           <div className="grid gap-16 md:grid-cols-2">
 
             {/* Mission */}
-            <ScrollReveal>
+            <div>
               <p className="mb-5 text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
                 Our Mission
               </p>
@@ -141,10 +122,10 @@ export default function Home() {
               >
                 full story <span>→</span>
               </Link>
-            </ScrollReveal>
+            </div>
 
             {/* Approach pillars */}
-            <ScrollReveal delay={120}>
+            <div>
               <p className="mb-5 text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
                 Our Approach
               </p>
@@ -165,14 +146,14 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </ScrollReveal>
+            </div>
 
           </div>
         </div>
       </section>
 
       {/* --- /01 RECENT WRITING -------------------------------------------- */}
-      <section className="border-t border-border bg-panel">
+      <section className="bg-panel">
         <div className="mx-auto max-w-7xl px-6 py-20">
           <ScrollReveal>
             <h2 className="font-semibold tracking-tight"
@@ -229,7 +210,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-border">
+      <section>
         <div className="mx-auto max-w-7xl px-6 pb-4 pt-20">
           <ScrollReveal>
             <h2 className="font-semibold tracking-tight"
@@ -310,7 +291,7 @@ export default function Home() {
 
       {/* --- /02 EVENTS ---------------------------------------------------- */}
       {false && (
-      <section className="border-t border-border bg-panel">
+      <section className="bg-panel">
         <div className="mx-auto max-w-7xl px-6 py-20">
           <ScrollReveal>
             <h2 className="font-semibold tracking-tight"
@@ -369,7 +350,7 @@ export default function Home() {
       )}
 
       {/* --- /03 PARTNERS -------------------------------------------------- */}
-      <section className="border-t border-border">
+      <section>
         <div className="mx-auto max-w-7xl px-6 py-20">
           <ScrollReveal>
             <h2 className="font-semibold tracking-tight"

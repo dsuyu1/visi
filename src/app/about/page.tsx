@@ -4,13 +4,14 @@ import { SlideReveal } from "@/components/SlideReveal";
 import { Orange } from "@/components/TextFormat";
 import { ButtonLink } from "@/components/ButtonLink";
 import { ScrollDownCue } from "@/components/ScrollDownCue";
+import { SaplingMark } from "@/components/SaplingMark";
 
 export default function AboutPage() {
   return (
     <div className="relative">
 
       {/* Hero */}
-      <section className="sticky top-[88px] z-0 relative isolate overflow-hidden bg-background">
+      <section className="sticky top-[88px] z-0 relative isolate overflow-hidden bg-background dark:bg-transparent">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 -bottom-[64px] h-[360px]"
@@ -23,6 +24,9 @@ export default function AboutPage() {
           }}
         />
         <div className="mx-auto flex h-[calc(100svh-88px)] w-full max-w-7xl flex-col justify-center px-6 py-16 text-center">
+          <div className="mx-auto mb-6 flex justify-center">
+            <SaplingMark className="h-14 w-14 opacity-90" />
+          </div>
           <h1
             className="font-bold leading-[1.05] tracking-tight"
             style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)" }}
@@ -53,28 +57,26 @@ export default function AboutPage() {
         }}
       >
         {/* Mission */}
-        <ScrollReveal>
-          <div className="bg-foreground py-20 text-background">
+          <div className="bg-surface-strong py-20 text-surface-strong-foreground">
             <div className="mx-auto max-w-7xl px-6 text-center">
-              <p className="mb-6 text-xs font-medium tracking-widest text-background/40 uppercase font-sans">
+              <p className="mb-6 text-xs font-medium tracking-widest text-surface-strong-foreground/40 uppercase font-sans">
                 Our Mission
               </p>
-              <blockquote
-                className="mx-auto max-w-3xl font-bold leading-tight tracking-tight"
-                style={{ fontSize: "clamp(1.8rem, 4.5vw, 3rem)" }}
-              >
-                Produce cybersecurity professionals and give back.
+            <blockquote
+              className="mx-auto max-w-3xl font-bold leading-tight tracking-tight"
+              style={{ fontSize: "clamp(1.8rem, 4.5vw, 3rem)" }}
+            >
+              Produce cybersecurity professionals and give back.
               </blockquote>
               <p
-                className="mx-auto mt-8 max-w-xl text-base leading-[1.9] text-background/70"
+                className="mx-auto mt-8 max-w-xl text-base leading-[1.9] text-surface-strong-foreground/70"
                 style={{ fontWeight: 300 }}
               >
-                VISI was created for the enthusiast who looks to make a difference. What we produce is designed to provide value to our communities and help our members grow into cybersecurity professionals.
-                At the end of the day, our goal is to empower our members to take initiative in their academic and professional lives, whether that be attending or presenting at conferences, conducting research, starting projects, or making meaningful connections.
-              </p>
-            </div>
+              VISI was created for the enthusiast who looks to make a difference. What we produce is designed to provide value to our communities and help our members grow into cybersecurity professionals.
+              At the end of the day, our goal is to empower our members to take initiative in their academic and professional lives, whether that be attending or presenting at conferences, conducting research, starting projects, or making meaningful connections.
+            </p>
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* Values */}
         <div className="mx-auto w-full max-w-7xl px-6 py-20">

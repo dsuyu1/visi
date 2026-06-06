@@ -34,7 +34,7 @@ function splitIntoRows(members: Member[], rowCount: number) {
 function MemberChip({ member }: { member: Member }) {
   return (
     <div className="member-chip flex items-center gap-3 border border-border bg-panel px-4 py-3">
-      <div className="grid size-10 shrink-0 place-items-center border border-border bg-foreground text-[11px] font-semibold tracking-widest text-background font-sans">
+      <div className="grid size-10 shrink-0 place-items-center border border-border bg-surface-strong text-[11px] font-semibold tracking-widest text-surface-strong-foreground font-sans">
         {member.avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img

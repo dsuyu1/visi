@@ -30,7 +30,7 @@ export default function OurWorkPage() {
       </div>
 
       {/* Work items */}
-      <div className="border-t border-border pb-24">
+      <div className="pb-24">
         <div className="mt-8 text-left">
         {WORK_ITEMS.map((item, i) => (
           <ScrollReveal key={item.slug} delay={i * 80} className="work-item group">

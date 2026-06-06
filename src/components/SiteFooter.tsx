@@ -61,14 +61,14 @@ const columns = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-foreground text-background font-sans">
+    <footer className="bg-surface-strong text-surface-strong-foreground font-sans">
       <div className="mx-auto max-w-7xl px-6 py-4">
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {columns.map((col) => (
             <div key={col.parent.href}>
               <Link href={col.parent.href}
-                className="text-xs font-semibold text-background/90 transition-colors hover:text-background">
+                className="text-xs font-semibold text-surface-strong-foreground/90 transition-colors hover:text-surface-strong-foreground">
                 {col.parent.label}
               </Link>
               {col.children.length > 0 && (
@@ -76,7 +76,7 @@ export function SiteFooter() {
                   {col.children.map((c) => (
                     <li key={c.href}>
                       <Link href={c.href}
-                        className="text-xs text-background/70 transition-colors hover:text-background">
+                        className="text-xs text-surface-strong-foreground/70 transition-colors hover:text-surface-strong-foreground">
                         {c.label}
                       </Link>
                     </li>
@@ -88,13 +88,13 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-4 flex flex-col gap-1 border-t border-white/10 pt-3 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-xs text-background/50">
+          <span className="text-xs text-surface-strong-foreground/50">
             © {new Date().getFullYear()} {SITE.name} · {SITE.locationLabel}
           </span>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <a
               href={`mailto:${SITE.contactEmail}`}
-              className="text-xs text-background/70 transition-colors hover:text-background"
+              className="text-xs text-surface-strong-foreground/70 transition-colors hover:text-surface-strong-foreground"
             >
               {SITE.contactEmail}
             </a>
@@ -104,7 +104,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="VISI on LinkedIn"
-                className="text-background/70 transition-colors hover:text-background"
+                className="text-surface-strong-foreground/70 transition-colors hover:text-surface-strong-foreground"
               >
                 <LinkedInIcon className="size-4" />
               </a>
@@ -113,7 +113,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="VISI on Instagram"
-                className="text-background/70 transition-colors hover:text-background"
+                className="text-surface-strong-foreground/70 transition-colors hover:text-surface-strong-foreground"
               >
                 <InstagramIcon className="size-4" />
               </a>

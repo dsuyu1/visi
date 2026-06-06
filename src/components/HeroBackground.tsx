@@ -235,6 +235,23 @@ export function HeroBackground({ className = "" }: { className?: string }) {
     let lastPx = 0, lastPy = 0;
     let lastDx = 0, lastDy = 0;
 
+    const readHeroWireRgb = () => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue("--hero-wire-rgb")
+        .trim();
+      return value.length > 0 ? value : "10, 10, 10";
+    };
+
+    let heroWireRgb = readHeroWireRgb();
+
+    const themeObserver = new MutationObserver(() => {
+      heroWireRgb = readHeroWireRgb();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     function resize() {
       const dpr  = Math.min(window.devicePixelRatio, 2);
       const rect = canvas!.getBoundingClientRect();
@@ -254,9 +271,9 @@ export function HeroBackground({ className = "" }: { className?: string }) {
     function draw() {
       ctx!.clearRect(0, 0, W, H);
 
-      const scale = Math.min(W, H) * 0.30;
+      const scale = Math.min(W, H) * 0.385;
       const fov   = 5;
-      const cx    = W * 0.72;
+      const cx    = W * 0.75;
       const cy    = H * 0.46; // updated
 
       const rVerts = VERTS.map(v => rotY(rotX(v, rx), ry));
@@ -322,7 +339,7 @@ export function HeroBackground({ className = "" }: { className?: string }) {
           }
         }
 
-        ctx!.strokeStyle = `rgba(10,10,10,${alpha.toFixed(3)})`;
+        ctx!.strokeStyle = `rgba(${heroWireRgb},${alpha.toFixed(3)})`;
 
         const [ax2, ay2] = pts[a]!;
         const [bx2, by2] = pts[b]!;
@@ -395,6 +412,7 @@ export function HeroBackground({ className = "" }: { className?: string }) {
       clearTimeout(fadeTimer);
       cancelAnimationFrame(raf);
       ro.disconnect();
+      themeObserver.disconnect();
       canvas.removeEventListener("pointerdown",   onPointerDown);
       canvas.removeEventListener("pointermove",   onPointerMove);
       canvas.removeEventListener("pointerup",     onPointerUp);

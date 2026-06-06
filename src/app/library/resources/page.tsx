@@ -20,7 +20,7 @@ export default function ResourcesPage() {
         </ScrollReveal>
       </div>
 
-      <div className="border-t border-border pb-24">
+      <div className="pb-24">
         <div className="mt-8 text-left">
           {RESOURCES.map((r, i) => (
             <ScrollReveal key={r.id} delay={i * 80} className="work-item group">

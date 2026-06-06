@@ -4,7 +4,13 @@ import { SlideReveal } from "@/components/SlideReveal";
 import { BLOG_POSTS } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 
-const PANEL_COLORS = ["#e4ffe1", "#d6d7fb", "#fff3cd", "#fde2e4", "#dff0ff"];
+const PANEL_COLORS = [
+  "var(--blog-panel-1)",
+  "var(--blog-panel-2)",
+  "var(--blog-panel-3)",
+  "var(--blog-panel-4)",
+  "var(--blog-panel-5)",
+];
 
 export default function BlogPage() {
   return (
@@ -30,7 +36,7 @@ export default function BlogPage() {
       </div>
 
       {/* --- Post list --------------------------------------------------- */}
-      <div className="border-t border-border pb-24">
+      <div className="pb-24">
         <div className="mt-8 text-left">
           {BLOG_POSTS.length === 0 ? (
             <div className="mx-auto max-w-7xl px-6 py-12">

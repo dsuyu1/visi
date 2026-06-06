@@ -43,7 +43,7 @@ export default function EventsPage() {
       </div>
 
       {/* --- Event list ---------------------------------------------------- */}
-      <div className="border-t border-border text-left">
+      <div className="text-left">
         <div className="mx-auto w-full max-w-7xl px-6 pt-14">
           <ScrollReveal>
             <h2 className="text-sm font-medium tracking-widest text-muted-light uppercase font-sans">
@@ -108,7 +108,7 @@ export default function EventsPage() {
           </div>
         )}
 
-        <div className="border-t border-border">
+        <div>
           <div className="mx-auto w-full max-w-7xl px-6 pt-14">
             <ScrollReveal>
               <h2 className="text-sm font-medium tracking-widest text-muted-light uppercase font-sans">

@@ -1,6 +1,7 @@
 'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Moon, Sun } from "lucide-react";
 
 type Child = { href: string; label: string };
 type NavItem = { href: string; label: string; children?: Child[] };
@@ -35,6 +36,17 @@ const rightNav: NavItem[] = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+
+  const toggleTheme = () => {
+    const root = document.documentElement;
+    const isDark = root.classList.contains("dark");
+    root.classList.remove("light", "dark");
+    const next = isDark ? "light" : "dark";
+    root.classList.add(next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+  };
 
   const isActive = (item: NavItem) => {
     if (pathname === item.href || pathname.startsWith(item.href + "/")) return true;
@@ -129,6 +141,17 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
+
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="theme-toggle ml-4 grid size-9 shrink-0 place-items-center border border-border bg-background text-muted transition-colors hover:border-foreground hover:text-foreground"
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode"
+        >
+          <Sun className="icon-sun size-4" aria-hidden />
+          <Moon className="icon-moon size-4" aria-hidden />
+        </button>
 
       </div>
     </header>
