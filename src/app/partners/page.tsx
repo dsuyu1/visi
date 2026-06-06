@@ -26,12 +26,12 @@ export default function PartnersPage() {
       </ScrollReveal>
 
       {/* --- Partner list -------------------------------------------------- */}
-      <div className="mt-20 border-t border-border text-left">
+      <div className="mt-20 text-left">
         {PARTNERS.map((p, i) => (
           <ScrollReveal
             key={p.name}
             delay={i * 80}
-            className="border-b border-border py-10"
+            className="py-10"
           >
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-16">
               <div className="flex-1">

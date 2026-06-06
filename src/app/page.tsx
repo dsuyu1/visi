@@ -4,6 +4,7 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { ButtonLink } from "@/components/ButtonLink";
 import { HeroBackground } from "@/components/HeroBackground";
 import { Orange } from "@/components/TextFormat";
+import { ThreatTrendGraph } from "@/components/ThreatTrendGraph";
 import { ScrollDownCue } from "@/components/ScrollDownCue";
 import { BLOG_POSTS, EVENTS, PARTNERS } from "@/lib/content";
 import { formatDate, isoDateInCentral } from "@/lib/format";
@@ -152,6 +153,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* --- THREAT TREND -------------------------------------------------- */}
+      <section aria-labelledby="threat-trend-title" className="pb-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <ScrollReveal>
+            <div
+              className="grid gap-10 md:grid-cols-2 md:items-center"
+            >
+              <div>
+                <h2
+                  id="threat-trend-title"
+                  className="font-semibold leading-tight tracking-tight text-foreground"
+                  style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)" }}
+                >
+                  Cybercrime losses are scaling fast. We train builders to keep pace.
+                </h2>
+                <p className="mt-4 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
+                  From ransomware to supply-chain compromise, attackers iterate quickly and share tooling. Our mission is
+                  to help students and the community prepare, respond, and recover.
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <ButtonLink href="/events">Get involved</ButtonLink>
+                  <ButtonLink href="/our-work" variant="secondary">
+                    Explore our work
+                  </ButtonLink>
+                </div>
+
+                <p className="mt-6 text-xs text-muted-light">
+                  FBI IC3 reported losses rising from $4.2B (2020) to $20.877B (2025).
+                </p>
+              </div>
+
+              <ThreatTrendGraph />
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* --- /01 RECENT WRITING -------------------------------------------- */}
       <section className="bg-panel">
         <div className="mx-auto max-w-7xl px-6 py-20">
@@ -213,9 +252,9 @@ export default function Home() {
       <section>
         <div className="mx-auto max-w-7xl px-6 pb-4 pt-20">
           <ScrollReveal>
-            <h2 className="font-semibold tracking-tight"
-                style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)" }}>
-              Recent writing
+              <h2 className="font-semibold tracking-tight"
+                  style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)" }}>
+              Latest news
             </h2>
           </ScrollReveal>
         </div>
