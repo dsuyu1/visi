@@ -65,7 +65,7 @@ export default async function NvidiaNcpAiolModulePage({
             <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
               Units
             </p>
-            <ul className="mt-4 space-y-2 list-disc pl-5">
+            <ul className="mt-4 list-disc space-y-2 pl-5">
               {academyModule.units.map((u) => (
                 <li key={u.id}>
                   <Link
@@ -75,9 +75,7 @@ export default async function NvidiaNcpAiolModulePage({
                     {u.title}
                   </Link>
                   {u.estimatedMinutes ? (
-                    <p className="mt-1 text-xs text-muted-light">
-                      ~{u.estimatedMinutes} min
-                    </p>
+                    <p className="mt-1 text-xs text-muted-light">~{u.estimatedMinutes} min</p>
                   ) : null}
                 </li>
               ))}
@@ -100,7 +98,7 @@ export default async function NvidiaNcpAiolModulePage({
               How to use this
             </p>
             <p className="mt-3 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-              Open a unit, take the quiz, and mark it complete when you’re ready to move on.
+              Open a unit and mark it complete when you are ready to move on.
             </p>
 
             <div className="mt-6 border-t border-border pt-6">
@@ -109,15 +107,11 @@ export default async function NvidiaNcpAiolModulePage({
               </p>
               <AcademyProgressBarClient certId={cert.id} unitKeys={moduleUnitKeys} compact />
             </div>
-
-            <p className="mt-6 text-xs text-muted-light">
-              For now, your progress is saved only on this device.
-            </p>
           </div>
         </ScrollReveal>
       </div>
 
-      <div className="mt-10 border-t border-border pt-6 flex flex-wrap gap-6">
+      <div className="mt-10 flex flex-wrap gap-6 border-t border-border pt-6">
         <Link
           href={`/library/academy/certifications/${cert.id}`}
           className="work-arrow inline-flex items-center text-sm font-medium text-foreground"
@@ -137,3 +131,4 @@ export default async function NvidiaNcpAiolModulePage({
     </div>
   );
 }
+

@@ -5,7 +5,6 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { SlideReveal } from "@/components/SlideReveal";
 import { AcademyBreadcrumbs } from "@/components/academy/AcademyBreadcrumbs";
 import { AcademyMarkdown } from "@/components/academy/AcademyMarkdown";
-import { ModulePracticeClient } from "@/components/academy/ModulePracticeClient";
 import { AcademyProgressBarClient } from "@/components/academy/AcademyProgressBarClient";
 import { getCertification, getUnit } from "@/lib/academy/content";
 import type { AcademyModule } from "@/lib/academy/types";
@@ -94,7 +93,7 @@ export default async function AwsSaaC03StartHerePage() {
                     href={`/library/academy/certifications/${cert.id}/modules/${module.id}`}
                     className="work-arrow inline-flex items-center font-medium text-foreground"
                   >
-                    {module.title} <span aria-hidden>â†’</span>
+                    {module.title} <span aria-hidden>→</span>
                   </Link>
                   {units.length ? (
                     <ul className="mt-2 space-y-1 pl-4 text-xs text-muted-light">
@@ -117,7 +116,7 @@ export default async function AwsSaaC03StartHerePage() {
               </p>
               <AcademyProgressBarClient certId={cert.id} unitKeys={unitKeys} compact />
               <p className="mt-4 text-xs text-muted-light">
-                Use the <span className="font-semibold">Completed</span> checkbox inside each unitâ€™s tools to track
+                Use the <span className="font-semibold">Completed</span> checkbox inside each unit’s tools to track
                 progress.
               </p>
             </div>
@@ -127,7 +126,7 @@ export default async function AwsSaaC03StartHerePage() {
                 href={`/library/academy/certifications/${cert.id}`}
                 className="work-arrow inline-flex items-center text-sm font-medium text-foreground"
               >
-                <span aria-hidden>â†</span> Back to certification
+                <span aria-hidden>←</span> Back to certification
               </Link>
             </div>
           </div>
@@ -139,7 +138,7 @@ export default async function AwsSaaC03StartHerePage() {
               Tip
             </p>
             <p className="mt-3 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-              Open a unit link to take the quiz and track completion as you study.
+              Open a unit link and track completion as you study.
             </p>
           </div>
         </ScrollReveal>
@@ -186,13 +185,6 @@ export default async function AwsSaaC03StartHerePage() {
                   ))}
                 </div>
 
-                <div className="mt-10 border-t border-border pt-8">
-                  <ModulePracticeClient
-                    moduleId={module.id}
-                    questions={module.practiceQuestions ?? []}
-                    title="Practice questions"
-                  />
-                </div>
               </div>
             </ScrollReveal>
           </section>
@@ -201,4 +193,3 @@ export default async function AwsSaaC03StartHerePage() {
     </div>
   );
 }
-

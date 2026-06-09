@@ -4,8 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SlideReveal } from "@/components/SlideReveal";
 import { AcademyBreadcrumbs } from "@/components/academy/AcademyBreadcrumbs";
-import { ModulePracticeClient } from "@/components/academy/ModulePracticeClient";
 import { AcademyProgressBarClient } from "@/components/academy/AcademyProgressBarClient";
+import { ModulePracticeClient } from "@/components/academy/ModulePracticeClient";
 import { getCertification, getModule } from "@/lib/academy/content";
 
 export async function generateStaticParams() {
@@ -34,6 +34,8 @@ export default async function AwsSaaC03ModulePage({
   }
 
   const moduleUnitKeys = academyModule.units.map((u) => `${academyModule.id}::${u.id}`);
+  const showPractice =
+    !academyModule.id.startsWith("overview-") && !!academyModule.practiceQuestions?.length;
 
   return (
     <div className="mx-auto w-full max-w-7xl px-6 pb-24 pt-16">
@@ -67,7 +69,7 @@ export default async function AwsSaaC03ModulePage({
               <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
                 Units
               </p>
-              <ul className="mt-4 space-y-2 list-disc pl-5">
+              <ul className="mt-4 list-disc space-y-2 pl-5">
                 {academyModule.units.map((u) => (
                   <li key={u.id}>
                     <Link
@@ -77,31 +79,31 @@ export default async function AwsSaaC03ModulePage({
                       {u.title}
                     </Link>
                     {u.estimatedMinutes ? (
-                      <p className="mt-1 text-xs text-muted-light">
-                        ~{u.estimatedMinutes} min
-                      </p>
+                      <p className="mt-1 text-xs text-muted-light">~{u.estimatedMinutes} min</p>
                     ) : null}
                   </li>
                 ))}
               </ul>
 
               <div className="mt-8 border-t border-border pt-6">
-              <Link
-                href={`/library/academy/certifications/${cert.id}/modules/${academyModule.id}/units/${firstUnit.id}`}
-                className="btn-slide btn-primary inline-flex items-center justify-center px-7 py-3.5 text-sm font-medium tracking-wide font-sans"
-              >
-                Start module
-              </Link>
+                <Link
+                  href={`/library/academy/certifications/${cert.id}/modules/${academyModule.id}/units/${firstUnit.id}`}
+                  className="btn-slide btn-primary inline-flex items-center justify-center px-7 py-3.5 text-sm font-medium tracking-wide font-sans"
+                >
+                  Start module
+                </Link>
+              </div>
             </div>
-          </div>
-        </ScrollReveal>
-
-          <ScrollReveal delay={80}>
-            <ModulePracticeClient
-              moduleId={academyModule.id}
-              questions={academyModule.practiceQuestions ?? []}
-            />
           </ScrollReveal>
+
+          {showPractice ? (
+            <ScrollReveal delay={80}>
+              <ModulePracticeClient
+                moduleId={academyModule.id}
+                questions={academyModule.practiceQuestions ?? []}
+              />
+            </ScrollReveal>
+          ) : null}
         </div>
 
         <ScrollReveal delay={120}>
@@ -110,7 +112,7 @@ export default async function AwsSaaC03ModulePage({
               How to use this
             </p>
             <p className="mt-3 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-              Open a unit, take the quiz, and mark it complete when you’re ready to move on.
+              Open a unit and mark it complete when you are ready to move on.
             </p>
 
             <div className="mt-6 border-t border-border pt-6">
@@ -119,15 +121,11 @@ export default async function AwsSaaC03ModulePage({
               </p>
               <AcademyProgressBarClient certId={cert.id} unitKeys={moduleUnitKeys} compact />
             </div>
-
-            <p className="mt-6 text-xs text-muted-light">
-              For now, your progress is saved only on this device.
-            </p>
           </div>
         </ScrollReveal>
       </div>
 
-      <div className="mt-10 border-t border-border pt-6 flex flex-wrap gap-6">
+      <div className="mt-10 flex flex-wrap gap-6 border-t border-border pt-6">
         <Link
           href={`/library/academy/certifications/${cert.id}`}
           className="work-arrow inline-flex items-center text-sm font-medium text-foreground"
@@ -147,3 +145,4 @@ export default async function AwsSaaC03ModulePage({
     </div>
   );
 }
+

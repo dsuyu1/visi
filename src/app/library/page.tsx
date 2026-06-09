@@ -12,7 +12,7 @@ const sections = [
     href: "/library/academy",
     label: "VISI Academy",
     description:
-      "Certification study platform: modules, units, practice questions, notes, and progress tracking.",
+      "Certification study platform: modules, units, practice questions, and progress tracking.",
   },
   {
     href: "/library/resources",

@@ -92,7 +92,7 @@ export default async function NvidiaNcpAiolStartHerePage() {
                     href={`/library/academy/certifications/${cert.id}/modules/${module.id}`}
                     className="work-arrow inline-flex items-center font-medium text-foreground"
                   >
-                    {module.title} <span aria-hidden>â†’</span>
+                    {module.title} <span aria-hidden>→</span>
                   </Link>
                   {units.length ? (
                     <ul className="mt-2 space-y-1 pl-4 text-xs text-muted-light">
@@ -115,7 +115,7 @@ export default async function NvidiaNcpAiolStartHerePage() {
               </p>
               <AcademyProgressBarClient certId={cert.id} unitKeys={unitKeys} compact />
               <p className="mt-4 text-xs text-muted-light">
-                Use the <span className="font-semibold">Completed</span> checkbox inside each unitâ€™s tools to track
+                Use the <span className="font-semibold">Completed</span> checkbox inside each unit’s tools to track
                 progress.
               </p>
             </div>
@@ -125,7 +125,7 @@ export default async function NvidiaNcpAiolStartHerePage() {
                 href={`/library/academy/certifications/${cert.id}`}
                 className="work-arrow inline-flex items-center text-sm font-medium text-foreground"
               >
-                <span aria-hidden>â†</span> Back to certification
+                <span aria-hidden>←</span> Back to certification
               </Link>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default async function NvidiaNcpAiolStartHerePage() {
               Tip
             </p>
             <p className="mt-3 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-              Open a unit link to take the quiz and track completion as you study.
+              Open a unit link and track completion as you study.
             </p>
           </div>
         </ScrollReveal>
@@ -191,4 +191,3 @@ export default async function NvidiaNcpAiolStartHerePage() {
     </div>
   );
 }
-

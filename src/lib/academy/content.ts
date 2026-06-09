@@ -124,7 +124,10 @@ export async function getUnit(
   const markdown = parsed.unitMarkdown[`${academyModule.id}::${unit.id}`];
   if (!markdown) return null;
 
-  const quizQuestions = parsed.unitQuizQuestions[`${academyModule.id}::${unit.id}`] ?? [];
+  const quizDisabledForSection = academyModule.id.startsWith("overview-");
+  const quizQuestions = quizDisabledForSection
+    ? []
+    : (parsed.unitQuizQuestions[`${academyModule.id}::${unit.id}`] ?? []);
 
   return { academyModule, unit, markdown, quizQuestions };
 }

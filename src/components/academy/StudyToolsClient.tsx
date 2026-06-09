@@ -21,6 +21,7 @@ export function StudyToolsClient(props: {
   quizQuestions: PracticeQuestion[];
 }) {
   const { certId, moduleId, unitId, quizQuestions } = props;
+  const hasQuiz = quizQuestions.length > 0;
 
   const completedRef = useRef<HTMLInputElement | null>(null);
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -49,6 +50,7 @@ export function StudyToolsClient(props: {
   };
 
   const score = useMemo(() => {
+    if (!hasQuiz) return null;
     if (!checked) return null;
     let correct = 0;
     for (let i = 0; i < quizQuestions.length; i += 1) {
@@ -56,12 +58,13 @@ export function StudyToolsClient(props: {
       if (answers[i] === q.answerIndex) correct += 1;
     }
     return { correct, total: quizQuestions.length };
-  }, [answers, checked, quizQuestions]);
+  }, [answers, checked, hasQuiz, quizQuestions]);
 
   const statusFor = (idx: number): Status => {
     if (!checked) return "unanswered";
     if (typeof answers[idx] !== "number") return "unanswered";
-    const q = quizQuestions[idx]!;
+    const q = quizQuestions[idx];
+    if (!q) return "unanswered";
     return answers[idx] === q.answerIndex ? "correct" : "incorrect";
   };
 
@@ -80,9 +83,13 @@ export function StudyToolsClient(props: {
     <section className="border border-border bg-panel p-6" style={{ boxShadow: "var(--shadow)" }}>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">Quiz</p>
+          <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
+            {hasQuiz ? "Quiz" : "Study tools"}
+          </p>
           <p className="mt-1 text-sm text-muted leading-relaxed" style={{ fontWeight: 300 }}>
-            A few quick questions based on this unit. Mark it complete when you’re done.
+            {hasQuiz
+              ? "A few quick questions based on this unit. Mark it complete when you are done."
+              : "Mark this unit complete when you finish it."}
           </p>
         </div>
 
@@ -98,7 +105,7 @@ export function StudyToolsClient(props: {
         </label>
       </div>
 
-      {quizQuestions.length ? (
+      {hasQuiz ? (
         <div className="mt-5">
           <div className="flex flex-wrap items-center gap-3">
             {score ? (
@@ -201,11 +208,8 @@ export function StudyToolsClient(props: {
             </div>
           ) : null}
         </div>
-      ) : (
-        <p className="mt-5 text-sm text-muted leading-relaxed" style={{ fontWeight: 300 }}>
-          Quiz questions are coming soon.
-        </p>
-      )}
+      ) : null}
     </section>
   );
 }
+

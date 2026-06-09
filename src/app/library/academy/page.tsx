@@ -19,7 +19,7 @@ export default async function LibraryAcademyPage() {
 
         <ScrollReveal delay={160} className="mt-6 mx-auto max-w-2xl">
           <p className="text-base leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-            Certification prep built like a course: modules, units, notes, and progress tracking.
+            Certification prep built like a course: modules, units, practice questions, and progress tracking.
           </p>
         </ScrollReveal>
       </div>
