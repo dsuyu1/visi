@@ -124,7 +124,7 @@ export function SiteHeader() {
         <Link href="/" className="mx-8 flex shrink-0 items-center justify-center"
               aria-label="Home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/visi-logo.png" alt="VISI" className="h-14 w-14 object-contain" />
+          <img src="/final_finished_visilogo.png" alt="VISI" className="h-14 w-14 object-contain" />
         </Link>
 
         {/* Right nav: left-aligned against logo */}

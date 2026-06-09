@@ -1,7 +1,7 @@
 import "server-only";
 
 import { slugify } from "@/lib/format";
-import type { AcademyDomain } from "@/lib/academy/types";
+import type { AcademyDomain, PracticeQuestion } from "@/lib/academy/types";
 import { AWS_SAA_C03_REFERENCES } from "@/lib/academy/references/aws-saa-c03";
 
 type ParsedCertification = {
@@ -75,6 +75,216 @@ function buildUnitMarkdown(title: string, body: string) {
   const trimmed = body.trim();
   const base = `# ${title}\n\n${trimmed.length ? trimmed : "_No notes captured yet._"}\n`;
   return base + referenceBlockForTitle(title);
+}
+
+function cleanInlineMarkdown(text: string) {
+  const cleaned = text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+  return unescapeMarkdownPunctuation(cleaned);
+}
+
+function normalizeStatementLine(line: string) {
+  return cleanInlineMarkdown(
+    line
+      .replace(/^[-*+]\s+/, "")
+      .replace(/^\d+\.\s+/, "")
+      .replace(/^>\s+/, "")
+      .trim(),
+  );
+}
+
+function extractStatements(markdownBody: string) {
+  const lines = normalizeNewlines(markdownBody).split("\n");
+  const out: string[] = [];
+  const seen = new Set<string>();
+
+  let inCode = false;
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (line.startsWith("```")) {
+      inCode = !inCode;
+      continue;
+    }
+    if (inCode) continue;
+    if (line.length === 0) continue;
+    if (line.startsWith("#")) continue;
+    if (line === "---") continue;
+    if (isMarkdownTableSeparatorRow(line)) continue;
+    if (line.startsWith("|")) continue;
+
+    const normalized = normalizeStatementLine(line);
+    if (normalized.length < 18) continue;
+    if (normalized.length > 240) continue;
+
+    const key = normalized.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(normalized);
+  }
+
+  return out;
+}
+
+function hashSeed(input: string) {
+  let h = 2166136261;
+  for (let i = 0; i < input.length; i += 1) {
+    h ^= input.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function mulberry32(seed: number) {
+  let t = seed >>> 0;
+  return () => {
+    t += 0x6d2b79f5;
+    let x = t;
+    x = Math.imul(x ^ (x >>> 15), x | 1);
+    x ^= x + Math.imul(x ^ (x >>> 7), x | 61);
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffle<T>(items: T[], rnd: () => number) {
+  const arr = items.slice();
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(rnd() * (i + 1));
+    const tmp = arr[i]!;
+    arr[i] = arr[j]!;
+    arr[j] = tmp;
+  }
+  return arr;
+}
+
+type TermDef = { term: string; definition: string };
+
+function extractTermDefinitions(markdownBody: string): TermDef[] {
+  const lines = normalizeNewlines(markdownBody).split("\n");
+  const out: TermDef[] = [];
+  const seen = new Set<string>();
+
+  for (const rawLine of lines) {
+    const raw = rawLine.trim();
+    if (raw.length === 0) continue;
+    if (raw.startsWith("#")) continue;
+    if (raw === "---") continue;
+    if (raw.startsWith("|")) continue;
+    if (isMarkdownTableSeparatorRow(raw)) continue;
+
+    const line = raw.replace(/^[-*+]\s+/, "").trim();
+    const mBold = /^\*\*([^*]{2,80})\*\*\s*[—-]\s*(.+)$/.exec(line);
+    const mPlain = /^([A-Za-z0-9][A-Za-z0-9 /()&+._:-]{1,80})\s*[—-]\s*(.+)$/.exec(line);
+    const term = cleanInlineMarkdown((mBold?.[1] ?? mPlain?.[1] ?? "").trim()).replace(/:$/, "").trim();
+    if (term.length < 3 || term.length > 60) continue;
+
+    const definitionRaw = (mBold?.[2] ?? mPlain?.[2] ?? "").trim();
+    const definition = cleanInlineMarkdown(definitionRaw).slice(0, 220);
+    if (definition.length < 12) continue;
+
+    const key = term.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({ term, definition });
+  }
+
+  return out;
+}
+
+function toChoices(choices: string[]): [string, string, string, string] {
+  if (choices.length !== 4) {
+    throw new Error(`Invalid choices length: ${choices.length}`);
+  }
+  return [choices[0]!, choices[1]!, choices[2]!, choices[3]!];
+}
+
+function generatePracticeQuestionsForModule(args: {
+  moduleId: string;
+  moduleTitle: string;
+  combinedBody: string;
+  statementPool: string[];
+  unitTitles: string[];
+  unitTitlePool: string[];
+  desiredCount?: number;
+}): PracticeQuestion[] {
+  const { moduleId, moduleTitle, combinedBody, statementPool, unitTitles, unitTitlePool } = args;
+  const desiredCount = args.desiredCount ?? 2;
+
+  const rnd = mulberry32(hashSeed(moduleId));
+
+  const moduleStatements = extractStatements(combinedBody);
+  const moduleStatementsSet = new Set(moduleStatements.map((s) => s.toLowerCase()));
+  const otherStatements = statementPool.filter((s) => !moduleStatementsSet.has(s.toLowerCase()));
+
+  const termDefs = extractTermDefinitions(combinedBody);
+  const shuffledTermDefs = shuffle(termDefs, rnd);
+  const shuffledModuleStatements = shuffle(moduleStatements, rnd);
+  const shuffledOtherStatements = shuffle(otherStatements, rnd);
+
+  const questions: PracticeQuestion[] = [];
+
+  const tryDefinitionQuestion = () => {
+    if (shuffledTermDefs.length < 4) return false;
+    const picked = shuffledTermDefs.splice(0, 4);
+    const correct = picked[0]!;
+    const distractors = picked.slice(1);
+    const all = shuffle([correct, ...distractors], rnd);
+    const answerIndex = all.findIndex((x) => x.term === correct.term) as 0 | 1 | 2 | 3;
+    questions.push({
+      prompt: `According to the notes, what best describes "${correct.term}"?`,
+      choices: toChoices(all.map((x) => x.definition)),
+      answerIndex,
+      explanation: `Notes: ${correct.term} — ${correct.definition}`,
+    });
+    return true;
+  };
+
+  const tryStatementQuestion = () => {
+    if (shuffledModuleStatements.length < 1) return false;
+    if (shuffledOtherStatements.length < 3) return false;
+
+    const correct = shuffledModuleStatements.shift()!;
+    const distractors = shuffledOtherStatements.splice(0, 3);
+    const all = shuffle([correct, ...distractors], rnd);
+    const answerIndex = all.findIndex((x) => x === correct) as 0 | 1 | 2 | 3;
+    questions.push({
+      prompt: `Which statement appears in the "${moduleTitle}" module notes?`,
+      choices: toChoices(all),
+      answerIndex,
+      explanation: `This module’s notes include: ${correct}`,
+    });
+    return true;
+  };
+
+  const tryUnitTitleQuestion = () => {
+    if (unitTitles.length === 0) return false;
+    const pool = unitTitlePool.filter((t) => !unitTitles.includes(t));
+    if (pool.length < 3) return false;
+
+    const correct = shuffle(unitTitles, rnd)[0]!;
+    const distractors = shuffle(pool, rnd).slice(0, 3);
+    const all = shuffle([correct, ...distractors], rnd);
+    const answerIndex = all.findIndex((x) => x === correct) as 0 | 1 | 2 | 3;
+    questions.push({
+      prompt: `Which topic is included as a unit in the "${moduleTitle}" module?`,
+      choices: toChoices(all),
+      answerIndex,
+      explanation: `This module includes a unit titled: ${correct}`,
+    });
+    return true;
+  };
+
+  while (questions.length < desiredCount) {
+    if (tryDefinitionQuestion()) continue;
+    if (tryStatementQuestion()) continue;
+    if (tryUnitTitleQuestion()) continue;
+    break;
+  }
+
+  return questions.slice(0, desiredCount);
 }
 
 function parseDomainHeading(title: string) {
@@ -179,8 +389,10 @@ function addModuleWithUnits(args: {
   sectionBodies: Record<string, string>;
   unitMarkdown: Record<string, string>;
   usedTitles: Set<string>;
+  statementPool: string[];
+  unitTitlePool: string[];
 }) {
-  const { domain, prefix, title, unitTitles, sectionBodies, unitMarkdown, usedTitles } = args;
+  const { domain, prefix, title, unitTitles, sectionBodies, unitMarkdown, usedTitles, statementPool, unitTitlePool } = args;
 
   const moduleId = `${prefix}${slugify(title)}`;
   const units = unitTitles.map((unitTitle) => {
@@ -196,6 +408,15 @@ function addModuleWithUnits(args: {
     id: moduleId,
     title,
     description: deriveDescription(combinedBody),
+    practiceQuestions: generatePracticeQuestionsForModule({
+      moduleId,
+      moduleTitle: title,
+      combinedBody,
+      statementPool,
+      unitTitles,
+      unitTitlePool,
+      desiredCount: 2,
+    }),
     units,
   });
 }
@@ -215,6 +436,19 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
   }
 
   const sectionBodies = extractNotesSections(lines, headings);
+  const statementPool = (() => {
+    const all = Object.values(sectionBodies).flatMap((b) => extractStatements(b));
+    const seen = new Set<string>();
+    const deduped: string[] = [];
+    for (const s of all) {
+      const k = s.toLowerCase();
+      if (seen.has(k)) continue;
+      seen.add(k);
+      deduped.push(s);
+    }
+    return deduped;
+  })();
+  const unitTitlePool = Object.keys(sectionBodies);
   const unitMarkdown: Record<string, string> = {};
   const usedTitles = new Set<string>();
 
@@ -249,11 +483,6 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     weightPercent: domainInfoByNumber.get(4)?.weightPercent,
   });
 
-  const monitoring = ensureDomain(domains, {
-    id: "monitoring",
-    title: "Monitoring, Audit & Governance",
-  });
-
   addModuleWithUnits({
     domain: overview,
     prefix: "overview-",
@@ -262,6 +491,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   const keyDecisionBody = sectionBodies["Key Decision Frameworks"];
@@ -278,6 +509,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
       sectionBodies,
       unitMarkdown,
       usedTitles,
+      statementPool,
+      unitTitlePool,
     });
     usedTitles.add("Key Decision Frameworks");
   }
@@ -297,6 +530,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
@@ -312,6 +547,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
@@ -327,6 +564,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
@@ -342,6 +581,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
@@ -352,6 +593,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
@@ -367,6 +610,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
@@ -377,6 +622,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
@@ -391,6 +638,8 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
@@ -401,31 +650,40 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   addModuleWithUnits({
-    domain: monitoring,
+    // Exam domains are the primary grouping (Domains 1-4).
+    // These services show up across domains, but they fit best under security/governance.
+    domain: domain1,
     prefix: "ops-",
     title: "Monitoring, Audit & Governance",
     unitTitles: ["CloudWatch", "CloudTrail", "AWS Config"],
     sectionBodies,
     unitMarkdown,
     usedTitles,
+    statementPool,
+    unitTitlePool,
   });
 
   // Anything we failed to categorize still shows up instead of vanishing.
   const allSectionTitles = Object.keys(sectionBodies);
   const remaining = allSectionTitles.filter((t) => !usedTitles.has(t) && sectionBodies[t]?.trim().length);
   if (remaining.length) {
-    const extras = ensureDomain(domains, { id: "additional", title: "Additional Topics" });
     addModuleWithUnits({
-      domain: extras,
+      // Keep every note discoverable, but avoid creating a non-domain category in the UI.
+      // If something is truly "misc", it's still exam-relevant and we tuck it under Domain 1.
+      domain: domain1,
       prefix: "extra-",
       title: "Unsorted Notes",
       unitTitles: remaining,
       sectionBodies,
       unitMarkdown,
       usedTitles,
+      statementPool,
+      unitTitlePool,
     });
   }
 

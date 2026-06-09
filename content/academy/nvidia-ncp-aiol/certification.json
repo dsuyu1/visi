@@ -1,0 +1,14 @@
+{
+  "id": "nvidia-ncp-aiol",
+  "title": "NVIDIA-Certified Professional AI Operations",
+  "provider": "NVIDIA",
+  "level": "Professional",
+  "code": "NCP-AIOL",
+  "description": "Study for NCP-AIOL with VISI Academy: course-style modules/units generated from our notes, plus progress tracking and saved notes.",
+  "recommendedExperience": [
+    "Comfort with Linux basics, containers, and CLI workflows",
+    "Familiarity with GPU concepts (CUDA/cuDNN at a high level)",
+    "Hands-on experience deploying or operating ML workloads (helpful, not required)"
+  ],
+  "notesFile": "notes.md"
+}

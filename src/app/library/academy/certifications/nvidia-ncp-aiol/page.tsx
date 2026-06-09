@@ -7,10 +7,10 @@ import { AcademyBreadcrumbs } from "@/components/academy/AcademyBreadcrumbs";
 import { AcademyProgressBarClient } from "@/components/academy/AcademyProgressBarClient";
 import { getCertification } from "@/lib/academy/content";
 
-const AWS_SAA_BADGE_SRC = "/image8965422010918071331.webp";
+const NVIDIA_NCP_AIOL_BADGE_SRC = "/nvidia-ncp-aiol.png";
 
-export default async function AwsSaaC03CertificationPage() {
-  const cert = await getCertification("aws-saa-c03");
+export default async function NvidiaNcpAiolCertificationPage() {
+  const cert = await getCertification("nvidia-ncp-aiol");
   const allUnitKeys = cert.domains.flatMap((d) =>
     d.modules.flatMap((m) => m.units.map((u) => `${m.id}::${u.id}`)),
   );
@@ -43,8 +43,8 @@ export default async function AwsSaaC03CertificationPage() {
 
           <ScrollReveal delay={140} className="justify-self-start md:justify-self-end">
             <Image
-              src={AWS_SAA_BADGE_SRC}
-              alt="AWS Certified Solutions Architect – Associate badge"
+              src={NVIDIA_NCP_AIOL_BADGE_SRC}
+              alt="NVIDIA Certified Professional AI Operations badge"
               width={160}
               height={160}
               decoding="async"
@@ -73,12 +73,12 @@ export default async function AwsSaaC03CertificationPage() {
 
       <div className="mt-14 grid gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
         <div>
-            <ScrollReveal>
-              <h2 className="text-lg font-semibold tracking-tight">Modules</h2>
-              <p className="mt-2 max-w-2xl text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                Course-style structure: categories, modules, and units. Mark units complete to track your progress.
-              </p>
-            </ScrollReveal>
+          <ScrollReveal>
+            <h2 className="text-lg font-semibold tracking-tight">Modules</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
+              Course-style structure: categories, modules, and units. Mark units complete to track your progress.
+            </p>
+          </ScrollReveal>
 
           <div className="mt-8 space-y-10">
             {cert.domains.map((domain, domainIdx) => {
@@ -123,7 +123,7 @@ export default async function AwsSaaC03CertificationPage() {
                                 Start here
                               </h4>
                               <p className="mt-2 max-w-3xl text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                                Exam logistics, domain weightings, global infrastructure, and decision frameworks — all in one page.
+                                Course overview, study workflow, and readiness checklist.
                               </p>
                             </div>
 

@@ -13,6 +13,7 @@ import type {
   AcademyUnit,
 } from "@/lib/academy/types";
 import { parseSaaC03Notes } from "@/lib/academy/notesParser";
+import { parseNcpAiolNotes } from "@/lib/academy/notesParserNcpAiol";
 
 function academyRoot() {
   return path.join(process.cwd(), "content", "academy");
@@ -46,11 +47,14 @@ const getParsedCertification = cache(async (certId: string): Promise<ParsedCerti
   const notesPath = path.join(academyRoot(), certId, meta.notesFile);
   const notes = await fs.readFile(notesPath, "utf8");
 
-  if (certId === "aws-saa-c03") {
-    return parseSaaC03Notes(notes);
+  switch (certId) {
+    case "aws-saa-c03":
+      return parseSaaC03Notes(notes);
+    case "nvidia-ncp-aiol":
+      return parseNcpAiolNotes(notes);
+    default:
+      throw new Error(`Unknown certification: ${certId}`);
   }
-
-  throw new Error(`Unknown certification: ${certId}`);
 });
 
 export const getCertification = cache(async (certId: string): Promise<AcademyCertification> => {

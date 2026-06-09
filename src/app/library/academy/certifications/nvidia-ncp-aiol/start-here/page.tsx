@@ -5,7 +5,6 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { SlideReveal } from "@/components/SlideReveal";
 import { AcademyBreadcrumbs } from "@/components/academy/AcademyBreadcrumbs";
 import { AcademyMarkdown } from "@/components/academy/AcademyMarkdown";
-import { ModulePracticeClient } from "@/components/academy/ModulePracticeClient";
 import { AcademyProgressBarClient } from "@/components/academy/AcademyProgressBarClient";
 import { getCertification, getUnit } from "@/lib/academy/content";
 import type { AcademyModule } from "@/lib/academy/types";
@@ -31,8 +30,8 @@ type UnitsByModule = {
   units: ResolvedUnit[];
 };
 
-export default async function AwsSaaC03StartHerePage() {
-  const cert = await getCertification("aws-saa-c03");
+export default async function NvidiaNcpAiolStartHerePage() {
+  const cert = await getCertification("nvidia-ncp-aiol");
   const overview = cert.domains.find((d) => d.id === "overview");
   if (!overview) notFound();
 
@@ -75,7 +74,7 @@ export default async function AwsSaaC03StartHerePage() {
 
         <ScrollReveal delay={160} className="mt-4 max-w-3xl">
           <p className="text-base leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-            Everything you should read first: exam logistics, domain weightings, global infrastructure, and decision frameworks.
+            Course overview, recommended study loop, and a skills checklist to sanity-check your readiness.
           </p>
         </ScrollReveal>
       </div>
@@ -179,14 +178,6 @@ export default async function AwsSaaC03StartHerePage() {
                       </div>
                     </div>
                   ))}
-                </div>
-
-                <div className="mt-10 border-t border-border pt-8">
-                  <ModulePracticeClient
-                    moduleId={module.id}
-                    questions={module.practiceQuestions ?? []}
-                    title="Practice questions"
-                  />
                 </div>
               </div>
             </ScrollReveal>

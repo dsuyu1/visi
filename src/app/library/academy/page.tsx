@@ -32,9 +32,6 @@ export default async function LibraryAcademyPage() {
               className="group block border border-border bg-panel p-8 transition-colors hover:bg-panel-hover"
               style={{ boxShadow: "var(--shadow)" }}
             >
-              <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
-                {c.provider} · {c.level}{c.code ? ` · ${c.code}` : ""}
-              </p>
               <h2 className="mt-3 text-lg font-semibold tracking-tight group-hover:underline">
                 {c.title}
               </h2>

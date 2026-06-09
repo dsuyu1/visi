@@ -4,22 +4,21 @@ import { notFound, redirect } from "next/navigation";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SlideReveal } from "@/components/SlideReveal";
 import { AcademyBreadcrumbs } from "@/components/academy/AcademyBreadcrumbs";
-import { ModulePracticeClient } from "@/components/academy/ModulePracticeClient";
 import { AcademyProgressBarClient } from "@/components/academy/AcademyProgressBarClient";
 import { getCertification, getModule } from "@/lib/academy/content";
 
 export async function generateStaticParams() {
-  const cert = await getCertification("aws-saa-c03");
+  const cert = await getCertification("nvidia-ncp-aiol");
   return cert.domains.flatMap((d) => d.modules.map((m) => ({ moduleId: m.id })));
 }
 
-export default async function AwsSaaC03ModulePage({
+export default async function NvidiaNcpAiolModulePage({
   params,
 }: {
   params: Promise<{ moduleId: string }>;
 }) {
   const { moduleId } = await params;
-  const cert = await getCertification("aws-saa-c03");
+  const cert = await getCertification("nvidia-ncp-aiol");
   const academyModule = await getModule(cert.id, moduleId);
   if (!academyModule) notFound();
 
@@ -64,32 +63,31 @@ export default async function AwsSaaC03ModulePage({
         </ScrollReveal>
       </div>
 
-      <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
-        <div className="space-y-6">
-          <ScrollReveal>
-            <div className="border border-border bg-panel p-8" style={{ boxShadow: "var(--shadow)" }}>
-              <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
-                Units
-              </p>
-              <ul className="mt-4 space-y-2 list-disc pl-5">
-                {academyModule.units.map((u) => (
-                  <li key={u.id}>
-                    <Link
-                      href={`/library/academy/certifications/${cert.id}/modules/${academyModule.id}/units/${u.id}`}
-                      className="text-sm font-medium text-foreground underline-offset-4 hover:underline"
-                    >
-                      {u.title}
-                    </Link>
-                    {u.estimatedMinutes ? (
-                      <p className="mt-1 text-xs text-muted-light">
-                        ~{u.estimatedMinutes} min
-                      </p>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
+      <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_320px]">
+        <ScrollReveal>
+          <div className="border border-border bg-panel p-8" style={{ boxShadow: "var(--shadow)" }}>
+            <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
+              Units
+            </p>
+            <ul className="mt-4 space-y-2 list-disc pl-5">
+              {academyModule.units.map((u) => (
+                <li key={u.id}>
+                  <Link
+                    href={`/library/academy/certifications/${cert.id}/modules/${academyModule.id}/units/${u.id}`}
+                    className="text-sm font-medium text-foreground underline-offset-4 hover:underline"
+                  >
+                    {u.title}
+                  </Link>
+                  {u.estimatedMinutes ? (
+                    <p className="mt-1 text-xs text-muted-light">
+                      ~{u.estimatedMinutes} min
+                    </p>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
 
-              <div className="mt-8 border-t border-border pt-6">
+            <div className="mt-8 border-t border-border pt-6">
               <Link
                 href={`/library/academy/certifications/${cert.id}/modules/${academyModule.id}/units/${firstUnit.id}`}
                 className="btn-slide btn-primary inline-flex items-center justify-center px-7 py-3.5 text-sm font-medium tracking-wide font-sans"
@@ -99,14 +97,6 @@ export default async function AwsSaaC03ModulePage({
             </div>
           </div>
         </ScrollReveal>
-
-          <ScrollReveal delay={80}>
-            <ModulePracticeClient
-              moduleId={academyModule.id}
-              questions={academyModule.practiceQuestions ?? []}
-            />
-          </ScrollReveal>
-        </div>
 
         <ScrollReveal delay={120}>
           <div className="border border-border bg-panel p-8" style={{ boxShadow: "var(--shadow)" }}>

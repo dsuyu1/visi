@@ -7,7 +7,14 @@
       "level": "Associate",
       "code": "SAA-C03",
       "description": "Design resilient, secure, and cost-optimized architectures on AWS \u2014 with hands-on, exam-focused modules."
+    },
+    {
+      "id": "nvidia-ncp-aiol",
+      "title": "NVIDIA-Certified Professional AI Operations",
+      "provider": "NVIDIA",
+      "level": "Professional",
+      "code": "NCP-AIOL",
+      "description": "Build practical AI Operations skills: packaging, deployment, monitoring, reliability, and governance."
     }
   ]
 }
-

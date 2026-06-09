@@ -40,6 +40,7 @@ export type AcademyModule = {
   description: string;
   estimatedMinutes?: number;
   objectives?: string[];
+  practiceQuestions?: PracticeQuestion[];
   units: AcademyUnit[];
 };
 
@@ -47,4 +48,11 @@ export type AcademyUnit = {
   id: string;
   title: string;
   estimatedMinutes?: number;
+};
+
+export type PracticeQuestion = {
+  prompt: string;
+  choices: [string, string, string, string];
+  answerIndex: 0 | 1 | 2 | 3;
+  explanation: string;
 };
