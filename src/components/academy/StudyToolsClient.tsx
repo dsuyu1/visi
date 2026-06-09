@@ -116,7 +116,7 @@ export function StudyToolsClient(props: {
             <button
               type="button"
               onClick={() => setChecked(true)}
-              className="btn-slide btn-primary inline-flex items-center justify-center px-5 py-2.5 text-xs font-medium tracking-wide font-sans"
+              className="btn-slide btn-primary inline-flex items-center justify-center border border-border px-5 py-2.5 text-xs font-medium tracking-wide font-sans"
             >
               Check answers
             </button>
@@ -212,4 +212,3 @@ export function StudyToolsClient(props: {
     </section>
   );
 }
-

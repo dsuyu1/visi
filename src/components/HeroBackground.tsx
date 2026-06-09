@@ -398,18 +398,13 @@ export function HeroBackground({ className = "" }: { className?: string }) {
       draw();
     };
 
-    // Fade the canvas in after the first frame paints
-    let fadeTimer: ReturnType<typeof setTimeout>;
     if (reduced) {
       draw();
-      fadeTimer = setTimeout(() => { canvas.style.opacity = "1"; }, 50);
     } else {
       raf = requestAnimationFrame(loop);
-      fadeTimer = setTimeout(() => { canvas.style.opacity = "1"; }, 120);
     }
 
     return () => {
-      clearTimeout(fadeTimer);
       cancelAnimationFrame(raf);
       ro.disconnect();
       themeObserver.disconnect();
@@ -425,7 +420,7 @@ export function HeroBackground({ className = "" }: { className?: string }) {
       ref={canvasRef}
       aria-hidden
       className={`absolute inset-0 h-full w-full cursor-grab ${className}`}
-      style={{ touchAction: "none", opacity: 0, transition: "opacity 1s ease-out" }}
+      style={{ touchAction: "none" }}
     />
   );
 }
