@@ -75,7 +75,8 @@ export default async function AwsSaaC03StartHerePage() {
 
         <ScrollReveal delay={160} className="mt-4 max-w-3xl">
           <p className="text-base leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-            Everything you should read first: exam logistics, domain weightings, global infrastructure, and decision frameworks.
+            Everything you should read first: exam logistics, domain weightings, global infrastructure, and decision
+            frameworks.
           </p>
         </ScrollReveal>
       </div>
@@ -89,16 +90,19 @@ export default async function AwsSaaC03StartHerePage() {
             <ul className="mt-4 space-y-2 text-sm">
               {unitsByModule.map(({ module, units }) => (
                 <li key={module.id}>
-                  <a href={`#${module.id}`} className="work-arrow inline-flex items-center font-medium text-foreground">
-                    {module.title} <span aria-hidden>→</span>
-                  </a>
+                  <Link
+                    href={`/library/academy/certifications/${cert.id}/modules/${module.id}`}
+                    className="work-arrow inline-flex items-center font-medium text-foreground"
+                  >
+                    {module.title} <span aria-hidden>â†’</span>
+                  </Link>
                   {units.length ? (
                     <ul className="mt-2 space-y-1 pl-4 text-xs text-muted-light">
                       {units.map((u) => (
                         <li key={`${module.id}::${u.id}`}>
-                          <a href={`#${module.id}--${u.id}`} className="hover:text-foreground">
+                          <Link href={u.href} className="hover:text-foreground">
                             {u.title}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -113,7 +117,8 @@ export default async function AwsSaaC03StartHerePage() {
               </p>
               <AcademyProgressBarClient certId={cert.id} unitKeys={unitKeys} compact />
               <p className="mt-4 text-xs text-muted-light">
-                Use the <span className="font-semibold">Completed</span> checkbox inside each unit’s tools to track progress.
+                Use the <span className="font-semibold">Completed</span> checkbox inside each unitâ€™s tools to track
+                progress.
               </p>
             </div>
 
@@ -122,7 +127,7 @@ export default async function AwsSaaC03StartHerePage() {
                 href={`/library/academy/certifications/${cert.id}`}
                 className="work-arrow inline-flex items-center text-sm font-medium text-foreground"
               >
-                <span aria-hidden>←</span> Back to certification
+                <span aria-hidden>â†</span> Back to certification
               </Link>
             </div>
           </div>
@@ -134,7 +139,7 @@ export default async function AwsSaaC03StartHerePage() {
               Tip
             </p>
             <p className="mt-3 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-              Open a unit link to take notes and track completion as you study.
+              Open a unit link to take the quiz and track completion as you study.
             </p>
           </div>
         </ScrollReveal>
@@ -196,3 +201,4 @@ export default async function AwsSaaC03StartHerePage() {
     </div>
   );
 }
+

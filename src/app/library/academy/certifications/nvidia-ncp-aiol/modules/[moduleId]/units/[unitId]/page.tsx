@@ -8,9 +8,6 @@ import { StudyToolsClient } from "@/components/academy/StudyToolsClient";
 import { getCertification, getUnit } from "@/lib/academy/content";
 
 function moduleHref(certId: string, moduleId: string) {
-  if (moduleId.startsWith("overview-")) {
-    return `/library/academy/certifications/${certId}/start-here#${moduleId}`;
-  }
   return `/library/academy/certifications/${certId}/modules/${moduleId}`;
 }
 
@@ -35,7 +32,7 @@ export default async function NvidiaNcpAiolUnitPage({
   const data = await getUnit(cert.id, moduleId, unitId);
   if (!data) notFound();
 
-  const { academyModule, unit, markdown } = data;
+  const { academyModule, unit, markdown, quizQuestions } = data;
 
   const modules = cert.domains.flatMap((d) => d.modules);
   const moduleIdx = modules.findIndex((m) => m.id === academyModule.id);
@@ -114,8 +111,7 @@ export default async function NvidiaNcpAiolUnitPage({
             certId={cert.id}
             moduleId={academyModule.id}
             unitId={unit.id}
-            unitTitle={unit.title}
-            unitMarkdown={markdown}
+            quizQuestions={quizQuestions}
           />
         </ScrollReveal>
       </div>

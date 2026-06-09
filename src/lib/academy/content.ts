@@ -11,9 +11,11 @@ import type {
   AcademyIndex,
   AcademyModule,
   AcademyUnit,
+  PracticeQuestion,
 } from "@/lib/academy/types";
 import { parseSaaC03Notes } from "@/lib/academy/notesParser";
 import { parseNcpAiolNotes } from "@/lib/academy/notesParserNcpAiol";
+import { buildUnitQuizQuestions, type UnitQuizSource } from "@/lib/academy/unitQuiz";
 
 function academyRoot() {
   return path.join(process.cwd(), "content", "academy");
@@ -39,6 +41,7 @@ const getCertificationMetadata = cache(
 type ParsedCertification = {
   domains: AcademyDomain[];
   unitMarkdown: Record<string, string>;
+  unitQuizQuestions: Record<string, PracticeQuestion[]>;
 };
 
 const getParsedCertification = cache(async (certId: string): Promise<ParsedCertification> => {
@@ -47,11 +50,34 @@ const getParsedCertification = cache(async (certId: string): Promise<ParsedCerti
   const notesPath = path.join(academyRoot(), certId, meta.notesFile);
   const notes = await fs.readFile(notesPath, "utf8");
 
+  const sourcesFor = (parsed: { domains: AcademyDomain[]; unitMarkdown: Record<string, string> }) => {
+    const sources: UnitQuizSource[] = [];
+    for (const domain of parsed.domains) {
+      for (const academyModule of domain.modules) {
+        for (const unit of academyModule.units) {
+          const key = `${academyModule.id}::${unit.id}`;
+          const markdown = parsed.unitMarkdown[key];
+          if (!markdown) continue;
+          sources.push({ key, title: unit.title, markdown });
+        }
+      }
+    }
+    return sources;
+  };
+
   switch (certId) {
     case "aws-saa-c03":
-      return parseSaaC03Notes(notes);
+      {
+        const parsed = parseSaaC03Notes(notes);
+        const unitQuizQuestions = buildUnitQuizQuestions(sourcesFor(parsed), { desiredCount: 3 });
+        return { ...parsed, unitQuizQuestions };
+      }
     case "nvidia-ncp-aiol":
-      return parseNcpAiolNotes(notes);
+      {
+        const parsed = parseNcpAiolNotes(notes);
+        const unitQuizQuestions = buildUnitQuizQuestions(sourcesFor(parsed), { desiredCount: 3 });
+        return { ...parsed, unitQuizQuestions };
+      }
     default:
       throw new Error(`Unknown certification: ${certId}`);
   }
@@ -84,6 +110,7 @@ export async function getUnit(
       academyModule: AcademyModule;
       unit: AcademyUnit;
       markdown: string;
+      quizQuestions: PracticeQuestion[];
     }
   | null
 > {
@@ -97,5 +124,7 @@ export async function getUnit(
   const markdown = parsed.unitMarkdown[`${academyModule.id}::${unit.id}`];
   if (!markdown) return null;
 
-  return { academyModule, unit, markdown };
+  const quizQuestions = parsed.unitQuizQuestions[`${academyModule.id}::${unit.id}`] ?? [];
+
+  return { academyModule, unit, markdown, quizQuestions };
 }

@@ -23,10 +23,6 @@ export default async function AwsSaaC03ModulePage({
   const academyModule = await getModule(cert.id, moduleId);
   if (!academyModule) notFound();
 
-  if (academyModule.id.startsWith("overview-")) {
-    redirect(`/library/academy/certifications/${cert.id}/start-here#${academyModule.id}`);
-  }
-
   const modules = cert.domains.flatMap((d) => d.modules);
   const moduleIdx = modules.findIndex((m) => m.id === academyModule.id);
   const nextModule =
@@ -114,7 +110,7 @@ export default async function AwsSaaC03ModulePage({
               How to use this
             </p>
             <p className="mt-3 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-              Open a unit, take notes, and mark it complete when you’re ready to move on.
+              Open a unit, take the quiz, and mark it complete when you’re ready to move on.
             </p>
 
             <div className="mt-6 border-t border-border pt-6">
@@ -125,7 +121,7 @@ export default async function AwsSaaC03ModulePage({
             </div>
 
             <p className="mt-6 text-xs text-muted-light">
-              For now, your notes and progress are saved only on this device.
+              For now, your progress is saved only on this device.
             </p>
           </div>
         </ScrollReveal>
