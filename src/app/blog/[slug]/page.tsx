@@ -157,6 +157,12 @@ export default async function BlogPostPage({
                   ol: ({ children }) => <ol>{children}</ol>,
                   li: ({ children }) => <li>{children}</li>,
 
+                  table: ({ children }) => (
+                    <div className="overflow-x-auto">
+                      <table>{children}</table>
+                    </div>
+                  ),
+
                   a: ({ href, children }) => (
                     <a href={href ?? "#"}>{children}</a>
                   ),

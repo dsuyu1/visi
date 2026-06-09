@@ -722,6 +722,32 @@ a.btn-primary:hover {
   border-top: 1px solid var(--border);
 }
 
+/* --- Tables (visible gridlines) ------------------------------------------ */
+.prose table {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.prose thead th {
+  background: var(--panel-hover);
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.75rem;
+  vertical-align: top;
+}
+
+.prose td {
+  color: var(--muted);
+}
+
 /* -- Modular text formatting ----------------------------------------------- */
 mark,
 .text-highlight,

@@ -27,6 +27,13 @@ export function AcademyMarkdown({ markdown }: { markdown: string }) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema]]}
         components={{
+          table: ({ children }) => (
+            <div className="overflow-x-auto">
+              <table className="text-sm">
+                {children}
+              </table>
+            </div>
+          ),
           h1: ({ children }) => {
             const id = slugify(nodeText(children));
             return <h1 id={id}>{children}</h1>;
@@ -49,4 +56,3 @@ export function AcademyMarkdown({ markdown }: { markdown: string }) {
     </article>
   );
 }
-

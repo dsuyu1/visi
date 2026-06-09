@@ -25,6 +25,7 @@ export function StudyToolsClient(props: {
   const completedRef = useRef<HTMLInputElement | null>(null);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [checked, setChecked] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
 
   useEffect(() => {
     try {
@@ -59,9 +60,21 @@ export function StudyToolsClient(props: {
 
   const statusFor = (idx: number): Status => {
     if (!checked) return "unanswered";
+    if (typeof answers[idx] !== "number") return "unanswered";
     const q = quizQuestions[idx]!;
     return answers[idx] === q.answerIndex ? "correct" : "incorrect";
   };
+
+  const totalQuestions = quizQuestions.length;
+  const currentQuestionIndex = totalQuestions
+    ? Math.max(0, Math.min(activeIdx, totalQuestions - 1))
+    : 0;
+  const currentQuestion = totalQuestions ? quizQuestions[currentQuestionIndex] : null;
+  const currentAnswer = answers[currentQuestionIndex];
+  const currentStatus = totalQuestions ? statusFor(currentQuestionIndex) : "unanswered";
+  const canGoPrev = currentQuestionIndex > 0;
+  const canGoNext =
+    currentQuestionIndex < totalQuestions - 1 && typeof currentAnswer === "number";
 
   return (
     <section className="border border-border bg-panel p-6" style={{ boxShadow: "var(--shadow)" }}>
@@ -105,6 +118,7 @@ export function StudyToolsClient(props: {
               onClick={() => {
                 setChecked(false);
                 setAnswers({});
+                setActiveIdx(0);
               }}
               className="btn-slide inline-flex items-center justify-center border border-border bg-background px-5 py-2.5 text-xs font-medium tracking-wide font-sans"
             >
@@ -112,20 +126,22 @@ export function StudyToolsClient(props: {
             </button>
           </div>
 
-          <div className="mt-6 space-y-8">
-            {quizQuestions.map((q, idx) => {
-              const status = statusFor(idx);
-              const chosen = answers[idx];
-              const name = `${moduleId}-unit-${unitId}-quiz-${idx}`;
+          {currentQuestion ? (
+            <div className="mt-6">
+              <p className="text-xs text-muted-light">
+                Question{" "}
+                <span className="font-semibold text-foreground">{currentQuestionIndex + 1}</span>{" "}
+                / {totalQuestions}
+              </p>
 
-              return (
-                <div key={idx} className="border-t border-border pt-6 first:border-t-0 first:pt-0">
-                  <p className="text-sm font-semibold tracking-tight">
-                    {idx + 1}. {q.prompt}
-                  </p>
+              <div className="mt-4 border-t border-border pt-6">
+                <p className="text-sm font-semibold tracking-tight">{currentQuestion.prompt}</p>
 
-                  <div className="mt-4 grid gap-2">
-                    {q.choices.map((choice, choiceIdx) => (
+                <div className="mt-4 grid gap-2">
+                  {currentQuestion.choices.map((choice, choiceIdx) => {
+                    const name = `${moduleId}-unit-${unitId}-quiz-${currentQuestionIndex}`;
+
+                    return (
                       <label
                         key={choiceIdx}
                         className="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-background px-4 py-3 text-sm leading-relaxed hover:border-foreground"
@@ -133,33 +149,57 @@ export function StudyToolsClient(props: {
                         <input
                           type="radio"
                           name={name}
-                          checked={chosen === choiceIdx}
-                          onChange={() => setAnswers((prev) => ({ ...prev, [idx]: choiceIdx }))}
+                          checked={currentAnswer === choiceIdx}
+                          onChange={() => setAnswers((prev) => ({ ...prev, [currentQuestionIndex]: choiceIdx }))}
                           className="mt-1 h-4 w-4 accent-[var(--foreground)]"
                         />
                         <span className="text-foreground">{choice}</span>
                       </label>
-                    ))}
-                  </div>
-
-                  {checked ? (
-                    <div className="mt-4">
-                      <p
-                        className={
-                          status === "correct"
-                            ? "text-xs font-medium text-foreground"
-                            : "text-xs font-medium text-muted-light"
-                        }
-                      >
-                        {status === "correct" ? "Correct" : "Not quite"}
-                      </p>
-                      <p className="mt-2 text-xs text-muted-light leading-relaxed">{q.explanation}</p>
-                    </div>
-                  ) : null}
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
+
+                {checked && currentStatus !== "unanswered" ? (
+                  <div className="mt-4">
+                    <p
+                      className={
+                        currentStatus === "correct"
+                          ? "text-xs font-medium text-foreground"
+                          : "text-xs font-medium text-muted-light"
+                      }
+                    >
+                      {currentStatus === "correct" ? "Correct" : "Not quite"}
+                    </p>
+                    <p className="mt-2 text-xs text-muted-light leading-relaxed">
+                      {currentQuestion.explanation}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="mt-6 flex items-center justify-between gap-3">
+                <button
+                  type="button"
+                  onClick={() => setActiveIdx((prev) => Math.max(0, prev - 1))}
+                  disabled={!canGoPrev}
+                  aria-label="Previous question"
+                  className="btn-slide inline-flex items-center justify-center border border-border bg-background px-4 py-2 text-xs font-medium tracking-wide font-sans disabled:opacity-40"
+                >
+                  <span aria-hidden>←</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveIdx((prev) => Math.min(totalQuestions - 1, prev + 1))}
+                  disabled={!canGoNext}
+                  aria-label="Next question"
+                  className="btn-slide btn-primary inline-flex items-center justify-center px-4 py-2 text-xs font-medium tracking-wide font-sans disabled:opacity-40"
+                >
+                  <span aria-hidden>→</span>
+                </button>
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : (
         <p className="mt-5 text-sm text-muted leading-relaxed" style={{ fontWeight: 300 }}>
