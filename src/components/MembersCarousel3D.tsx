@@ -106,7 +106,7 @@ function FallbackGrid({ members }: { members: Member[] }) {
 
 // --- WebGL availability check ------------------------------------------------
 //
-// Three.js does NOT throw when WebGL context creation fails — it only calls
+// Three.js does NOT throw when WebGL context creation fails. It only calls
 // console.error internally and returns a mostly-broken renderer object.
 // We must probe WebGL support on a throwaway canvas BEFORE touching Three.js.
 
@@ -137,7 +137,7 @@ export function MembersCarousel3D({ members }: { members: Member[] }) {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // ?? Pre-flight WebGL check ----------------------------------------------
-    // Three.js does NOT throw on failure — it only console.errors.
+// Three.js does NOT throw on failure. It only console.errors.
     // We must test WebGL availability ourselves before creating the renderer.
     // ?? Create renderer (WebGL confirmed available) -------------------------
     let renderer: THREE.WebGLRenderer;

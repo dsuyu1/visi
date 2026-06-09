@@ -57,7 +57,7 @@ export default async function BlogPostPage({
         {/* Noise texture for depth */}
         <div className="blog-hero-noise" aria-hidden />
 
-        {/* Title block — sits at the bottom of the banner */}
+{/* Title block: sits at the bottom of the banner */}
         <div className="relative z-10 flex min-h-[inherit] flex-col justify-end">
           <div className="mx-auto w-full max-w-7xl px-6 pb-20 pt-32 text-center">
             {/* Category badge */}
@@ -139,7 +139,7 @@ export default async function BlogPostPage({
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema]]}
                 components={{
-                  /* Strip the top-level h1 — the title is already in the banner */
+/* Strip the top-level h1. The title is already in the banner. */
                   h1: () => null,
 
                   h2: ({ children }) => {

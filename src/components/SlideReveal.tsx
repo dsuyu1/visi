@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 /**
  * Replicates the AnimatedSlideBox + AnimatedPositionedText from davidcobbina.com.
  * A dark bar wipes in from the left, then exits to the right while the text
- * slides up from below the clip boundary — all in one smooth 1-second sequence.
+* slides up from below the clip boundary, all in one smooth 1-second sequence.
  */
 export function SlideReveal({
   children,

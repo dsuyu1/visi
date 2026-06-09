@@ -73,7 +73,7 @@ export default function OurWorkPage() {
                 </div>
               </div>
 
-              {/* Right — links */}
+{/* Right: links */}
               {item.links && item.links.length > 0 && (
                 <div className="flex shrink-0 flex-col gap-2">
                   {item.links.map((l) => (

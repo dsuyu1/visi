@@ -9,6 +9,12 @@ const sections = [
     description: "Research posts, explainers, and perspectives from our members.",
   },
   {
+    href: "/library/academy",
+    label: "VISI Academy",
+    description:
+      "Certification study platform: modules, units, practice questions, notes, and progress tracking.",
+  },
+  {
     href: "/library/resources",
     label: "Resources",
     description: "Study notes, decks, references, and links we use.",

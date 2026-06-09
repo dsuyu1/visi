@@ -129,7 +129,7 @@ Come with your personal laptops.
     time: "2:00 PM CST",
     location: "EIEAB 2.204 (MARS Lab)",
     description:
-      "Hands-on workshop with live demos: AngryIPScanner, Nmap, and OpenVAS—plus vulnerable machines in the VSOC and mitigation steps.\nSpeaker: Mauricio Martinez.",
+      "Hands-on workshop with live demos: AngryIPScanner, Nmap, and OpenVAS, plus vulnerable machines in the VSOC and mitigation steps.\nSpeaker: Mauricio Martinez.",
     imageSrc: "/events/vulnerability-management-workshop.png",
     imageAlt: "Vulnerability Management Workshop flyer",
   },
@@ -139,7 +139,7 @@ Come with your personal laptops.
     time: "2:00 PM CST",
     location: "EIEAB 2.204 (MARS Lab)",
     description:
-      "Kickoff meeting to meet the community, learn what VISI is, and how to get involved. No experience required—just curiosity.",
+      "Kickoff meeting to meet the community, learn what VISI is, and how to get involved. No experience required, just curiosity.",
   },
 ];
 
@@ -180,7 +180,7 @@ export const WORK_ITEMS: WorkItem[] = [
     slug: "gtin",
     title: "Global Threat Intelligence Navigator (GTIN)",
     description:
-      "By Damian Villarreal. Automated OSINT aggregation through feeds like MITRE ATT&CK mapped to threat groups across the globe — a repository for threat intelligence collected agentically from worker AI agents.",
+      "By Damian Villarreal. Automated OSINT aggregation through feeds like MITRE ATT&CK mapped to threat groups worldwide. A repository for threat intelligence collected with worker AI agents.",
     category: "project",
     date: "2026-06-04",
     status: "active",
@@ -205,9 +205,9 @@ export type ResourceItem = {
 export const RESOURCES: ResourceItem[] = [
   {
     id: "aws-saa-notes",
-    title: "AWS Certified Solutions Architect – Associate (SAA-C03) Notes",
+    title: "AWS Certified Solutions Architect: Associate (SAA-C03) Notes",
     description:
-      "Study notes for the AWS SAA-C03 exam — organized, practical, and continuously updated.",
+      "Study notes for the AWS SAA-C03 exam: organized, practical, and continuously updated.",
     href: "https://docs.google.com/document/d/1X1o77rBwtmLUE6v9gWvvC-swavTHal8SnWtSaSyQlrI/edit-usp=sharing",
     ctaLabel: "Open notes",
   },

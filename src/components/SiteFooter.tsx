@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { SITE } from "@/lib/site";
 
 function LinkedInIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -45,6 +48,7 @@ const columns = [
     parent: { href: "/library",  label: "library"  },
     children: [
       { href: "/blog",             label: "blog"     },
+      { href: "/library/academy",  label: "academy"  },
       { href: "/library/resources", label: "resources" },
       { href: "/library/videos",   label: "videos"   },
     ],
@@ -60,25 +64,47 @@ const columns = [
 ] as const;
 
 export function SiteFooter() {
+  type FooterLinkProps = {
+    href: string;
+    children: ReactNode;
+    className: string;
+  };
+
+  const FooterLink = ({ href, children, className }: FooterLinkProps) => {
+    const isExternal = href.startsWith("http://") || href.startsWith("https://");
+    return isExternal ? (
+      <a href={href} className={className}>
+        {children}
+      </a>
+    ) : (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    );
+  };
+
   return (
     <footer className="bg-surface-strong text-surface-strong-foreground font-sans">
       <div className="mx-auto max-w-7xl px-6 py-4">
-
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {columns.map((col) => (
             <div key={col.parent.href}>
-              <Link href={col.parent.href}
-                className="text-xs font-semibold text-surface-strong-foreground/90 transition-colors hover:text-surface-strong-foreground">
+              <FooterLink
+                href={col.parent.href}
+                className="text-xs font-semibold text-surface-strong-foreground/90 transition-colors hover:text-surface-strong-foreground"
+              >
                 {col.parent.label}
-              </Link>
+              </FooterLink>
               {col.children.length > 0 && (
                 <ul className="mt-2 space-y-1">
                   {col.children.map((c) => (
                     <li key={c.href}>
-                      <Link href={c.href}
-                        className="text-xs text-surface-strong-foreground/70 transition-colors hover:text-surface-strong-foreground">
+                      <FooterLink
+                        href={c.href}
+                        className="text-xs text-surface-strong-foreground/70 transition-colors hover:text-surface-strong-foreground"
+                      >
                         {c.label}
-                      </Link>
+                      </FooterLink>
                     </li>
                   ))}
                 </ul>
@@ -120,7 +146,6 @@ export function SiteFooter() {
             </div>
           </div>
         </div>
-
       </div>
     </footer>
   );

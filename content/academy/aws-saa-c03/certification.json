@@ -1,0 +1,14 @@
+{
+  "id": "aws-saa-c03",
+  "title": "AWS Certified Solutions Architect \u2013 Associate",
+  "provider": "Amazon Web Services",
+  "level": "Associate",
+  "code": "SAA-C03",
+  "description": "Study for SAA-C03 with VISI Academy: modules generated from our notes, plus progress tracking and saved notes.",
+  "recommendedExperience": [
+    "Basic networking fundamentals (VPCs, subnets, routing)",
+    "Comfort reading diagrams and architecture tradeoffs",
+    "Hands-on AWS console exposure is helpful but not required"
+  ],
+  "notesFile": "notes.md"
+}

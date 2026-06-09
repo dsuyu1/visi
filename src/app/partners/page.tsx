@@ -73,11 +73,10 @@ export default function PartnersPage() {
           style={{ boxShadow: "var(--shadow)" }}
         >
           <h2 className="mb-3 text-2xl font-semibold tracking-tight">
-            Interested in partnering-
+            Interested in partnering?
           </h2>
           <p className="mb-8 mx-auto max-w-lg text-sm text-muted">
-            Tell us what you&apos;re looking to support — mentorship, sponsorship, speakers, or
-            internships.
+            Tell us what you&apos;d like to support: mentorship, sponsorship, speakers, or internships.
           </p>
           <div className="flex justify-center">
             <ButtonLink href="/contact-topic=partners">Contact us</ButtonLink>

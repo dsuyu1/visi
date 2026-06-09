@@ -259,7 +259,7 @@ export default function Home() {
           </ScrollReveal>
         </div>
 
-        {/* Full-width work items — hover background spans edge-to-edge */}
+{/* Full-width work items: hover background spans edge-to-edge */}
         <div className="mt-8">
           {BLOG_POSTS.length === 0 ? (
             <div className="mx-auto max-w-7xl px-6 py-12">
@@ -308,7 +308,7 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* Right — date */}
+{/* Right: date */}
                 <div className="shrink-0 text-right">
                   <p className="text-xs text-muted-light">{formatDate(post.date)}</p>
                 </div>

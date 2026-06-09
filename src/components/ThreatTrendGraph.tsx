@@ -101,9 +101,9 @@ export function ThreatTrendGraph({
   const { width, height, paddingRight, baselineY, axisX, coords, line, area, ticks, domainMax } =
     buildTrendPaths(points);
 
-  const firstLabel = coords[0]?.label ?? "—";
-  const midLabel = coords[Math.floor(coords.length / 2)]?.label ?? "—";
-  const lastLabel = coords[coords.length - 1]?.label ?? "—";
+  const firstLabel = coords[0]?.label ?? "N/A";
+  const midLabel = coords[Math.floor(coords.length / 2)]?.label ?? "N/A";
+  const lastLabel = coords[coords.length - 1]?.label ?? "N/A";
 
   return (
     <div className="w-full">
@@ -115,7 +115,7 @@ export function ThreatTrendGraph({
           </p>
         </div>
         <div className="shrink-0 text-right">
-          <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">2020 - 2025</p>
+          <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">2020 to 2025</p>
           <p className="mt-1 text-sm font-semibold tracking-tight text-foreground">~5x increase</p>
         </div>
       </div>

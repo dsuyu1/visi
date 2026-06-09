@@ -52,15 +52,15 @@ export default async function ContactPage({
             <p className="field-label mb-6">What to include</p>
             <ul className="space-y-3 text-sm text-muted">
               <li className="flex gap-3">
-                <span className="mt-0.5 text-muted-light">—</span>
+                <span className="mt-0.5 text-muted-light">•</span>
                 Name &amp; email address
               </li>
               <li className="flex gap-3">
-                <span className="mt-0.5 text-muted-light">—</span>
+                <span className="mt-0.5 text-muted-light">•</span>
                 Discord username (optional)
               </li>
               <li className="flex gap-3">
-                <span className="mt-0.5 text-muted-light">—</span>
+                <span className="mt-0.5 text-muted-light">•</span>
                 What you want to build or learn
               </li>
             </ul>

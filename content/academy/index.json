@@ -1,0 +1,13 @@
+{
+  "certifications": [
+    {
+      "id": "aws-saa-c03",
+      "title": "AWS Certified Solutions Architect \u2013 Associate",
+      "provider": "Amazon Web Services",
+      "level": "Associate",
+      "code": "SAA-C03",
+      "description": "Design resilient, secure, and cost-optimized architectures on AWS \u2014 with hands-on, exam-focused modules."
+    }
+  ]
+}
+

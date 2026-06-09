@@ -8,7 +8,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { StarfieldBackground } from "@/components/StarfieldBackground";
 
 /**
- * Inter — the humanist geometric sans-serif used throughout Claude's interface
+* Inter: the humanist geometric sans-serif used throughout Claude's interface
  * and UC Berkeley's digital brand. Variable-weight, excellent screen rendering.
  */
 const inter = Inter({

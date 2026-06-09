@@ -24,7 +24,7 @@ function mailtoForFallback(payload: {
   topic: string;
   message: string;
 }) {
-  const subject = `[${payload.topic || "general"}] ${payload.name} — website contact`;
+  const subject = `[${payload.topic || "general"}] ${payload.name} - website contact`;
   const body = [
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
@@ -191,7 +191,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
         {status.type === "success" && (
           <div className="inline-flex items-center gap-2 text-sm text-muted">
             <CheckCircle2 className="size-4 shrink-0 text-secondary" />
-            Message sent — we&apos;ll reply by email.
+            Message sent. We&apos;ll reply by email.
           </div>
         )}
 

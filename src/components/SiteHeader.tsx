@@ -1,4 +1,5 @@
-'use client'
+"use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Moon, Sun } from "lucide-react";
@@ -23,6 +24,7 @@ const leftNav: NavItem[] = [
     href: "/library",
     children: [
       { href: "/blog",               label: "blog"      },
+      { href: "/library/academy",    label: "academy"   },
       { href: "/library/resources",  label: "resources" },
       { href: "/library/videos",     label: "videos"    },
     ],
@@ -55,7 +57,7 @@ export function SiteHeader() {
     ) ?? false;
   };
 
-  // Muted colour — slightly darker than before so links are more legible
+  // Muted colour: slightly darker than before so links are more legible
   const INACTIVE = "var(--secondary)";
   const ACTIVE   = "var(--foreground)";
 
@@ -112,7 +114,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 bg-background font-sans">
       <div className="mx-auto flex max-w-7xl items-center px-6 py-4">
 
-        {/* Left nav — right-aligned against logo */}
+        {/* Left nav: right-aligned against logo */}
         <nav aria-label="Primary left"
              className="hidden flex-1 items-center justify-end gap-8 md:flex">
           {leftNav.map((item) => <NavLink key={item.href} item={item} />)}
@@ -125,13 +127,13 @@ export function SiteHeader() {
           <img src="/visi-logo.png" alt="VISI" className="h-14 w-14 object-contain" />
         </Link>
 
-        {/* Right nav — left-aligned against logo */}
+        {/* Right nav: left-aligned against logo */}
         <nav aria-label="Primary right"
              className="hidden flex-1 items-center justify-start gap-8 md:flex">
           {rightNav.map((item) => <NavLink key={item.href} item={item} />)}
         </nav>
 
-        {/* Mobile — compact flat list */}
+        {/* Mobile: compact flat list */}
         <nav className="flex flex-1 flex-wrap justify-end gap-4 md:hidden">
           {[...leftNav, ...rightNav].map((item) => (
             <Link key={item.href} href={item.href}
