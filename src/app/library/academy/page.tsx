@@ -25,24 +25,23 @@ export default async function LibraryAcademyPage() {
       </div>
 
       <div className="mt-16 grid gap-6 text-left sm:grid-cols-2">
-        {index.certifications.map((c, i) => (
-          <ScrollReveal key={c.id} delay={i * 80}>
-            <Link
-              href={`/library/academy/certifications/${c.id}`}
-              className="group block border border-border bg-panel p-8 transition-colors hover:bg-panel-hover"
-              style={{ boxShadow: "var(--shadow)" }}
-            >
-              <h2 className="mt-3 text-lg font-semibold tracking-tight group-hover:underline">
-                {c.title}
-              </h2>
-              <p className="mt-2 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                {c.description}
-              </p>
-              <p className="work-arrow mt-6 text-sm font-medium text-foreground">
-                start <span aria-hidden>→</span>
-              </p>
-            </Link>
-          </ScrollReveal>
+        {index.certifications.map((c) => (
+          <Link
+            key={c.id}
+            href={`/library/academy/certifications/${c.id}`}
+            className="group block border border-border bg-panel p-8 transition-colors hover:bg-panel-hover"
+            style={{ boxShadow: "var(--shadow)" }}
+          >
+            <h2 className="mt-3 text-lg font-semibold tracking-tight group-hover:underline">
+              {c.title}
+            </h2>
+            <p className="mt-2 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
+              {c.description}
+            </p>
+            <p className="work-arrow mt-6 text-sm font-medium text-foreground">
+              start <span aria-hidden>→</span>
+            </p>
+          </Link>
         ))}
       </div>
     </div>

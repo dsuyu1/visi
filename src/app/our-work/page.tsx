@@ -33,7 +33,7 @@ export default function OurWorkPage() {
       <div className="pb-24">
         <div className="mt-8 text-left">
         {WORK_ITEMS.map((item, i) => (
-          <ScrollReveal key={item.slug} delay={i * 80} className="work-item group">
+          <div key={item.slug} className="work-item group">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-10 md:flex-row md:items-start md:justify-between">
 
               {/* Left */}
@@ -85,7 +85,7 @@ export default function OurWorkPage() {
                 </div>
               )}
             </div>
-          </ScrollReveal>
+          </div>
         ))}
       </div>
       </div>

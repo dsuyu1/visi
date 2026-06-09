@@ -205,38 +205,36 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {featuredEvents.map((e, i) => (
-              <ScrollReveal key={e.title} delay={i * 100}>
-                <div className="border border-border bg-background p-7" style={{ boxShadow: "var(--shadow)" }}>
-                  <p className="mb-2 text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
-                    {(e.date ? formatDate(e.date) : e.dateLabel ?? "TBD")}
-                    {e.time && e.time !== "TBD" ? ` · ${e.time}` : ""}
-                    {` · ${e.location}`}
-                  </p>
-                  <h3 className="mb-3 text-lg font-semibold tracking-tight">{e.title}</h3>
-                  <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                    {e.description}
-                  </p>
-                  {e.imageSrc ? (
-                    <div className="mt-6 rounded-xl border border-border bg-panel p-2">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={e.imageSrc}
-                        alt={e.imageAlt ?? ""}
-                        className="block w-full h-auto"
-                      />
-                    </div>
-                  ) : null}
-                  {e.logoSrc ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
+            {featuredEvents.map((e) => (
+              <div key={e.title} className="border border-border bg-background p-7" style={{ boxShadow: "var(--shadow)" }}>
+                <p className="mb-2 text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
+                  {(e.date ? formatDate(e.date) : e.dateLabel ?? "TBD")}
+                  {e.time && e.time !== "TBD" ? ` · ${e.time}` : ""}
+                  {` · ${e.location}`}
+                </p>
+                <h3 className="mb-3 text-lg font-semibold tracking-tight">{e.title}</h3>
+                <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
+                  {e.description}
+                </p>
+                {e.imageSrc ? (
+                  <div className="mt-6 rounded-xl border border-border bg-panel p-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={e.logoSrc}
-                      alt={e.logoAlt ?? ""}
-                      className="mt-5 h-8 w-auto opacity-80"
+                      src={e.imageSrc}
+                      alt={e.imageAlt ?? ""}
+                      className="block w-full h-auto"
                     />
-                  ) : null}
-                </div>
-              </ScrollReveal>
+                  </div>
+                ) : null}
+                {e.logoSrc ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={e.logoSrc}
+                    alt={e.logoAlt ?? ""}
+                    className="mt-5 h-8 w-auto opacity-80"
+                  />
+                ) : null}
+              </div>
             ))}
           </div>
 
@@ -343,38 +341,36 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {featuredEvents.map((e, i) => (
-              <ScrollReveal key={e.title} delay={i * 100}>
-                <div className="border border-border bg-background p-7" style={{ boxShadow: "var(--shadow)" }}>
-                  <p className="mb-2 text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
-                    {(e.date ? formatDate(e.date) : e.dateLabel ?? "TBD")}
-                    {e.time && e.time !== "TBD" ? ` · ${e.time}` : ""}
-                    {` · ${e.location}`}
-                  </p>
-                  <h3 className="mb-3 text-lg font-semibold tracking-tight">{e.title}</h3>
-                  <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                    {e.description}
-                  </p>
-                  {e.imageSrc ? (
-                    <div className="mt-6 rounded-xl border border-border bg-panel p-2">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={e.imageSrc}
-                        alt={e.imageAlt ?? ""}
-                        className="block w-full h-auto"
-                      />
-                    </div>
-                  ) : null}
-                  {e.logoSrc ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
+            {featuredEvents.map((e) => (
+              <div key={e.title} className="border border-border bg-background p-7" style={{ boxShadow: "var(--shadow)" }}>
+                <p className="mb-2 text-xs font-medium tracking-widest text-muted-light uppercase font-sans">
+                  {(e.date ? formatDate(e.date) : e.dateLabel ?? "TBD")}
+                  {e.time && e.time !== "TBD" ? ` · ${e.time}` : ""}
+                  {` · ${e.location}`}
+                </p>
+                <h3 className="mb-3 text-lg font-semibold tracking-tight">{e.title}</h3>
+                <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
+                  {e.description}
+                </p>
+                {e.imageSrc ? (
+                  <div className="mt-6 rounded-xl border border-border bg-panel p-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={e.logoSrc}
-                      alt={e.logoAlt ?? ""}
-                      className="mt-5 h-8 w-auto opacity-80"
+                      src={e.imageSrc}
+                      alt={e.imageAlt ?? ""}
+                      className="block w-full h-auto"
                     />
-                  ) : null}
-                </div>
-              </ScrollReveal>
+                  </div>
+                ) : null}
+                {e.logoSrc ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={e.logoSrc}
+                    alt={e.logoAlt ?? ""}
+                    className="mt-5 h-8 w-auto opacity-80"
+                  />
+                ) : null}
+              </div>
             ))}
           </div>
 
@@ -402,33 +398,31 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="mt-12 grid gap-6 md:grid-cols-1">
-            {PARTNERS.map((p, i) => (
-              <ScrollReveal key={p.name} delay={i * 100}>
-                <div className="border border-border bg-panel p-7" style={{ boxShadow: "var(--shadow)" }}>
-                  {p.logoSrc ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={p.logoSrc}
-                      alt={p.logoAlt ?? p.name}
-                      className="mb-5 h-10 w-auto opacity-90"
-                    />
-                  ) : null}
-                  <h3 className="mb-2 text-base font-semibold tracking-tight">{p.name}</h3>
-                  <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                    {p.description}
-                  </p>
-                  {p.href ? (
-                    <a
-                      href={p.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="work-arrow mt-6 inline-flex items-center text-sm font-medium text-foreground"
-                    >
-                      Visit site <span>→</span>
-                    </a>
-                  ) : null}
-                </div>
-              </ScrollReveal>
+            {PARTNERS.map((p) => (
+              <div key={p.name} className="border border-border bg-panel p-7" style={{ boxShadow: "var(--shadow)" }}>
+                {p.logoSrc ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={p.logoSrc}
+                    alt={p.logoAlt ?? p.name}
+                    className="mb-5 h-10 w-auto opacity-90"
+                  />
+                ) : null}
+                <h3 className="mb-2 text-base font-semibold tracking-tight">{p.name}</h3>
+                <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
+                  {p.description}
+                </p>
+                {p.href ? (
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="work-arrow mt-6 inline-flex items-center text-sm font-medium text-foreground"
+                  >
+                    Visit site <span>→</span>
+                  </a>
+                ) : null}
+              </div>
             ))}
           </div>
 

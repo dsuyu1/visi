@@ -44,22 +44,23 @@ export default function LibraryPage() {
 
       {/* Section cards */}
       <div className="mt-16 grid gap-6 text-left sm:grid-cols-2">
-        {sections.map((s, i) => (
-          <ScrollReveal key={s.href} delay={i * 80}>
-            <Link href={s.href}
-              className="group block border border-border bg-panel p-8 transition-colors hover:bg-panel-hover"
-              style={{ boxShadow: "var(--shadow)" }}>
-              <h2 className="mb-2 text-lg font-semibold tracking-tight group-hover:underline">
-                {s.label}
-              </h2>
-              <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                {s.description}
-              </p>
-              <p className="work-arrow mt-6 text-sm font-medium text-foreground">
-                browse <span>→</span>
-              </p>
-            </Link>
-          </ScrollReveal>
+        {sections.map((s) => (
+          <Link
+            key={s.href}
+            href={s.href}
+            className="group block border border-border bg-panel p-8 transition-colors hover:bg-panel-hover"
+            style={{ boxShadow: "var(--shadow)" }}
+          >
+            <h2 className="mb-2 text-lg font-semibold tracking-tight group-hover:underline">
+              {s.label}
+            </h2>
+            <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
+              {s.description}
+            </p>
+            <p className="work-arrow mt-6 text-sm font-medium text-foreground">
+              browse <span>→</span>
+            </p>
+          </Link>
         ))}
       </div>
 

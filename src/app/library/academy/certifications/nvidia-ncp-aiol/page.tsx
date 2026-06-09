@@ -142,34 +142,32 @@ export default async function NvidiaNcpAiolCertificationPage() {
                         </div>
                       </ScrollReveal>
                     ) : (
-                      domain.modules.map((m, i) => (
-                        <ScrollReveal key={m.id} delay={domainIdx * 60 + i * 40}>
-                          <div className="border border-border bg-panel p-7" style={{ boxShadow: "var(--shadow)" }}>
-                            <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between md:gap-10">
-                              <div className="flex-1">
-                                <h4 className="text-base font-semibold tracking-tight leading-snug">
-                                  {m.title}
-                                </h4>
-                                <p className="mt-2 max-w-3xl text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                                  {m.description}
-                                </p>
-                              </div>
+                      domain.modules.map((m) => (
+                        <div key={m.id} className="border border-border bg-panel p-7" style={{ boxShadow: "var(--shadow)" }}>
+                          <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between md:gap-10">
+                            <div className="flex-1">
+                              <h4 className="text-base font-semibold tracking-tight leading-snug">
+                                {m.title}
+                              </h4>
+                              <p className="mt-2 max-w-3xl text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
+                                {m.description}
+                              </p>
+                            </div>
 
-                              <div className="shrink-0">
-                                <p className="text-xs text-muted-light">
-                                  {m.units.length} unit{m.units.length === 1 ? "" : "s"}
-                                  {m.estimatedMinutes ? ` · ~${m.estimatedMinutes} min` : ""}
-                                </p>
-                                <Link
-                                  href={`/library/academy/certifications/${cert.id}/modules/${m.id}`}
-                                  className="btn-slide btn-primary mt-4 inline-flex items-center justify-center px-6 py-3 text-sm font-medium tracking-wide font-sans"
-                                >
-                                  Open module
-                                </Link>
-                              </div>
+                            <div className="shrink-0">
+                              <p className="text-xs text-muted-light">
+                                {m.units.length} unit{m.units.length === 1 ? "" : "s"}
+                                {m.estimatedMinutes ? ` · ~${m.estimatedMinutes} min` : ""}
+                              </p>
+                              <Link
+                                href={`/library/academy/certifications/${cert.id}/modules/${m.id}`}
+                                className="btn-slide btn-primary mt-4 inline-flex items-center justify-center px-6 py-3 text-sm font-medium tracking-wide font-sans"
+                              >
+                                Open module
+                              </Link>
                             </div>
                           </div>
-                        </ScrollReveal>
+                        </div>
                       ))
                     )}
                   </div>

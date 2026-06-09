@@ -23,7 +23,7 @@ export default function ResourcesPage() {
       <div className="pb-24">
         <div className="mt-8 text-left">
           {RESOURCES.map((r, i) => (
-            <ScrollReveal key={r.id} delay={i * 80} className="work-item group">
+            <div key={r.id} className="work-item group">
               <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10 md:flex-row md:items-start md:justify-between md:gap-16">
                 <div className="flex-1">
                   <div className="mb-3 flex items-center gap-3">
@@ -60,7 +60,7 @@ export default function ResourcesPage() {
                   ) : null}
                 </div>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </div>

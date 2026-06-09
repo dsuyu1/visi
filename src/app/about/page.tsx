@@ -84,37 +84,35 @@ export default function AboutPage() {
             <p className="mb-10 text-sm font-medium tracking-widest text-muted-light uppercase font-sans">
               Our Pillars
             </p>
-          </ScrollReveal>
 
-          <div className="grid gap-8 sm:grid-cols-2">
-            {[
-              {
-                title: "Devotion",
-                body: "We protect the communities we come from. When we learn something, we share it.",
-              },
-              {
-                title: "Dedication",
-                body: "Delivering real value takes discipline. We aim to produce quality work.",
-              },
-              {
-                title: "Curiosity",
-                body: "Curious minds are the roots of progress. We ask questions, explore, and share what we find.",
-              },
-              {
-                title: "Honor",
-                body: "We act honestly and within the law. When the easy path conflicts with the right one, we take the right one.",
-              },
-            ].map((v, i) => (
-              <ScrollReveal key={v.title} delay={i * 80}>
-                <div className="border border-border bg-panel p-7" style={{ boxShadow: "var(--shadow)" }}>
+            <div className="grid gap-8 sm:grid-cols-2">
+              {[
+                {
+                  title: "Devotion",
+                  body: "We protect the communities we come from. When we learn something, we share it.",
+                },
+                {
+                  title: "Dedication",
+                  body: "Delivering real value takes discipline. We aim to produce quality work.",
+                },
+                {
+                  title: "Curiosity",
+                  body: "Curious minds are the roots of progress. We ask questions, explore, and share what we find.",
+                },
+                {
+                  title: "Honor",
+                  body: "We act honestly and within the law. When the easy path conflicts with the right one, we take the right one.",
+                },
+              ].map((v) => (
+                <div key={v.title} className="border border-border bg-panel p-7" style={{ boxShadow: "var(--shadow)" }}>
                   <h3 className="mb-2 text-base font-semibold tracking-tight">{v.title}</h3>
                   <p className="text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
                     {v.body}
                   </p>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
+              ))}
+            </div>
+          </ScrollReveal>
 
           {/* CTA */}
           <ScrollReveal className="mt-20 border-t border-border pt-16">
