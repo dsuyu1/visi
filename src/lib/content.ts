@@ -157,7 +157,7 @@ export const PARTNERS: Partner[] = [
 export const MEMBERS: Member[] = [
   { name: "Damian Villarreal", role: "Founder & Executive Director", focus: "Research & mentorship" },
   { name: "Diego Zuniga", role: "Lead", focus: "Certifications & mentorship" },
-  { name: "Member Three", role: "Engineer", focus: "Automation" },
+  { name: "Mauricio Martinez", role: "Engineer", focus: "Automation" },
   { name: "Member Four", role: "Analyst", focus: "DFIR" },
   { name: "Member Five", role: "Builder", focus: "Detection engineering" },
 ];
