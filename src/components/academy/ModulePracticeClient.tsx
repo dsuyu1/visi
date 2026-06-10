@@ -51,7 +51,7 @@ export function ModulePracticeClient({
         <div>
           <p className="text-xs font-medium tracking-widest text-muted-light uppercase font-sans">{title}</p>
           <p className="mt-2 text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-            Generated directly from the notes for this module.
+            Generated from this module’s study material.
           </p>
         </div>
 

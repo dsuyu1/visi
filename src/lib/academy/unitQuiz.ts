@@ -3,6 +3,7 @@ import "server-only";
 import type { PracticeQuestion } from "@/lib/academy/types";
 
 type TermDef = { term: string; definition: string };
+type ArrowPair = { left: string; right: string };
 
 export type UnitQuizSource = {
   key: string;
@@ -44,9 +45,9 @@ function normalizeStatementLine(line: string) {
   );
 }
 
-function extractStatements(markdownBody: string) {
+function extractArrowPairs(markdownBody: string) {
   const lines = normalizeNewlines(markdownBody).split("\n");
-  const out: string[] = [];
+  const out: ArrowPair[] = [];
   const seen = new Set<string>();
 
   let inCode = false;
@@ -62,15 +63,21 @@ function extractStatements(markdownBody: string) {
     if (line === "---") continue;
     if (isMarkdownTableSeparatorRow(line)) continue;
     if (line.startsWith("|")) continue;
+    if (!line.includes("→")) continue;
 
     const normalized = normalizeStatementLine(line);
-    if (normalized.length < 18) continue;
-    if (normalized.length > 240) continue;
+    const parts = normalized.split("→").map((p) => p.trim()).filter(Boolean);
+    if (parts.length !== 2) continue;
+    const left = parts[0]!;
+    const right = parts[1]!;
+    if (left.length < 8) continue;
+    if (right.length < 2) continue;
+    if (right.length > 140) continue;
 
-    const key = normalized.toLowerCase();
+    const key = `${left.toLowerCase()}→${right.toLowerCase()}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    out.push(normalized);
+    out.push({ left, right });
   }
 
   return out;
@@ -155,43 +162,49 @@ function clampInt(n: number, min: number, max: number) {
 
 function generateQuizQuestionsForUnit(args: {
   unitKey: string;
-  unitTitle: string;
   markdown: string;
-  statementPool: string[];
   termDefPool: TermDef[];
-  unitTitlePool: string[];
+  arrowPairPool: ArrowPair[];
   desiredCount: number;
 }): PracticeQuestion[] {
   const desiredCount = clampInt(args.desiredCount, 2, 4);
   const rnd = mulberry32(hashSeed(args.unitKey));
 
-  const unitStatements = extractStatements(args.markdown);
-  const unitStatementsSet = new Set(unitStatements.map((s) => s.toLowerCase()));
-  const otherStatements = args.statementPool.filter((s) => !unitStatementsSet.has(s.toLowerCase()));
-
   const unitTermDefs = extractTermDefinitions(args.markdown);
   const unitTermsSet = new Set(unitTermDefs.map((t) => t.term.toLowerCase()));
   const otherTermDefs = args.termDefPool.filter((t) => !unitTermsSet.has(t.term.toLowerCase()));
 
-  const statements = shuffle(unitStatements, rnd);
-  const otherStatementsShuffled = shuffle(otherStatements, rnd);
+  const unitArrowPairs = extractArrowPairs(args.markdown);
+  const unitArrowKeys = new Set(unitArrowPairs.map((p) => `${p.left.toLowerCase()}→${p.right.toLowerCase()}`));
+  const otherArrowPairs = args.arrowPairPool.filter(
+    (p) => !unitArrowKeys.has(`${p.left.toLowerCase()}→${p.right.toLowerCase()}`),
+  );
+
   const termDefs = shuffle(unitTermDefs, rnd);
   const otherTermDefsShuffled = shuffle(otherTermDefs, rnd);
+  const arrowPairs = shuffle(unitArrowPairs, rnd);
+  const otherArrowPairsShuffled = shuffle(otherArrowPairs, rnd);
 
   const questions: PracticeQuestion[] = [];
+  const usedWhatIsTerms = new Set<string>();
+  const usedTermMatchTerms = new Set<string>();
+  const usedArrowScenario = new Set<string>();
+  const usedArrowReverse = new Set<string>();
 
-  const tryDefinitionQuestion = () => {
+  const tryWhatIsQuestion = () => {
     if (termDefs.length < 1) return false;
     if (otherTermDefsShuffled.length < 3) return false;
-    const correct = termDefs.shift()!;
-    const distractors = otherTermDefsShuffled.splice(0, 3);
+    const correct = termDefs.find((t) => !usedWhatIsTerms.has(t.term.toLowerCase()));
+    if (!correct) return false;
+    usedWhatIsTerms.add(correct.term.toLowerCase());
+    const distractors = shuffle(otherTermDefsShuffled, rnd).slice(0, 3);
     const all = shuffle([correct, ...distractors], rnd);
     const answerIndex = all.findIndex((x) => x.term === correct.term) as 0 | 1 | 2 | 3;
     questions.push({
-      prompt: `In "${args.unitTitle}", what best describes "${correct.term}"?`,
+      prompt: `What is ${correct.term}?`,
       choices: toChoices(all.map((x) => x.definition)),
       answerIndex,
-      explanation: `Notes: ${correct.term} — ${correct.definition}`,
+      explanation: `Reference: ${correct.term} — ${correct.definition}`,
     });
     return true;
   };
@@ -199,76 +212,80 @@ function generateQuizQuestionsForUnit(args: {
   const tryTermQuestion = () => {
     if (termDefs.length < 1) return false;
     if (otherTermDefsShuffled.length < 3) return false;
-    const correct = termDefs.shift()!;
-    const distractors = otherTermDefsShuffled.splice(0, 3);
+    const correct =
+      termDefs.find((t) => {
+        const key = t.term.toLowerCase();
+        return !usedTermMatchTerms.has(key) && !usedWhatIsTerms.has(key);
+      }) ??
+      termDefs.find((t) => !usedTermMatchTerms.has(t.term.toLowerCase()));
+    if (!correct) return false;
+    usedTermMatchTerms.add(correct.term.toLowerCase());
+    const distractors = shuffle(otherTermDefsShuffled, rnd).slice(0, 3);
     const all = shuffle([correct, ...distractors], rnd);
     const answerIndex = all.findIndex((x) => x.term === correct.term) as 0 | 1 | 2 | 3;
     questions.push({
-      prompt: `Which term matches this definition from "${args.unitTitle}"? ${correct.definition}`,
+      prompt: `Which term matches this definition? ${correct.definition}`,
       choices: toChoices(all.map((x) => x.term)),
       answerIndex,
-      explanation: `Notes: ${correct.term} — ${correct.definition}`,
+      explanation: `Reference: ${correct.term} — ${correct.definition}`,
     });
     return true;
   };
 
-  const tryStatementQuestion = () => {
-    if (statements.length < 1) return false;
-    if (otherStatementsShuffled.length < 3) return false;
-    const correct = statements.shift()!;
-    const distractors = otherStatementsShuffled.splice(0, 3);
-    const all = shuffle([correct, ...distractors], rnd);
-    const answerIndex = all.findIndex((x) => x === correct) as 0 | 1 | 2 | 3;
+  const tryArrowScenarioQuestion = () => {
+    if (arrowPairs.length < 1) return false;
+    const correct = arrowPairs.find((p) => !usedArrowScenario.has(`${p.left.toLowerCase()}→${p.right.toLowerCase()}`));
+    if (!correct) return false;
+    const pool = [...arrowPairs, ...otherArrowPairsShuffled].map((p) => p.right);
+    const distractors = shuffle(pool.filter((x) => x !== correct.right), rnd).slice(0, 3);
+    if (distractors.length < 3) return false;
+    usedArrowScenario.add(`${correct.left.toLowerCase()}→${correct.right.toLowerCase()}`);
+    const all = shuffle([correct.right, ...distractors], rnd);
+    const answerIndex = all.findIndex((x) => x === correct.right) as 0 | 1 | 2 | 3;
     questions.push({
-      prompt: `Which statement appears in the "${args.unitTitle}" unit notes?`,
+      prompt: `Which option best fits this scenario: ${correct.left}?`,
       choices: toChoices(all),
       answerIndex,
-      explanation: `This unit’s notes include: ${correct}`,
+      explanation: `${correct.left} → ${correct.right}`,
     });
     return true;
   };
 
-  const tryUnitTitleFallbackQuestion = () => {
-    const pool = args.unitTitlePool.filter((t) => t !== args.unitTitle);
-    if (pool.length < 3) return false;
-    const distractors = shuffle(pool, rnd).slice(0, 3);
-    const all = shuffle([args.unitTitle, ...distractors], rnd);
-    const answerIndex = all.findIndex((x) => x === args.unitTitle) as 0 | 1 | 2 | 3;
+  const tryArrowReverseQuestion = () => {
+    if (arrowPairs.length < 1) return false;
+    const correct =
+      arrowPairs.find((p) => {
+        const key = `${p.left.toLowerCase()}→${p.right.toLowerCase()}`;
+        return !usedArrowReverse.has(key) && !usedArrowScenario.has(key);
+      }) ??
+      arrowPairs.find(
+        (p) => !usedArrowReverse.has(`${p.left.toLowerCase()}→${p.right.toLowerCase()}`),
+      );
+    if (!correct) return false;
+    const pool = [...arrowPairs, ...otherArrowPairsShuffled].map((p) => p.left);
+    const distractors = shuffle(pool.filter((x) => x !== correct.left), rnd).slice(0, 3);
+    if (distractors.length < 3) return false;
+    usedArrowReverse.add(`${correct.left.toLowerCase()}→${correct.right.toLowerCase()}`);
+    const all = shuffle([correct.left, ...distractors], rnd);
+    const answerIndex = all.findIndex((x) => x === correct.left) as 0 | 1 | 2 | 3;
     questions.push({
-      prompt: "Which topic matches this unit?",
+      prompt: `"${correct.right}" is the right solution for which of the following?`,
       choices: toChoices(all),
       answerIndex,
-      explanation: `You are studying: ${args.unitTitle}`,
+      explanation: `${correct.left} → ${correct.right}`,
     });
     return true;
   };
 
   while (questions.length < desiredCount) {
-    if (tryDefinitionQuestion()) continue;
-    if (tryStatementQuestion()) continue;
+    if (tryWhatIsQuestion()) continue;
     if (tryTermQuestion()) continue;
-    if (tryUnitTitleFallbackQuestion()) continue;
+    if (tryArrowScenarioQuestion()) continue;
+    if (tryArrowReverseQuestion()) continue;
     break;
   }
 
-  while (questions.length < 2) {
-    if (!tryUnitTitleFallbackQuestion()) break;
-  }
-
   return questions.slice(0, desiredCount);
-}
-
-function buildStatementPool(sources: UnitQuizSource[]) {
-  const all = sources.flatMap((s) => extractStatements(s.markdown));
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const s of all) {
-    const key = s.toLowerCase();
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(s);
-  }
-  return out;
 }
 
 function buildTermDefPool(sources: UnitQuizSource[]) {
@@ -284,16 +301,15 @@ function buildTermDefPool(sources: UnitQuizSource[]) {
   return out;
 }
 
-function buildUnitTitlePool(sources: UnitQuizSource[]) {
+function buildArrowPairPool(sources: UnitQuizSource[]) {
+  const all = sources.flatMap((s) => extractArrowPairs(s.markdown));
   const seen = new Set<string>();
-  const out: string[] = [];
-  for (const s of sources) {
-    const title = s.title.trim();
-    if (!title) continue;
-    const key = title.toLowerCase();
+  const out: ArrowPair[] = [];
+  for (const p of all) {
+    const key = `${p.left.toLowerCase()}→${p.right.toLowerCase()}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    out.push(title);
+    out.push(p);
   }
   return out;
 }
@@ -303,23 +319,19 @@ export function buildUnitQuizQuestions(
   options?: { desiredCount?: number },
 ): Record<string, PracticeQuestion[]> {
   const desiredCount = clampInt(options?.desiredCount ?? 3, 2, 4);
-  const statementPool = buildStatementPool(sources);
   const termDefPool = buildTermDefPool(sources);
-  const unitTitlePool = buildUnitTitlePool(sources);
+  const arrowPairPool = buildArrowPairPool(sources);
 
   const out: Record<string, PracticeQuestion[]> = {};
   for (const unit of sources) {
     out[unit.key] = generateQuizQuestionsForUnit({
       unitKey: unit.key,
-      unitTitle: unit.title,
       markdown: unit.markdown,
-      statementPool,
       termDefPool,
-      unitTitlePool,
+      arrowPairPool,
       desiredCount,
     });
   }
 
   return out;
 }
-

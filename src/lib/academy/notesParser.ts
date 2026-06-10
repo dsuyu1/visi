@@ -61,7 +61,7 @@ function deriveDescription(markdownBody: string) {
   const unescaped = unescapeMarkdownPunctuation(cleaned).trim();
 
   if (unescaped.length >= 16) return unescaped.slice(0, 180);
-  return "Study notes, exam traps, and decision points.";
+  return "Study guide, exam traps, and decision points.";
 }
 
 function referenceBlockForTitle(title: string) {
@@ -73,7 +73,7 @@ function referenceBlockForTitle(title: string) {
 
 function buildUnitMarkdown(title: string, body: string) {
   const trimmed = body.trim();
-  const base = `# ${title}\n\n${trimmed.length ? trimmed : "_No notes captured yet._"}\n`;
+  const base = `# ${title}\n\n${trimmed.length ? trimmed : "_No study material yet._"}\n`;
   return base + referenceBlockForTitle(title);
 }
 
@@ -234,10 +234,10 @@ function generatePracticeQuestionsForModule(args: {
     const all = shuffle([correct, ...distractors], rnd);
     const answerIndex = all.findIndex((x) => x.term === correct.term) as 0 | 1 | 2 | 3;
     questions.push({
-      prompt: `According to the notes, what best describes "${correct.term}"?`,
+      prompt: `What best describes "${correct.term}" in this context?`,
       choices: toChoices(all.map((x) => x.definition)),
       answerIndex,
-      explanation: `Notes: ${correct.term} — ${correct.definition}`,
+      explanation: `Reference: ${correct.term} — ${correct.definition}`,
     });
     return true;
   };
@@ -251,10 +251,10 @@ function generatePracticeQuestionsForModule(args: {
     const all = shuffle([correct, ...distractors], rnd);
     const answerIndex = all.findIndex((x) => x === correct) as 0 | 1 | 2 | 3;
     questions.push({
-      prompt: `Which statement appears in the "${moduleTitle}" module notes?`,
+      prompt: `Which of the following statements is accurate based on the ${moduleTitle} study material?`,
       choices: toChoices(all),
       answerIndex,
-      explanation: `This module’s notes include: ${correct}`,
+      explanation: `From the study material: ${correct}`,
     });
     return true;
   };
@@ -269,7 +269,7 @@ function generatePracticeQuestionsForModule(args: {
     const all = shuffle([correct, ...distractors], rnd);
     const answerIndex = all.findIndex((x) => x === correct) as 0 | 1 | 2 | 3;
     questions.push({
-      prompt: `Which topic is included as a unit in the "${moduleTitle}" module?`,
+      prompt: `Which of the following topics is covered in the "${moduleTitle}" module?`,
       choices: toChoices(all),
       answerIndex,
       explanation: `This module includes a unit titled: ${correct}`,
@@ -677,7 +677,7 @@ export function parseSaaC03Notes(notesMarkdown: string): ParsedCertification {
       // If something is truly "misc", it's still exam-relevant and we tuck it under Domain 1.
       domain: domain1,
       prefix: "extra-",
-      title: "Unsorted Notes",
+      title: "Unsorted Material",
       unitTitles: remaining,
       sectionBodies,
       unitMarkdown,

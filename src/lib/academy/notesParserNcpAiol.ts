@@ -34,12 +34,12 @@ function deriveDescription(markdownBody: string) {
     if (cleaned.length >= 12) return cleaned.slice(0, 180);
   }
 
-  return "Study notes, checklists, and decision points.";
+  return "Study guide, checklists, and decision points.";
 }
 
 function buildUnitMarkdown(title: string, body: string) {
   const trimmed = body.trim();
-  return `# ${title}\n\n${trimmed.length ? trimmed : "_No notes captured yet._"}\n`;
+  return `# ${title}\n\n${trimmed.length ? trimmed : "_No study material yet._"}\n`;
 }
 
 function isOverviewDomainTitle(title: string) {
@@ -116,7 +116,7 @@ export function parseNcpAiolNotes(notes: string): ParsedCertification {
     currentModule = {
       id: moduleId,
       title,
-      description: "Study notes, checklists, and decision points.",
+      description: "Study guide, checklists, and decision points.",
       units: [],
     };
     modulePreambleLines = [];
