@@ -44,9 +44,20 @@ with a message pointing at the file.
 Use existing tags where one fits, so the category pages stay useful. Set
 `isPublished: false` if you want to merge a draft without publishing it.
 
+## Adding an event, member, or partner
+
+All of it lives in `src/utils/siteContent.js` — add an entry to `EVENTS`, `MEMBERS`,
+`PARTNERS`, `WORK_ITEMS`, or `RESOURCES` and the matching page picks it up.
+
+Events use ISO dates (`"2026-10-14"`), which is what sorts them into upcoming
+versus past. Flyers go in `public/events/` and are referenced as
+`imageSrc: "/events/your-flyer.png"`; a portrait flyer is fine, since the cards
+fit the whole image rather than cropping it.
+
 ## Changing the site itself
 
 - Pages: `src/app/`
 - Components: `src/components/`
 - Club name, links, and email: `src/utils/siteMetaData.js`
+- Events, members, partners, work, resources: `src/utils/siteContent.js`
 - Colors and fonts: the `@theme` block in `src/app/globals.css`

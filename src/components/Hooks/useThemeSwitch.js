@@ -1,52 +1,48 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
+
+const storageKey = "theme";
+const preferDarkQuery = "(prefers-color-scheme: dark)";
+
+const listeners = new Set();
+const notify = () => listeners.forEach((listener) => listener());
+
+const subscribe = (listener) => {
+  listeners.add(listener);
+  const mediaQuery = window.matchMedia(preferDarkQuery);
+  mediaQuery.addEventListener("change", notify);
+  // Keep other tabs in step.
+  window.addEventListener("storage", notify);
+  return () => {
+    listeners.delete(listener);
+    mediaQuery.removeEventListener("change", notify);
+    window.removeEventListener("storage", notify);
+  };
+};
+
+// A stored choice wins; otherwise follow the system setting.
+const getSnapshot = () => {
+  const stored = window.localStorage.getItem(storageKey);
+  if (stored === "dark" || stored === "light") return stored;
+  return window.matchMedia(preferDarkQuery).matches ? "dark" : "light";
+};
+
+const getServerSnapshot = () => "dark";
 
 export function useThemeSwitch() {
-  const preferDarkQuery = "(prefers-color-schema:dark)";
-  const storageKey = "theme";
+  const mode = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  const toggleTheme = (theme) => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    window.localStorage.setItem(storageKey, theme);
-  };
-
-  const getUserPreference = () => {
-    const userPref = window.localStorage.getItem(storageKey);
-    if (userPref) {
-      return userPref;
-    }
-    return window.matchMedia(preferDarkQuery).matches ? "dark" : "light";
-  };
-
-  const [mode, setMode] = useState("dark");
-
+  // The inline script in the layout sets this class before paint; this keeps it
+  // in step afterwards, including when the system preference changes.
   useEffect(() => {
-    const mediaQuery = window.matchMedia(preferDarkQuery);
-    const handleChange = () => {
-      const newMode = getUserPreference();
-      setMode(newMode);
-      toggleTheme(newMode);
-    };
+    document.documentElement.classList.toggle("dark", mode === "dark");
+  }, [mode]);
 
-    handleChange();
-
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
+  const setMode = useCallback((theme) => {
+    window.localStorage.setItem(storageKey, theme);
+    notify();
   }, []);
 
-  useEffect(() => {
-    toggleTheme(mode)
-  }, [mode])
-  
-
-
-  return [mode, setMode]
+  return [mode, setMode];
 }

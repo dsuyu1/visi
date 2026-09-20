@@ -5,7 +5,13 @@ import BlogLayoutThree from "../Blog/BlogLayoutThree";
 
 const RecentPosts = ({ blogs }) => {
   const sortedBlogs = sortBlogs(blogs);
-  
+
+  // With enough posts the first four are already on the page (cover + featured);
+  // with fewer, this section carries everything after the cover post.
+  const posts = sortedBlogs.length >= 4 ? sortedBlogs.slice(4, 10) : sortedBlogs.slice(1);
+
+  if (posts.length === 0) return null;
+
   return (
     <section className="w-full  mt-16 sm:mt-24  md:mt-32 px-5 sm:px-10 md:px-24  sxl:px-32 flex flex-col items-center justify-center">
       <div className="w-full flex  justify-between">
@@ -21,7 +27,7 @@ const RecentPosts = ({ blogs }) => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-16 mt-16">
-        {sortedBlogs.slice(4, 10).map((blog, index) => {
+        {posts.map((blog, index) => {
           return (
             <article key={index} className="col-span-1 row-span-1 relative">
               <BlogLayoutThree blog={blog} />

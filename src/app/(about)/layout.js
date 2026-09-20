@@ -2,12 +2,12 @@ import InsightRoll from "@/src/components/About/InsightRoll";
 
 
 const insights = [
-    "Student-run since day one",
+    "Student organization and 501(c)(3) nonprofit",
+    "Based in the Rio Grande Valley",
+    "First general meeting January 2026",
     "Open to every major",
-    "Hands-on workshops every semester",
-    "CTF teams for all skill levels",
-    "Certification study groups",
-    "Partnered with the RGV security community 🤝",
+    "Hands-on workshops and CTFs",
+    "Partnered with RGV Cyber 🤝",
     "No experience required 🐎",
   ];
 

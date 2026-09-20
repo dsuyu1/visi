@@ -6,6 +6,18 @@ at the University of Texas Rio Grande Valley.
 Built on [Nextjs-tailwindcss-blog-template](https://github.com/codebucks27/Nextjs-tailwindcss-blog-template)
 by CodeBucks (MIT, see `LICENSE-template`), with VISI branding and content.
 
+## Pages
+
+| Route | What it is |
+| --- | --- |
+| `/` | Latest post, who we are, posts, and the next events |
+| `/about` | Mission, pillars, what we work on |
+| `/members`, `/partners`, `/our-work`, `/resources` | The rest of the About menu |
+| `/events` | Upcoming and past events and workshops |
+| `/categories/all`, `/categories/<tag>` | Post index, by tag |
+| `/blogs/<slug>` | A post |
+| `/contact` | Contact form |
+
 ## Stack
 
 - Next.js 16 (App Router, Turbopack) and React 19
@@ -64,8 +76,18 @@ Notes:
 - The home page shows the newest post as the hero, the next three as featured, and
   the six after that as recent — so it reads best with at least ten posts.
 
-**The posts currently in `content/blogs/` are placeholders.** Replace them as real
-writeups come in.
+The home page adapts to how many posts exist: the newest becomes the cover, the
+featured block only appears once there are four, and the rest fall into recent
+posts. With no posts at all, the cover falls back to a club introduction.
+
+## Club content
+
+Events, members, partners, work, resources, and the about-page pillars all live in
+`src/utils/siteContent.js`. Pages read from it, so that one file is what you edit
+when something changes — no page markup involved.
+
+Events sort themselves: anything dated today or later shows under **Upcoming** on
+`/events` and on the home page, everything else falls into **Past events**.
 
 ## Branding
 
@@ -74,6 +96,9 @@ writeups come in.
 - Name, description, email, social links, and site URL: `src/utils/siteMetaData.js`.
 - Colors: the `@theme` block in `src/app/globals.css` — `--color-accent` (light mode),
   `--color-accentDark` (dark mode), and `--color-dark`, taken from the logo.
+- Sections are separated by shading rather than rules: `--color-surface` and
+  `--color-surfaceDark` in the same `@theme` block, applied with the
+  `<Section shaded>` component in `src/components/Elements/Section.js`.
 
 ## Still to do
 
