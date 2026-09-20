@@ -17,7 +17,7 @@ const AboutBand = () => {
       <div className="flex flex-wrap items-center gap-6 mt-8">
         <Link
           href="/about"
-          className="font-medium capitalize text-lg py-2 sm:py-3 px-6 sm:px-8 border-2 border-solid border-dark dark:border-light rounded hover:bg-dark hover:text-light dark:hover:bg-light dark:hover:text-dark transition-all ease duration-200"
+          className="liquid-glass font-medium capitalize text-lg py-2 sm:py-3 px-7 sm:px-9 text-dark dark:text-light"
         >
           Learn more
         </Link>

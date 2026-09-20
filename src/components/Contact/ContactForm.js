@@ -43,7 +43,7 @@ export default function ContactForm() {
       rows={3}
       className="w-full outline-none border-0 p-0 mx-0 focus:ring-0  placeholder:text-lg border-b border-gray 
         focus:border-gray bg-transparent" />
-      <input type="submit" value="send message" className="mt-8 font-medium inline-block capitalize text-lg sm:text-xl py-2 sm:py-3 px-6 sm:px-8 border-2 border-solid border-dark dark:border-light rounded cursor-pointer" />
+      <input type="submit" value="send message" className="liquid-glass mt-8 font-medium inline-block capitalize text-lg sm:text-xl py-2 sm:py-3 px-7 sm:px-9 text-dark dark:text-light cursor-pointer" />
     </form>
   );
 }

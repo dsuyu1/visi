@@ -75,7 +75,7 @@ export default function EventsPage() {
     <main className="w-full flex flex-col items-center justify-center">
       <PageHeader title="Events and workshops">
         Bring your best questions, ideas, and energy. We host workshops, student sessions, and
-        community events to build skills and connect people. All times are CST.
+        community events to build skills and connect people. All times are Central.
       </PageHeader>
 
       <Section shaded>

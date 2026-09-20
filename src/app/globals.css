@@ -35,6 +35,124 @@ html {
   scroll-behavior: smooth;
 }
 
+@layer components {
+  /* --- Liquid glass --------------------------------------------------------
+     Buttons read as a pane of glass over the page: a light backdrop blur with a
+     saturation lift, a bright refractive rim, and a specular highlight that
+     follows the pointer (see components/Elements/GlassPointer.js). Pressing
+     swells the glass slightly rather than pushing it in.
+     No pseudo-elements, so this works on <input type="submit"> too. */
+  .liquid-glass {
+    --glass-x: 50%;
+    --glass-y: 0%;
+    border: 0;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.62);
+    background-image:
+      radial-gradient(
+        9rem circle at var(--glass-x) var(--glass-y),
+        rgba(255, 255, 255, 0.75),
+        rgba(255, 255, 255, 0) 65%
+      ),
+      linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.05) 42%,
+        rgba(255, 255, 255, 0.3) 100%
+      );
+    backdrop-filter: blur(6px) saturate(180%);
+    -webkit-backdrop-filter: blur(6px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 -8px 14px -10px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+      0 0 0 1px rgba(28, 35, 49, 0.12),
+      0 2px 6px -2px rgba(28, 35, 49, 0.18),
+      0 14px 28px -16px rgba(28, 35, 49, 0.45);
+    transition:
+      transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 240ms ease,
+      background-color 240ms ease;
+  }
+
+  .liquid-glass:hover {
+    background-color: rgba(255, 255, 255, 0.76);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -8px 16px -10px rgba(255, 255, 255, 0.85),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+      0 0 0 1px rgba(28, 35, 49, 0.14),
+      0 4px 10px -4px rgba(28, 35, 49, 0.2),
+      0 18px 34px -18px rgba(28, 35, 49, 0.5);
+  }
+
+  /* The reference implementation swells on press; so does this. */
+  .liquid-glass:active {
+    transform: scale(1.03);
+  }
+
+  .liquid-glass:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  :root:where(.dark) .liquid-glass {
+    background-color: rgba(20, 26, 38, 0.62);
+    background-image:
+      radial-gradient(
+        9rem circle at var(--glass-x) var(--glass-y),
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0) 65%
+      ),
+      linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.02) 42%,
+        rgba(255, 255, 255, 0.14) 100%
+      );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -8px 14px -10px rgba(255, 255, 255, 0.25),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      0 14px 30px -16px rgba(0, 0, 0, 0.75);
+  }
+
+  :root:where(.dark) .liquid-glass:hover {
+    background-color: rgba(20, 26, 38, 0.74);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -8px 16px -10px rgba(255, 255, 255, 0.35),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+      0 0 0 1px rgba(0, 0, 0, 0.45),
+      0 18px 36px -18px rgba(0, 0, 0, 0.85);
+  }
+
+  :root:where(.dark) .liquid-glass:focus-visible {
+    outline-color: var(--color-accentDark);
+  }
+
+  /* Without a backdrop filter the pane would vanish into the page. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .liquid-glass {
+      background-color: rgba(255, 255, 255, 0.92);
+    }
+    :root:where(.dark) .liquid-glass {
+      background-color: rgba(20, 26, 38, 0.92);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .liquid-glass {
+      transition: none;
+    }
+    .liquid-glass:active {
+      transform: none;
+    }
+  }
+}
+
+
 h1>a>.icon.icon-link:before,
 h2>a>.icon.icon-link:before,
 h3>a>.icon.icon-link:before {

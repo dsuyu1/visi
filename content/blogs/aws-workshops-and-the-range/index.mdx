@@ -1,0 +1,65 @@
+---
+title: "New AWS workshop series, and the range goes live"
+description: "The VISI Report, Issue #1.5: a two-part Agentic AI in AWS series, this weekend's Google event, Splunk workshops on the way, and the lab infrastructure that just came online."
+image: cover.jpg
+publishedAt: 2026-09-18 09:00:00
+updatedAt: 2026-09-18 09:00:00
+author: "Damian Villarreal"
+isPublished: true
+tags:
+- newsletter
+- workshops
+slug: aws-workshops-and-the-range
+---
+
+VISI is having an AWS workshop series, a Google event this weekend, Splunk workshops on the way, and the range is all coming together. Read on to learn more.
+
+## Build Your Skills: Agentic AI in AWS
+
+ksz (@cloudiacassandra) and I are launching a new workshop series called **Build Your Skills: Agentic AI in AWS**, split across two sessions to get you ready for the AWS Agentic AI Demonstrated microcredential.
+
+Microcredentials are free, and they're one of the fastest ways to put something real on a resume.
+
+We'll cover the AWS services tested on the microcredential's practical exam:
+
+- Amazon API Gateway
+- Amazon Bedrock
+- Amazon CloudFront
+- Amazon DynamoDB
+- AWS Lambda
+- Amazon S3
+
+We're taking the microcredential lab together, live, as a group. New and intermediate learners are both welcome. :D
+
+Interested? Scan the QR code on our flyer or [fill out this form](https://airtable.com/appaWZOnPD3ZgYfmh/pagvtPye8CS4nX98F/form) so we can lock in a date that works for most people.
+
+## Google Build with AI
+
+The Google Build with AI event runs this Saturday, September 19, from 9:00 AM to noon in EIEAB 1.206.
+
+Two things if you're registered:
+
+- Google was generous enough to send us 40 credit vouchers ($200 in sponsorship). To avoid having your seat forfeited, please arrive on time.
+- If you can't make it, please let us know, so we can get the most accurate count.
+
+If you didn't register, you're still invited to participate. Some registered seats always open up, and we'd like to have you there.
+
+## Splunk workshops are close behind
+
+The Splunk Academic Alliance workshop series starts about two weeks after the Google event, timeline permitting. Once it starts, it runs for the rest of this semester, and keeps going for as long as we hold the license (a very long time, hopefully).
+
+## The range has a home
+
+The Splunk lab for those workshops needed infrastructure, so I built one on a server in my room. Splunk reads and writes constantly, and the old drive would have stalled the instance the moment real traffic hit it, so the launch waited on one SSD.
+
+The drive arrived. Here's what's live now:
+
+- **id.vaqueroisi.org** — Keycloak, our identity and access management. One login for everything below.
+- **lab.vaqueroisi.org** — your team's Kali machine, for offensive work and pen testing.
+- **wiki.vaqueroisi.org** — our documentation.
+- **ids.vaqueroisi.org** — a live feed of IDS/IPS logs, so you can build a detection and watch it fire the moment you attack from your Kali box.
+- **ops.vaqueroisi.org** — the admin and DevOps side, where we run Ansible playbooks and manage the server itself.
+
+Stay tuned for ai.vaqueroisi.org.
+
+Hope to see you at one of these.

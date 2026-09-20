@@ -3,6 +3,24 @@
 
 export const EVENTS = [
   {
+    title: "Build Your Skills: Agentic AI in AWS",
+    dateLabel: "Date TBD",
+    location: "UTRGV",
+    description:
+      "A two-part workshop series that prepares you for the AWS Agentic AI Demonstrated microcredential, covering API Gateway, Bedrock, CloudFront, DynamoDB, Lambda, and S3. We take the lab together, live, as a group.",
+    details: `New and intermediate learners are both welcome.
+
+Fill out the interest form so we can lock in a date that works for most people:
+https://airtable.com/appaWZOnPD3ZgYfmh/pagvtPye8CS4nX98F/form`,
+  },
+  {
+    title: "Splunk Academic Alliance Workshop Series",
+    dateLabel: "Starting October 2026",
+    location: "UTRGV",
+    description:
+      "Hands-on sessions with industry-standard SIEM and data analytics tools, running for the rest of the semester. Useful whether you are aiming at cybersecurity, IT operations, or data analysis.",
+  },
+  {
     title: "BSides RGV 2026",
     date: "2026-06-27",
     time: "9:00 AM – 5:00 PM CST",
@@ -14,20 +32,49 @@ export const EVENTS = [
   },
   {
     title: "Google Build with AI @ UTRGV",
-    date: "2026-07-15",
-    time: "9:00 AM CST",
-    location: "UTRGV",
+    date: "2026-09-19",
+    time: "9:00 AM – 12:00 PM CDT",
+    location: "EIEAB 1.206",
     description:
-      "A global event series enabling developers to learn and build with Google's latest AI and ML technologies.",
-    details: `Calling all developers in the Rio Grande Valley.
+      "A hands-on developer workshop on Google's latest AI tools, open to all UTRGV-affiliated audiences.",
+    details: `Featured session: Aidemy: Building Multi-Agent Systems with LangGraph, EDA, and Generative AI on Google Cloud.
 
-Build with AI, a global event series enabling developers to learn and build using Google's latest artificial intelligence and machine learning technologies, is coming to the RGV.
+Google sent us 40 credit vouchers ($200 in sponsorship) for attendees.
 
-Join us for a day of hands-on workshops, networking, and lunch.
-
-Come with your personal laptops.`,
+Come with your personal laptop.`,
     imageSrc: "/bwai-2026.png",
     imageAlt: "Build with AI 2026",
+  },
+  {
+    title: "Userland",
+    date: "2026-09-19",
+    time: "9:00 PM – 2:00 AM",
+    location: "La Bandida VIVO Bar, 1110 Austin Ave, McAllen, TX",
+    description: "A cyberpunk themed rave. Bring your glowsticks and neon attire.",
+  },
+  {
+    title: "Hack The Box Meetup — RGV",
+    date: "2026-09-12",
+    time: "10:30 AM – 2:00 PM CDT",
+    location: "McAllen Public Library, 4001 N 23rd St, McAllen, TX",
+    description:
+      "The second Hack The Box meetup in the Valley, hosted by RGV Cyber: hands-on exploration on the HTB platform, walkthroughs and demos, and time to meet people working in security.",
+  },
+  {
+    title: "The Stomp",
+    date: "2026-09-03",
+    time: "8:00 PM – 12:00 AM CDT",
+    location: "Parking Lot E16",
+    description:
+      "UTRGV's fall kickoff: activities, live music, prize giveaways, and a local business showcase.",
+  },
+  {
+    title: "Vaqueros Clubs: Campus Takeover",
+    date: "2026-09-02",
+    time: "12:00 PM – 3:00 PM CDT",
+    location: "Pine Circle and Sun Dial, Edinburg",
+    description:
+      "Student organizations across campus in one place, with activities and free food. Come find us at our table.",
   },
   {
     title: "UTRGV CS Spring Social 2026",

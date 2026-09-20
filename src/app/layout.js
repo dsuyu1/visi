@@ -3,6 +3,7 @@ import { cx } from "@/src/utils";
 import { Inter, Manrope } from "next/font/google";
 import Header from "@/src/components/Header";
 import Footer from "../components/Footer";
+import GlassPointer from "../components/Elements/GlassPointer";
 import siteMetadata from "../utils/siteMetaData";
 import Script from "next/script";
 
@@ -70,6 +71,7 @@ export default function RootLayout({ children }) {
     document.documentElement.classList.remove('dark')
   }`}
         </Script>
+        <GlassPointer />
         <Header />
         {children}
         <Footer />

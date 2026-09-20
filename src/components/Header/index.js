@@ -83,13 +83,13 @@ const AboutMenu = () => {
           open ? "visible opacity-100" : "invisible opacity-0"
         )}
       >
-        <ul className="flex flex-col rounded-2xl border border-solid border-dark bg-light/95 backdrop-blur-sm py-2 shadow-lg">
+        <ul className="liquid-glass rounded-2xl flex flex-col py-2 text-dark dark:text-light">
           {aboutLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block px-5 py-2 capitalize hover:bg-dark/5"
+                className="block px-5 py-2 capitalize hover:bg-dark/5 dark:hover:bg-light/10"
                 tabIndex={open ? 0 : -1}
               >
                 {link.label}
@@ -160,9 +160,8 @@ const Header = () => {
 
       {/* Mobile menu */}
       <nav
-        className="w-56 py-4 px-6 border border-solid border-dark rounded-3xl font-medium capitalize flex flex-col items-start sm:hidden
-        fixed top-6 right-1/2 translate-x-1/2 bg-light/90 backdrop-blur-sm z-50
-        transition-all ease duration-300 gap-1
+        className="liquid-glass rounded-3xl w-56 py-4 px-6 font-medium capitalize flex flex-col items-start sm:hidden
+        fixed top-6 right-1/2 translate-x-1/2 text-dark dark:text-light z-50 gap-1
         "
         style={{
           top: click ? "1rem" : "-40rem",
@@ -190,8 +189,8 @@ const Header = () => {
 
       {/* Desktop menu */}
       <nav
-        className=" w-max py-3 px-8 border border-solid border-dark rounded-full font-medium capitalize  items-center hidden sm:flex
-        fixed top-6 right-1/2 translate-x-1/2 bg-light/80 backdrop-blur-sm z-50"
+        className="liquid-glass w-max py-3 px-8 font-medium capitalize items-center hidden sm:flex
+        fixed top-6 right-1/2 translate-x-1/2 text-dark dark:text-light z-50"
       >
         <Link href="/" className="mr-2">
           Home

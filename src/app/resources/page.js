@@ -29,7 +29,7 @@ export default function ResourcesPage() {
                 {...(resource.download
                   ? { download: true }
                   : { target: "_blank", rel: "noopener noreferrer" })}
-                className="inline-block mt-5 w-fit font-medium capitalize py-2 px-5 border-2 border-solid border-dark dark:border-light rounded hover:bg-dark hover:text-light dark:hover:bg-light dark:hover:text-dark transition-all ease duration-200"
+                className="liquid-glass inline-block mt-5 w-fit font-medium capitalize py-2 px-6 text-dark dark:text-light"
               >
                 {resource.ctaLabel}
               </a>

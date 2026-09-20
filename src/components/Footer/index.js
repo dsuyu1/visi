@@ -38,7 +38,7 @@ const Footer = () => {
 
         <input
           type="submit"
-          className="bg-dark text-light dark:text-dark dark:bg-light cursor-pointer font-medium rounded px-3 sm:px-5 py-1"
+          className="liquid-glass text-dark dark:text-light cursor-pointer font-medium px-4 sm:px-6 py-1"
         />
       </form>
       <div className="flex items-center mt-8">
