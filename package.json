@@ -1,37 +1,49 @@
 {
-  "name": "club-website",
+  "name": "visi-website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3200",
+    "predev": "velite build --clean",
+    "dev": "next dev",
+    "prebuild": "velite build --clean",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "content": "velite --clean",
+    "content:watch": "velite --watch"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "lucide-react": "^1.17.0",
-    "next": "16.2.7",
-    "nodemailer": "^8.0.10",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "react-markdown": "^10.1.0",
-    "rehype-raw": "^7.0.0",
-    "rehype-sanitize": "^6.0.0",
+    "@lottiefiles/dotlottie-react": "^0.19.0",
+    "@supabase/supabase-js": "^2.104.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/postcss": "^4.2.4",
+    "@tailwindcss/typography": "^0.5.19",
+    "date-fns": "^4.1.0",
+    "github-slugger": "^2.0.0",
+    "next": "^16.2.4",
+    "next-sitemap": "^4.2.3",
+    "postcss": "^8.5.10",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-hook-form": "^7.73.1",
+    "reading-time": "^1.5.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-pretty-code": "^0.14.3",
+    "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
-    "three": "^0.184.0",
-    "zod": "^4.4.3"
+    "shiki": "^4.0.2",
+    "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/nodemailer": "^8.0.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/three": "^0.184.1",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.7",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "@eslint/eslintrc": "^3.3.5",
+    "encoding": "^0.1.13",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.4",
+    "sharp": "^0.34.5",
+    "velite": "^0.3.1"
+  },
+  "trustedDependencies": [
+    "unrs-resolver"
+  ]
 }

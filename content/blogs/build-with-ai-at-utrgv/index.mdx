@@ -1,0 +1,29 @@
+---
+title: "Build with AI at UTRGV"
+description: "A day of building with machine learning tooling on campus, and a running argument about what any of it means for security work."
+image: cover.jpg
+publishedAt: 2026-06-27 10:00:00
+updatedAt: 2026-06-27 10:00:00
+author: "VISI"
+isPublished: true
+tags:
+- events
+- ai
+slug: build-with-ai-at-utrgv
+---
+
+We joined a build day on campus focused on machine learning tooling. Most of the room was building apps. We spent the day asking what happens when those apps handle untrusted input.
+
+*This post is placeholder copy while we move the real content over.*
+
+## What we built
+
+Our table worked on a log triage helper: feed it a pile of alerts, get back a grouped summary with the noisy ones collapsed. It was rough by the end of the day, and useful enough that a couple of members kept going with it.
+
+## The security conversation
+
+The interesting part was watching teams discover prompt injection on their own. Once a model reads a field an attacker controls, that field is an instruction channel. Several teams rewrote their designs after realizing it.
+
+## Where this goes
+
+We would like to run a session on securing applications that call models — input handling, tool permissions, and what logging should look like when part of your system is nondeterministic. If that sounds interesting, say so at a meeting.

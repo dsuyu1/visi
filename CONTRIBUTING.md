@@ -6,51 +6,47 @@ Thanks for helping improve the VISI website.
 
 - Keep PRs small and focused.
 - Include a clear title and a short description of what changed and why.
-- If you add images, ensure they render correctly on the site.
+- Run `npm run build` and `npm run lint` before pushing.
+- If you add images, check that they render on the site.
 
-## Adding / updating members
+## Adding a post
 
-Member data lives in:
+Posts live in `content/blogs/`. One folder per post, holding the MDX and the cover
+image:
 
-`src/lib/content.ts`
-
-Look for:
-
-`export const MEMBERS: Member[] = [...]`
-
-Each member entry supports:
-
-- `name` (required)
-- `role` (required)
-- `focus` (optional)
-- `avatarUrl` (optional) — a path to an image in `public/`
-
-### 1) Add your profile picture (optional)
-
-Put your image in:
-
-`public/members/`
-
-Example:
-
-`public/members/jane-doe.jpg`
-
-Then reference it like:
-
-`avatarUrl: "/members/jane-doe.jpg"`
-
-### 2) Add yourself to `MEMBERS`
-
-Add a new object to the array:
-
-```ts
-export const MEMBERS: Member[] = [
-  {
-    name: "Jane Doe",
-    role: "Researcher",
-    focus: "Threat intel",
-    avatarUrl: "/members/jane-doe.jpg",
-  },
-];
+```
+content/blogs/my-workshop-recap/
+├── index.mdx
+└── cover.jpg
 ```
 
+The frontmatter format is documented in the README. The short version:
+
+```mdx
+---
+title: "My workshop recap"
+description: "What the session covered."
+image: cover.jpg
+publishedAt: 2026-10-01 18:00:00
+updatedAt: 2026-10-01 18:00:00
+author: "Your Name"
+isPublished: true
+tags:
+- workshops
+slug: my-workshop-recap
+---
+```
+
+`slug` must match the folder name. Run `npm run dev` and open the post to check it
+before opening a PR — a missing image or a malformed date fails the content build
+with a message pointing at the file.
+
+Use existing tags where one fits, so the category pages stay useful. Set
+`isPublished: false` if you want to merge a draft without publishing it.
+
+## Changing the site itself
+
+- Pages: `src/app/`
+- Components: `src/components/`
+- Club name, links, and email: `src/utils/siteMetaData.js`
+- Colors and fonts: the `@theme` block in `src/app/globals.css`
