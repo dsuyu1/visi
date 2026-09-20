@@ -71,7 +71,7 @@ const Footer = () => {
         </a>
       </div>
 
-      <div className="w-full  mt-16 md:mt-24 relative font-medium border-t border-solid border-light py-6 px-8 flex  flex-col md:flex-row items-center justify-between">
+      <div className="w-full  mt-16 md:mt-24 relative font-medium border-t border-solid border-light/25 dark:border-dark/25 py-6 px-8 flex  flex-col md:flex-row items-center justify-between">
         <span className="text-center">
           &copy;2026 Vaquero Information Security Initiative
         </span>

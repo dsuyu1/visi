@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
   const { slug: categorySlug } = await params;
   return {
     title: `${categorySlug.replaceAll("-", " ")} Blogs`,
-    description: `Learn more about ${categorySlug === "all" ? "web development" : categorySlug} through our collection of expert blogs and tutorials`,
+    description: `Posts from the Vaquero Information Security Initiative${categorySlug === "all" ? "" : ` tagged ${categorySlug.replaceAll("-", " ")}`}.`,
   };
 }
 
@@ -62,18 +62,24 @@ const blogs = allBlogs.filter(blog => {
       <div className=" px-5 sm:px-10  md:px-24  sxl:px-32 flex flex-col">
         <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl">#{categorySlug}</h1>
         <span className="mt-2 inline-block">
-          Discover more categories and expand your knowledge!
+          Workshop recaps, competition writeups, and club news.
         </span>
       </div>
       <Categories categories={allCategories} currentSlug={categorySlug} />
 
-      <div className="grid  grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 grid-rows-2 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32">
-        {blogs.map((blog, index) => (
-          <article key={index} className="col-span-1 row-span-1 relative">
-            <BlogLayoutThree blog={blog} />
-          </article>
-        ))}
-      </div>
+      {blogs.length > 0 ? (
+        <div className="grid  grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32">
+          {blogs.map((blog, index) => (
+            <article key={index} className="col-span-1 row-span-1 relative">
+              <BlogLayoutThree blog={blog} />
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p className="font-in text-base mt-10 sm:mt-16 px-5 sm:px-10 md:px-24 sxl:px-32 text-gray dark:text-light/60">
+          No posts here yet.
+        </p>
+      )}
     </article>
   );
 };

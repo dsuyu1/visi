@@ -12,6 +12,11 @@
   --color-accentDark: #ff8c42;
   --color-gray: #747474;
 
+  /* Section shading. Sections alternate between the page background and these,
+     which is what separates them now that the divider rules are gone. */
+  --color-surface: #f6f4f1;
+  --color-surfaceDark: #232c3d;
+
   --font-mr: var(--font-mr);
   --font-in: var(--font-in);
 
