@@ -1,7 +1,7 @@
 ---
 title: Contact
 permalink: /contact/
-banner: /assets/photos/light-lines.webp
+banner: /assets/photos/laptop.webp
 heading: "Get in touch."
 ---
 Reach out to express interest, request Discord access, or ask about partnerships and events.
