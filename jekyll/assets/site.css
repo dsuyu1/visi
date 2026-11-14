@@ -41,7 +41,7 @@ p { max-width: 66ch; color: var(--muted); }
 .site-header { min-height: 88px; justify-content: space-between; gap: 20px; }
 .brand { width: fit-content; gap: .6rem; font-size: 1.3rem; font-weight: 600; text-decoration: none; }
 .brand img { object-fit: contain; }
-.site-nav { gap: 2px; padding: 3px; border-radius: 999px; background: var(--secondary); }
+.site-nav { gap: 2px; padding: 3px; background: transparent; }
 .site-nav a, .login-link { white-space: nowrap; padding: .42rem .9rem; font-size: .88rem; text-decoration: none; }
 .site-nav a { color: var(--muted); border: 1px solid transparent; border-radius: 999px; }
 .site-nav a[aria-current="page"] { color: var(--ink); background: var(--panel); border-color: var(--line); }
