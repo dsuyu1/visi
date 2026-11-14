@@ -17,4 +17,4 @@ Produce cybersecurity professionals and give back. Members take initiative throu
 - **Curiosity.** We ask questions, explore, and share what we find.
 - **Honor.** We act honestly and within the law.
 
-[Meet the team](/about/members/) · [Contact VISI](/contact/?topic=discord)
+[Contact VISI](/contact/?topic=discord)
