@@ -6,7 +6,7 @@ import { HeroBackground } from "@/components/HeroBackground";
 import { Orange } from "@/components/TextFormat";
 import { ThreatTrendGraph } from "@/components/ThreatTrendGraph";
 import { ScrollDownCue } from "@/components/ScrollDownCue";
-import { BLOG_POSTS, EVENTS, PARTNERS } from "@/lib/content";
+import { EVENTS, PARTNERS } from "@/lib/content";
 import { formatDate, isoDateInCentral } from "@/lib/format";
 
 const HOME_PHOTOS = [
@@ -242,85 +242,6 @@ export default function Home() {
             <Link href="/events"
               className="work-arrow inline-flex items-center text-sm font-medium text-foreground">
               view all events <span>→</span>
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <section>
-        <div className="mx-auto max-w-7xl px-6 pb-4 pt-20">
-          <ScrollReveal>
-              <h2 className="font-semibold tracking-tight"
-                  style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)" }}>
-              Latest news
-            </h2>
-          </ScrollReveal>
-        </div>
-
-{/* Full-width work items: hover background spans edge-to-edge */}
-        <div className="mt-8">
-          {BLOG_POSTS.length === 0 ? (
-            <div className="mx-auto max-w-7xl px-6 py-12">
-              <ScrollReveal>
-                <div
-                  className="border border-border bg-panel p-10 text-center md:p-14"
-                  style={{ boxShadow: "var(--shadow)" }}
-                >
-                  <h3 className="mb-3 text-2xl font-semibold tracking-tight">No writing yet.</h3>
-                  <p className="mx-auto max-w-xl text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                    We&apos;ll publish research notes, project write-ups, and guides as we ship. Check back soon.
-                  </p>
-                </div>
-              </ScrollReveal>
-            </div>
-          ) : (
-            BLOG_POSTS.map((post, i) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="work-item group block"
-              >
-              <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between">
-                {/* Left */}
-                <div className="flex-1">
-                  <div className="mb-3 flex items-center gap-3">
-                    <span className="indicator-bar" />
-                    <span className="work-num">{String(i + 1).padStart(2, "0")}</span>
-                  </div>
-                  <div className="mb-3 flex flex-wrap gap-2">
-                    {post.tags.map((t) => (
-                      <span key={t}
-                        className="rounded-full border border-border px-2.5 py-0.5 text-[11px] font-medium text-muted">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <h3 className="mb-2 text-xl font-semibold tracking-tight leading-snug">
-                    {post.title}
-                  </h3>
-                  <p className="mb-5 max-w-lg text-sm leading-[1.9] text-muted" style={{ fontWeight: 300 }}>
-                    {post.excerpt}
-                  </p>
-                  <span className="work-arrow text-sm font-medium text-foreground">
-                    Read article <span>→</span>
-                  </span>
-                </div>
-
-{/* Right: date */}
-                <div className="shrink-0 text-right">
-                  <p className="text-xs text-muted-light">{formatDate(post.date)}</p>
-                </div>
-              </div>
-            </Link>
-            ))
-          )}
-        </div>
-
-        <div className="mx-auto max-w-7xl px-6 pb-20 pt-10">
-          <ScrollReveal>
-            <Link href="/blog"
-              className="work-arrow inline-flex items-center text-sm font-medium text-foreground">
-              more writing <span>→</span>
             </Link>
           </ScrollReveal>
         </div>

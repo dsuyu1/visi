@@ -6,14 +6,13 @@ import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { SITE } from "@/lib/site";
 
-type Topic = "discord" | "general" | "partners" | "events" | "blog" | "other";
+type Topic = "discord" | "general" | "partners" | "events" | "other";
 
 const topics: { value: Topic; label: string }[] = [
   { value: "discord",  label: "Request Discord access" },
   { value: "general",  label: "General"                },
   { value: "partners", label: "Partners"               },
   { value: "events",   label: "Events"                 },
-  { value: "blog",     label: "Blog"                   },
   { value: "other",    label: "Other"                  },
 ];
 

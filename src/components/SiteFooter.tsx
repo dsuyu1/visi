@@ -47,9 +47,6 @@ const columns = [
   {
     parent: { href: "/library",  label: "library"  },
     children: [
-      { href: "/blog",             label: "blog"     },
-      { href: "/library/academy",  label: "academy"  },
-      { href: "/library/resources", label: "resources" },
       { href: "/library/videos",   label: "videos"   },
     ],
   },
