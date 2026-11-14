@@ -5,60 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title | escape }} · {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description | escape }}">
-  <meta name="theme-color" content="#15152b">
+  <meta name="theme-color" content="#f6f5f8">
   <link rel="icon" href="/final_finished_visilogo.png">
   <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
   {% assign current_url = page.url | replace: '/index.html', '/' %}
   <a class="skip" href="#main">Skip to content</a>
-  <div class="site-shell wrap">
-    <header class="site-header">
-      <div class="title-bar"><span>visiutrgv.org</span><span aria-hidden="true" class="window-lights"></span></div>
-      <a class="brand" href="/">
-        <span class="brand-mark"><img src="/final_finished_visilogo.png" width="60" height="60" alt=""></span>
-        <span><strong>VISI</strong><span class="brand-name">{{ site.title }}</span></span>
-      </a>
-    </header>
-
-    <div class="site-grid">
-      <nav class="site-nav window" aria-label="Main navigation">
-        <p class="title-bar">Site directory</p>
-        <ul>
-          {% for item in site.data.navigation %}
-          <li><a href="{{ item.url }}"{% if current_url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
-          {% endfor %}
-        </ul>
-      </nav>
-
-      <main id="main" class="window" tabindex="-1">
-        <div class="title-bar">{{ page.title | default: 'Home' | escape }}</div>
-        <div class="page-content">{{ content }}</div>
-      </main>
-
-      <aside class="site-links" aria-label="Club links">
-        <section class="window">
-          <h2 class="title-bar">Get involved</h2>
-          <div class="panel-content">
-            <p>Cybersecurity workshops, projects, and mentorship in the Rio Grande Valley.</p>
-            <a class="button" href="/contact/?topic=discord">Join VISI</a>
-          </div>
-        </section>
-        <section class="window">
-          <h2 class="title-bar">Club links</h2>
-          <ul>
-            <li><a href="/about/members/">Members</a></li>
-            <li><a href="/partners/">Partners</a></li>
-            <li><a href="/library/videos/">Videos</a></li>
-          </ul>
-        </section>
-      </aside>
+  <header class="site-header wrap">
+    <a class="brand" href="/">
+      <img src="/final_finished_visilogo.png" width="38" height="38" alt="">
+      <span>VISI</span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      {% for item in site.data.navigation %}
+      <a href="{{ item.url }}"{% if current_url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+      {% endfor %}
+    </nav>
+    <div class="header-actions">
+      <a class="login-link" href="/login/"{% if current_url == '/login/' %} aria-current="page"{% endif %}>Login</a>
+      {% include round-link.html url="/contact/" label="Contact" %}
     </div>
+  </header>
 
-    <footer class="site-footer">
-      <span>VISI · University of Texas Rio Grande Valley</span>
-      <a href="https://github.com/dsuyu1/visi/tree/jekyll-preview/jekyll">View site source</a>
-    </footer>
-  </div>
+  <main id="main" tabindex="-1"{% unless page.wide %} class="wrap interior"{% endunless %}>
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-content">
+      <div>
+        <a class="brand" href="/">
+          <img src="/final_finished_visilogo.png" width="38" height="38" alt="">
+          <span>VISI</span>
+        </a>
+        <p>{{ site.title }}<br>University of Texas Rio Grande Valley</p>
+      </div>
+      <div class="footer-group"><strong>Explore</strong><a href="/about/">About</a><a href="/events/">Events</a><a href="/our-work/">Our work</a><a href="/shop/">Shop</a></div>
+      <div class="footer-group"><strong>Get involved</strong><a href="/about/members/">Members</a><a href="/partners/">Partners</a><a href="/contact/">Contact</a><a href="/login/">Login</a></div>
+      <div class="footer-group"><strong>Find us online</strong>{% include social.html %}<a href="mailto:damian.villarreal01@utrgv.edu">Email VISI</a></div>
+    </div>
+    <div class="wrap footer-bottom">© {{ site.time | date: '%Y' }} {{ site.title }} · Edinburg, TX</div>
+  </footer>
 </body>
 </html>
