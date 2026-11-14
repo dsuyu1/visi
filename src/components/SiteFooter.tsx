@@ -45,12 +45,6 @@ const columns = [
     ],
   },
   {
-    parent: { href: "/library",  label: "library"  },
-    children: [
-      { href: "/library/videos",   label: "videos"   },
-    ],
-  },
-  {
     parent: { href: "/events",   label: "events"   },
     children: [],
   },
@@ -83,7 +77,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-surface-strong text-surface-strong-foreground font-sans">
       <div className="mx-auto max-w-7xl px-6 py-4">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {columns.map((col) => (
             <div key={col.parent.href}>
               <FooterLink
