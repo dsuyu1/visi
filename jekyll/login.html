@@ -2,20 +2,24 @@
 title: Login
 permalink: /login/
 wide: true
+login: true
 ---
-<div class="wrap login-layout">
+<div class="login-layout">
   <section class="login-art" aria-labelledby="login-story-title">
     <img class="backdrop" src="/assets/photos/login.webp" alt="">
-    <div>
+    <div class="login-story-copy">
       <h2 id="login-story-title">Build with<br>your community.</h2>
-      <p>Access your VISI account and the club lab.</p>
+      <p>Use your VISI account to manage your profile and access the club lab.</p>
     </div>
   </section>
-  <section class="login-panel card" aria-labelledby="login-title">
-    <h1 id="login-title">Welcome to VISI</h1>
-    <p>Use your existing VISI account to sign in.</p>
-    {% include round-link.html url="https://id.vaqueroisi.org/realms/vaquero/account/" label="Continue with VISI" %}
-    <a class="login-secondary" href="https://lab.vaqueroisi.org/">Open the VISI lab <span aria-hidden="true">↗</span></a>
-    <p>Need an account or help signing in? <a href="/contact/">Contact VISI</a>.</p>
+  <section class="login-panel" aria-labelledby="login-title">
+    <div class="login-title">
+      <h1 id="login-title">Welcome to VISI</h1>
+      <p>Use your existing VISI account to sign in.</p>
+    </div>
+    <a class="login-provider" href="https://id.vaqueroisi.org/realms/vaquero/account/">Continue with VISI</a>
+    <div class="login-divider">Or take a look around</div>
+    <a class="login-secondary" href="https://lab.vaqueroisi.org/">Open the VISI lab {% include arrow.html direction="right" size=15 %}</a>
+    <p class="login-account-switch">New to VISI? <a href="https://visiutrgv.org/join">Create an account</a></p>
   </section>
 </div>

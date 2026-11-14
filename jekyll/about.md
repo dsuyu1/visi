@@ -1,9 +1,9 @@
 ---
 title: About VISI
 permalink: /about/
+banner: /assets/photos/mission.webp
+heading: "We’re a community-first cyber group."
 ---
-# We’re a community-first cyber group.
-
 The Vaquero Information Security Initiative (VISI) is a cybersecurity student organization and 501(c)(3) nonprofit based in the Rio Grande Valley. We help students build practical skills, find mentorship, and give back to their communities.
 
 ## Our mission

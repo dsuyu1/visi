@@ -1,0 +1,7 @@
+<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="{{ include.size | default: 16 }}" height="{{ include.size | default: 16 }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {% case include.direction %}
+  {% when 'left' %}<path d="m12 19-7-7 7-7M19 12H5"/>
+  {% when 'right' %}<path d="M5 12h14m-7-7 7 7-7 7"/>
+  {% else %}<path d="M7 17 17 7M7 7h10v10"/>
+  {% endcase %}
+</svg>

@@ -8,11 +8,17 @@
   <meta name="theme-color" content="#09090c">
   <link rel="icon" href="/final_finished_visilogo.png">
   <link rel="stylesheet" href="/assets/site.css">
-  <script src="/assets/motion.js" defer></script>
+  {% unless page.login %}<script src="/assets/motion.js" defer></script>{% endunless %}
 </head>
 {% assign current_url = page.url | replace: "/index.html", "/" %}
-<body{% if current_url == "/" %} class="home-page"{% endif %}>
+<body{% if page.login %} class="login-page"{% elsif current_url == "/" or page.banner %} class="hero-page"{% endif %}>
   <a class="skip" href="#main">Skip to content</a>
+  {% if page.login %}
+  <header class="login-top">
+    <a class="brand" href="/"><img src="/final_finished_visilogo.png" width="38" height="38" alt=""><span>VISI</span></a>
+    <a class="login-back" href="/">{% include arrow.html direction="left" size=15 %} Back to home</a>
+  </header>
+  {% else %}
   <header class="site-header wrap">
     <a class="brand" href="/">
       <img src="/final_finished_visilogo.png" width="38" height="38" alt="">
@@ -29,11 +35,24 @@
       {% include round-link.html url="/contact/" label="Contact" %}
     </div>
   </header>
+  {% endif %}
 
-  <main id="main" tabindex="-1"{% unless page.wide %} class="wrap interior"{% endunless %}>
+  <main id="main" tabindex="-1"{% if page.login %} class="login-screen"{% elsif page.wide == nil and page.banner == nil %} class="wrap interior"{% endif %}>
+    {% if page.banner %}
+    <section class="image-hero page-banner" aria-labelledby="banner-title">
+      <img class="backdrop" src="{{ page.banner }}" alt="" fetchpriority="high">
+      <div class="wrap hero-content">
+        <h1 id="banner-title">{{ page.heading | default: page.title | escape }}</h1>
+        {% if page.intro %}<p>{{ page.intro | escape }}</p>{% endif %}
+      </div>
+    </section>
+    <div class="wrap interior banner-body">{{ content }}</div>
+    {% else %}
     {{ content }}
+    {% endif %}
   </main>
 
+  {% unless page.login %}
   <footer class="site-footer">
     <div class="wrap footer-content">
       <div>
@@ -49,5 +68,6 @@
     </div>
     <div class="wrap footer-bottom">© {{ site.time | date: '%Y' }} {{ site.title }} · Edinburg, TX</div>
   </footer>
+  {% endunless %}
 </body>
 </html>
