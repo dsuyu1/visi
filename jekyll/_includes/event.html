@@ -1,0 +1,6 @@
+<article class="card">
+  <h3>{{ event.title | escape }}</h3>
+  <p class="meta">{% if event.date %}{{ event.date | date: "%b %d, %Y" }}{% else %}{{ event.dateLabel | default: "Date TBD" | escape }}{% endif %}{% if event.time and event.time != "TBD" %} · {{ event.time | escape }}{% endif %} · {{ event.location | escape }}</p>
+  <p>{{ event.details | default: event.description | escape | newline_to_br }}</p>
+  {% if event.imageSrc %}<img src="{{ event.imageSrc | escape }}" alt="{{ event.imageAlt | escape }}" width="180" loading="lazy">{% endif %}
+</article>

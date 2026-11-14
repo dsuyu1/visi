@@ -1,0 +1,15 @@
+---
+title: Partners
+permalink: /partners/
+---
+<h1>Partners</h1>
+<div class="grid">
+  {% for partner in site.data.partners %}
+  <article class="card">
+    {% if partner.logoSrc %}<img src="{{ partner.logoSrc | escape }}" alt="" width="140">{% endif %}
+    <h2>{{ partner.name | escape }}</h2>
+    <p>{{ partner.description | escape }}</p>
+    {% if partner.href %}<a href="{{ partner.href | escape }}">Visit {{ partner.name | escape }}</a>{% endif %}
+  </article>
+  {% endfor %}
+</div>

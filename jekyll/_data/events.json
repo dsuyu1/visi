@@ -1,0 +1,73 @@
+[
+  {
+    "title": "BSides RGV 2026",
+    "date": "2026-06-27",
+    "time": "9:00 AM - 5:00 PM CST",
+    "location": "Mission Event Center, Mission, TX",
+    "description": "Community cybersecurity conference in the Rio Grande Valley.",
+    "imageSrc": "/events/bsides-rgv-2026.jpg",
+    "imageAlt": "BSides RGV logo"
+  },
+  {
+    "title": "Google Build with AI @ UTRGV",
+    "date": "2026-07-15",
+    "time": "9:00 AM CST",
+    "location": "UTRGV",
+    "description": "A global event series enabling developers to learn and build with Google's latest AI & ML technologies.",
+    "details": "About this event\n\nCalling all developers in the Rio Grande Valley!\n\nBuild with AI, a global event series enabling developers to learn and build using Google's latest artificial intelligence and machine learning technologies, is coming to the RGV!\n\nJoin us for an exciting day of:\n- Hands-on workshops\n- Networking opportunities and lunch\n- And much more!\n\nDon't miss this chance to:\n- Get hands-on experience with Google AI and ML tools\n- Learn from industry experts\n- Connect with other developers in the RGV tech community\n- Get inspired to build innovative solutions with AI\n\nCome with your personal laptops.\n\n#BuildWithAI #UTRGV #VISI",
+    "logoSrc": "/bwai-2026.png",
+    "logoAlt": "Build with AI 2026"
+  },
+  {
+    "title": "UTRGV CS Spring Social 2026",
+    "date": "2026-05-06",
+    "time": "5:00 PM CST",
+    "location": "EIEAB Lobby",
+    "description": "Hosted by SHPE, ColorStack, VISI, Girls Who Code, and Frontera Devs.",
+    "imageSrc": "/events/utrgv-spring-social-2026.png",
+    "imageAlt": "Spring Social 2026 flyer"
+  },
+  {
+    "title": "Intro to Networking with Wireshark (Workshop)",
+    "date": "2026-04-29",
+    "time": "5:00 PM - 6:00 PM CST",
+    "location": "EIEAB 1.203",
+    "description": "Hands-on intro to traffic analysis with Wireshark.",
+    "imageSrc": "/events/wireshark-workshop.png",
+    "imageAlt": "Intro to Networking with Wireshark flyer"
+  },
+  {
+    "title": "OSINT Workshop",
+    "date": "2026-03-27",
+    "time": "4:00 PM CST",
+    "location": "EIEAB 2.204",
+    "description": "Hands-on OSINT workshop covering people-finding, infrastructure reconnaissance, and safe analysis workflows.\nSpeaker: Mauricio Martinez.",
+    "imageSrc": "/events/osint-workshop.png",
+    "imageAlt": "Open-Source Intelligence Workshop flyer"
+  },
+  {
+    "title": "picoCTF Workshop",
+    "date": "2026-03-13",
+    "time": "2:00 PM CST",
+    "location": "EIEAB 2.204",
+    "description": "Beginner-friendly, hands-on CTF workshop to learn offensive security fundamentals.\nSpeaker: Damian Villarreal.",
+    "imageSrc": "/events/picoctf-workshop.png",
+    "imageAlt": "picoCTF Workshop flyer"
+  },
+  {
+    "title": "Vulnerability Management Workshop",
+    "date": "2026-03-06",
+    "time": "2:00 PM CST",
+    "location": "EIEAB 2.204 (MARS Lab)",
+    "description": "Hands-on workshop with live demos: AngryIPScanner, Nmap, and OpenVAS, plus vulnerable machines in the VSOC and mitigation steps.\nSpeaker: Mauricio Martinez.",
+    "imageSrc": "/events/vulnerability-management-workshop.png",
+    "imageAlt": "Vulnerability Management Workshop flyer"
+  },
+  {
+    "title": "VISI First General Meeting",
+    "date": "2026-01-30",
+    "time": "2:00 PM CST",
+    "location": "EIEAB 2.204 (MARS Lab)",
+    "description": "Kickoff meeting to meet the community, learn what VISI is, and how to get involved. No experience required, just curiosity."
+  }
+]

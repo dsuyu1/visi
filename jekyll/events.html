@@ -1,0 +1,29 @@
+---
+title: Events
+permalink: /events/
+---
+<h1>Events and workshops</h1>
+<p class="lead">Bring your questions and ideas to our workshops, student sessions, and community events.</p>
+{% assign today = site.time | date: "%Y-%m-%d" %}
+{% assign upcoming = site.data.events | sort: "date", "last" %}
+<section>
+  <h2>Upcoming</h2>
+  {% assign has_upcoming = false %}
+  <div class="grid">
+    {% for event in upcoming %}
+      {% if event.date == nil or event.date >= today %}
+        {% assign has_upcoming = true %}
+        {% include event.html %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% unless has_upcoming %}<p>No upcoming events scheduled yet.</p>{% endunless %}
+</section>
+<section>
+  <h2>Previous</h2>
+  <div class="grid">
+    {% for event in upcoming reversed %}
+      {% if event.date and event.date < today %}{% include event.html %}{% endif %}
+    {% endfor %}
+  </div>
+</section>

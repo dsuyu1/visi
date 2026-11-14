@@ -1,0 +1,15 @@
+---
+title: Our work
+permalink: /our-work/
+---
+<h1>Our work</h1>
+<div class="grid">
+  {% for project in site.data.projects %}
+  <article class="card">
+    <h2>{{ project.title | escape }}</h2>
+    <p>{{ project.description | escape }}</p>
+    <p class="meta">{{ project.tags | join: " · " | escape }}</p>
+    {% for link in project.links %}<a href="{{ link.href | escape }}">{{ link.label | escape }}</a>{% endfor %}
+  </article>
+  {% endfor %}
+</div>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title | escape }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  <link rel="icon" href="/final_finished_visilogo.png">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="VISI home">
+        <img src="/final_finished_visilogo.png" width="42" height="42" alt="">
+        <span>VISI</span>
+      </a>
+      <nav aria-label="Main navigation">
+        {% for item in site.data.navigation %}
+        <a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    {{ content }}
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>{{ site.title }}</span>
+      <div><a href="/about/members/">Members</a><a href="/partners/">Partners</a><a href="/contact/">Contact</a></div>
+    </div>
+  </footer>
+</body>
+</html>

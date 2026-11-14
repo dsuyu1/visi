@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "gtin",
+    "title": "Global Threat Intelligence Navigator (GTIN)",
+    "description": "By Damian Villarreal. Automated OSINT aggregation through feeds like MITRE ATT&CK mapped to threat groups worldwide. A repository for threat intelligence collected with worker AI agents.",
+    "category": "project",
+    "date": "2026-06-04",
+    "status": "active",
+    "tags": [
+      "OSINT",
+      "Threat Intel",
+      "MITRE ATT&CK",
+      "Automation",
+      "AI Agents"
+    ],
+    "links": [
+      {
+        "label": "Open GTIN",
+        "href": "https://security.damianvillarreal.com/"
+      }
+    ]
+  }
+]
