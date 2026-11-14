@@ -4,13 +4,16 @@
 @font-face { font-family: "Google Sans"; src: url("fonts/google-sans-700.woff") format("woff"); font-weight: 700; font-display: swap; }
 
 :root {
-  --paper: #f6f5f8;
-  --ink: #252330;
-  --muted: #585364;
-  --primary: #67518d;
-  --panel: #fff;
-  --line: #dedbe5;
-  --secondary: #edebf1;
+  color-scheme: dark;
+  --paper: #09090c;
+  --ink: #f3f2f6;
+  --muted: #c1bccb;
+  --primary: #c7bddf;
+  --primary-ink: #171320;
+  --primary-hover: #e0d6f3;
+  --panel: #15141b;
+  --line: #373341;
+  --secondary: #201e27;
   font-family: "Google Sans", system-ui, sans-serif;
   color: var(--ink);
   background: var(--paper);
@@ -43,8 +46,8 @@ p { max-width: 66ch; color: var(--muted); }
 .site-nav a { color: var(--muted); border: 1px solid transparent; border-radius: 999px; }
 .site-nav a[aria-current="page"] { color: var(--ink); background: var(--panel); border-color: var(--line); }
 .header-actions { gap: .45rem; }
-.round-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 4px 4px 4px 1.3rem; border-radius: 999px; background: var(--primary); color: white; text-decoration: none; font-size: .9rem; font-weight: 500; }
-.round-link:hover { color: white; background: #4d3b70; }
+.round-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 4px 4px 4px 1.3rem; border-radius: 999px; background: var(--primary); color: var(--primary-ink); text-decoration: none; font-size: .9rem; font-weight: 500; }
+.round-link:hover { color: var(--primary-ink); background: var(--primary-hover); }
 .round-arrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--paper); color: var(--ink); font-size: 1.15rem; }
 .site-header .round-arrow { width: 32px; height: 32px; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem 1.5rem; }
@@ -53,12 +56,12 @@ p { max-width: 66ch; color: var(--muted); }
 
 .image-hero, .photo-section, .login-art { position: relative; isolation: isolate; overflow: hidden; }
 .backdrop { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; z-index: -2; }
-.image-hero { min-height: clamp(450px, 52vw, 640px); display: grid; place-items: center; margin-inline: 20px; border-radius: 20px; background: #e5e0ec; }
+.image-hero { min-height: clamp(450px, 52vw, 640px); display: grid; place-items: center; margin-inline: 20px; border-radius: 20px; background: #100e18; }
 .image-hero::before, .photo-section::before, .login-art::before { content: ""; position: absolute; inset: 0; z-index: -1; }
-.image-hero::before { background: linear-gradient(180deg, #f6f5f8a8, #f6f5f8d9 60%, #f6f5f8e8); }
+.image-hero::before { background: radial-gradient(ellipse at center, #09090cbd 10%, #09090c50 76%), linear-gradient(0deg, #09090ceb, transparent 65%); }
 .image-hero .backdrop { object-position: center 45%; }
 .hero-content { padding-block: 74px; text-align: center; }
-.hero-content p { margin: 1.4rem auto 1.75rem; max-width: 530px; color: #40394a; font-size: 1.05rem; }
+.hero-content p { margin: 1.4rem auto 1.75rem; max-width: 530px; color: #e5dfed; font-size: 1.05rem; }
 .activity-strip { display: flex; flex-wrap: wrap; justify-content: space-evenly; gap: .7rem 1.5rem; padding-block: 2rem; border-bottom: 1px solid var(--line); font-weight: 600; }
 .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: clamp(2rem, 8vw, 6rem); }
 .section-space { padding-block: clamp(2.8rem, 7vw, 5.5rem); }
@@ -66,18 +69,18 @@ p { max-width: 66ch; color: var(--muted); }
 .split .text-link, .photo-section .round-link, .closing-panel .round-link { margin-top: 1.35rem; }
 .card { padding: clamp(1.25rem, 3.5vw, 2rem); border: 1px solid var(--line); border-radius: 16px; background: var(--panel); min-width: 0; }
 .card h2 { font-size: 1.35rem; letter-spacing: -.015em; }
-.featured-project { box-shadow: 0 10px 32px -22px #25233055; }
+.featured-project { box-shadow: 0 10px 32px -22px #000b; }
 .community { padding-top: 0; }
 .community img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; }
-.photo-section { padding-block: clamp(3.5rem, 10vw, 7rem); color: white; background: #252330; }
-.photo-section::before { background: linear-gradient(90deg, #252330f2, #30283cc7 50%, #25233088); }
+.photo-section { padding-block: clamp(3.5rem, 10vw, 7rem); color: white; background: #0c1420; }
+.photo-section::before { background: linear-gradient(90deg, #09090cf5, #09090cba 58%, #09090c50); }
 .photo-section p { color: #f1edf7; }
 .faq { align-items: start; }
 .faq details { padding: 1rem 0; border-bottom: 1px solid var(--line); }
 .faq summary { cursor: pointer; font-weight: 600; }
 .faq details p { margin-top: .65rem; }
 .closing-section { padding-bottom: clamp(2.5rem, 7vw, 5rem); }
-.closing-panel { padding: clamp(2.6rem, 7vw, 5rem) 1.5rem; text-align: center; border: 1px solid var(--line); border-radius: 24px; background: radial-gradient(ellipse at bottom left, #d7e6fe, transparent 65%), radial-gradient(ellipse at bottom right, #eee0f6, transparent 70%), var(--panel); }
+.closing-panel { padding: clamp(2.6rem, 7vw, 5rem) 1.5rem; text-align: center; border: 1px solid var(--line); border-radius: 24px; background: radial-gradient(ellipse at bottom left, #1a2942, transparent 65%), radial-gradient(ellipse at bottom right, #32233f, transparent 70%), var(--panel); }
 .closing-panel p { margin-inline: auto; }
 
 .interior { padding-block: clamp(2.5rem, 7vw, 5.5rem); overflow-wrap: anywhere; }
@@ -89,8 +92,8 @@ p { max-width: 66ch; color: var(--muted); }
 .card .meta { font-size: .88rem; }
 .card > :last-child { margin-bottom: 0; }
 .login-layout { min-height: min(680px, 85vh); display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(1.5rem, 7vw, 5rem); padding-block: 1rem 4rem; }
-.login-art { min-height: 540px; display: flex; align-items: flex-end; padding: clamp(1.5rem, 5vw, 3rem); border-radius: 20px; color: white; background: #31263f; }
-.login-art::before { background: linear-gradient(170deg, #31263f33, #31263feb); }
+.login-art { min-height: 540px; display: flex; align-items: flex-end; padding: clamp(1.5rem, 5vw, 3rem); border-radius: 20px; color: white; background: #171320; }
+.login-art::before { background: linear-gradient(170deg, #09090c2e 20%, #09090cfa 92%); }
 .login-art p { color: #f1edf7; margin-top: 1rem; }
 .login-panel h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
 .login-panel p, .login-panel .round-link, .login-secondary { margin-top: 1rem; }
