@@ -10,7 +10,7 @@ intro: "Bring your questions and ideas to our workshops, student sessions, and c
 <section>
   <h2>Upcoming</h2>
   {% assign has_upcoming = false %}
-  <div class="grid">
+  <div class="event-list">
     {% for event in upcoming %}
       {% if event.date == nil or event.date >= today %}
         {% assign has_upcoming = true %}
@@ -22,7 +22,7 @@ intro: "Bring your questions and ideas to our workshops, student sessions, and c
 </section>
 <section>
   <h2>Previous</h2>
-  <div class="grid">
+  <div class="event-list">
     {% for event in upcoming reversed %}
       {% if event.date and event.date < today %}{% include event.html %}{% endif %}
     {% endfor %}
