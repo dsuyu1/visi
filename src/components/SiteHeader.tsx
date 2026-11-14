@@ -7,7 +7,7 @@ import { Moon, Sun } from "lucide-react";
 type Child = { href: string; label: string };
 type NavItem = { href: string; label: string; children?: Child[] };
 
-// 2 + 2 split around the centred logo
+// Navigation split around the centred logo
 const leftNav: NavItem[] = [
   {
     label: "about",
@@ -17,13 +17,6 @@ const leftNav: NavItem[] = [
       { href: "/about/members", label: "members"    },
       { href: "/partners",      label: "partners"   },
       { href: "/contact",       label: "contact"    },
-    ],
-  },
-  {
-    label: "library",
-    href: "/library",
-    children: [
-      { href: "/library/videos",     label: "videos"    },
     ],
   },
 ];
