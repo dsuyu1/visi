@@ -4,22 +4,6 @@ import { SlideReveal } from "@/components/SlideReveal";
 
 const sections = [
   {
-    href: "/blog",
-    label: "Blog",
-    description: "Research posts, explainers, and perspectives from our members.",
-  },
-  {
-    href: "/library/academy",
-    label: "VISI Academy",
-    description:
-      "Certification study platform: modules, units, practice questions, and progress tracking.",
-  },
-  {
-    href: "/library/resources",
-    label: "Resources",
-    description: "Study notes, decks, references, and links we use.",
-  },
-  {
     href: "/library/videos",
     label: "Videos",
     description: "Workshop recordings, walkthroughs, and lab sessions. Coming soon.",
