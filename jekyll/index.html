@@ -9,10 +9,10 @@ wide: true
     <div class="actions">{% include round-link.html url="/join" label="Get involved" %}<a class="text-link" href="/events/">Explore events <span aria-hidden="true">↗</span></a></div>
   </div>
 </section>
-<div class="wrap activity-strip" aria-label="What we do">
+<div class="wrap activity-strip" data-reveal aria-label="What we do">
   <span>Research</span><span>Build</span><span>Mentor</span>
 </div>
-<section class="wrap split section-space">
+<section class="wrap split section-space" data-reveal>
   <div>
     <h2>Build something.<br>Share what you learn.</h2>
     <p>VISI connects students with peers and mentors to tackle security projects and contribute to the local cybersecurity community.</p>
@@ -25,7 +25,7 @@ wide: true
     {% for link in featured.links %}<a class="text-link" href="{{ link.href | escape }}">{{ link.label | escape }} <span aria-hidden="true">↗</span></a>{% endfor %}
   </article>
 </section>
-<section class="wrap split section-space community">
+<section class="wrap split section-space community" data-reveal>
   <img src="/home/vuln-workshop.jpg" alt="VISI members at a vulnerability management workshop" loading="lazy">
   <div>
     <h2>Meet the people<br>behind VISI.</h2>
@@ -33,7 +33,7 @@ wide: true
     <a class="text-link" href="/about/members/">Meet our members <span aria-hidden="true">↗</span></a>
   </div>
 </section>
-<section class="photo-section" aria-labelledby="mission-title">
+<section class="photo-section" data-reveal aria-labelledby="mission-title">
   <img class="backdrop" src="/assets/photos/mission.webp" alt="" loading="lazy">
   <div class="wrap">
     <h2 id="mission-title">Our mission</h2>
@@ -41,7 +41,7 @@ wide: true
     {% include round-link.html url="/about/" label="About VISI" %}
   </div>
 </section>
-<section class="wrap split section-space faq" aria-labelledby="faq-title">
+<section class="wrap split section-space faq" data-reveal aria-labelledby="faq-title">
   <div><h2 id="faq-title">Getting involved</h2><a class="text-link" href="/contact/">Ask a question <span aria-hidden="true">↗</span></a></div>
   <div>
     <details><summary>Do I need cybersecurity experience?</summary><p>No. If you’re curious about security, start with an event or contact us to ask about joining the community.</p></details>
@@ -49,7 +49,7 @@ wide: true
     <details><summary>Can my organization work with VISI?</summary><p><a href="/contact/">Get in touch</a> if you’d like to discuss a partnership, mentorship, or a community event.</p></details>
   </div>
 </section>
-<section class="wrap closing-section" aria-labelledby="closing-title">
+<section class="wrap closing-section" data-reveal aria-labelledby="closing-title">
   <div class="closing-panel">
     <h2 id="closing-title">Find your place in VISI.</h2>
     <p>Meet the community and tell us what you’d like to build or learn.</p>
