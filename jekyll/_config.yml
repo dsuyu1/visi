@@ -1,0 +1,15 @@
+title: "Vaquero Information Security Initiative"
+description: "A UTRGV student organization and nonprofit helping students launch careers in information security."
+lang: en
+timezone: America/Chicago
+include:
+  - _redirects
+exclude:
+  - build.sh
+  - Gemfile
+  - Gemfile.lock
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
