@@ -24,6 +24,7 @@ const leftNav: NavItem[] = [
 const rightNav: NavItem[] = [
   { label: "events",   href: "/events"   },
   { label: "our work", href: "/our-work" },
+  { label: "shop",     href: "/shop" },
 ];
 
 export function SiteHeader() {
