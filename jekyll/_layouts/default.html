@@ -32,7 +32,7 @@
     </nav>
     <div class="header-actions">
       <a class="login-link" href="/login/"{% if current_url == '/login/' %} aria-current="page"{% endif %}>Login</a>
-      {% include round-link.html url="/contact/" label="Contact" %}
+      {% include round-link.html url="/support/" label="Contact" %}
     </div>
   </header>
   {% endif %}
@@ -63,7 +63,7 @@
         <p>{{ site.title }}<br>University of Texas Rio Grande Valley</p>
       </div>
       <div class="footer-group"><strong>Explore</strong><a href="/about/">About</a><a href="/events/">Events</a><a href="/our-work/">Our work</a><a href="/shop/">Shop</a></div>
-      <div class="footer-group"><strong>Get involved</strong><a href="/partners/">Partners</a><a href="/contact/">Contact</a><a href="/login/">Login</a></div>
+      <div class="footer-group"><strong>Get involved</strong><a href="/partners/">Partners</a><a href="/support/">Contact and support</a><a href="/login/">Login</a></div>
       <div class="footer-group"><strong>Find us online</strong>{% include social.html %}<a href="mailto:damian.villarreal01@utrgv.edu">Email VISI</a></div>
     </div>
     <div class="wrap footer-bottom">© {{ site.time | date: '%Y' }} {{ site.title }} · Edinburg, TX</div>

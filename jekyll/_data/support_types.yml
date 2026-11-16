@@ -1,0 +1,21 @@
+# Options in the "What do you need help with?" dropdown on /support/.
+# The id must match REQUEST_TYPES in workers/support-intake/src/index.js
+# and the branches in the Jira automation rule.
+- id: general
+  label: General question
+- id: membership
+  label: Join VISI
+- id: partnership
+  label: Partnerships and sponsorships
+- id: research
+  label: Research collaboration
+- id: clinic
+  label: Security clinic (local businesses and nonprofits)
+- id: event
+  label: Events and speakers
+- id: range
+  label: Range or account help
+- id: security
+  label: Report a security issue
+- id: other
+  label: Other

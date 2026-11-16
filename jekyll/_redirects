@@ -1,1 +1,3 @@
-/join /contact/?topic=discord 302
+/join /support/?topic=membership 302
+/contact /support/ 301
+/contact/ /support/ 301
