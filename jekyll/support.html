@@ -1,0 +1,90 @@
+---
+title: Contact and support
+permalink: /support/
+banner: /assets/photos/laptop.webp
+heading: "How can we help?"
+intro: "Questions, partnerships, clinic requests, and range help all start here. Every request gets a ticket number and a reply by email."
+---
+<form id="support-form" class="support-form" action="{{ site.support.intake_url }}" method="post" data-sent-url="/support/sent/">
+  <div class="support-fields">
+    <label>What do you need help with?
+      <select name="type" required>
+        <option value="">Choose one</option>
+        {% for t in site.data.support_types %}<option value="{{ t.id }}">{{ t.label | escape }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <div class="field-row">
+      <label>Name<input name="name" autocomplete="name" maxlength="100" required></label>
+      <label>Email<input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+    </div>
+
+    <div class="field-group" data-for="partnership research clinic event">
+      <label>Organization or school<input name="organization" autocomplete="organization" maxlength="300"></label>
+    </div>
+
+    <div class="field-group" data-for="membership">
+      <div class="field-row">
+        <label>Discord username <small>optional, if you want server access</small><input name="discord" maxlength="300"></label>
+        <label>School <small>optional</small><input name="school" maxlength="300"></label>
+      </div>
+    </div>
+
+    <div class="field-group" data-for="clinic">
+      <p class="field-note">Clinic help is free for local small businesses and nonprofits. <strong>Don't include passwords, account details, or descriptions of weaknesses.</strong> We'll set up a meeting first.</p>
+      <label>Domains you use for email and your website<input name="domains" maxlength="300" placeholder="example.com"></label>
+      <div class="field-row">
+        <label>What kind of help?
+          <select name="need">
+            <option value="">Choose one</option>
+            <option>Email security or spoofing</option>
+            <option>General security check</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label>Who handles your email and website today?
+          <select name="email_handler">
+            <option value="">Choose one</option>
+            <option>Myself</option>
+            <option>An IT person</option>
+            <option>A vendor</option>
+            <option>Not sure</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-group" data-for="event">
+      <label>Event date <small>optional</small><input name="event_date" type="date"></label>
+    </div>
+
+    <div class="field-group" data-for="range">
+      <p class="field-note">Never send your password. We verify who you are before changing any account or access.</p>
+      <label>VISI username <small>optional</small><input name="username" autocomplete="username" maxlength="300"></label>
+    </div>
+
+    <div class="field-group" data-for="security">
+      <p class="field-note">Thanks for reporting. Describe the issue and where it is. <strong>Don't send exploit code or data you accessed.</strong> We'll reply with a private way to share details. Please only test systems VISI owns.</p>
+      <label>Affected site or system<input name="affected" maxlength="300" placeholder="visiutrgv.org"></label>
+    </div>
+
+    <label>Subject<input name="subject" maxlength="150" required></label>
+    <label>Message<textarea name="message" rows="5" maxlength="4000" required></textarea></label>
+
+    <div class="hp" aria-hidden="true">
+      <label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <div class="cf-turnstile" data-sitekey="{{ site.support.turnstile_sitekey }}" data-action="support" data-theme="dark"></div>
+
+    <p class="form-status" role="status" aria-live="polite" hidden></p>
+    <noscript><p class="form-status">This form needs JavaScript for its spam check. You can also <a href="mailto:{{ site.support.fallback_email }}">email the VISI team</a>.</p></noscript>
+
+    <button class="round-link support-submit" type="submit"><span>Send request</span><span class="round-arrow" aria-hidden="true">{% include arrow.html %}</span></button>
+    <p class="field-note">We reply within {{ site.support.response_goal }}. Replies come by email from Jira Service Management, and you can track the request at the <a href="{{ site.support.portal_url }}">VISI help center</a>.</p>
+  </div>
+</form>
+
+<script src="/assets/support.js" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>

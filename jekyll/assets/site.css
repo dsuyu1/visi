@@ -262,3 +262,23 @@ p { max-width: 66ch; color: var(--muted); }
 @media (max-width: 640px) {
   .event-row { grid-template-columns: 1fr; }
 }
+
+/* Contact and support page */
+.support-form { display: grid; }
+.support-fields { display: grid; gap: 1rem; max-width: 760px; }
+.support-fields label { display: grid; gap: .4rem; font-size: .92rem; font-weight: 500; }
+.support-fields small { color: var(--muted); font-weight: 400; }
+.support-fields input, .support-fields select, .support-fields textarea { width: 100%; padding: .7rem .85rem; border: 1px solid var(--line); border-radius: 9px; background: #131317; color: var(--ink); font: inherit; font-weight: 400; }
+.support-fields textarea { resize: vertical; min-height: 7rem; }
+.support-fields :is(input, select, textarea):focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; border-color: transparent; }
+.field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.field-group { display: grid; gap: 1rem; }
+.field-group[hidden], .form-status[hidden] { display: none; }
+.interior .field-note, .field-note { margin: 0; font-size: .88rem; }
+.form-status, .interior .form-status { margin: 0; padding: .8rem 1rem; border: 1px solid #c98a8a; border-radius: 9px; background: #2a1719; color: #f3d6d6; }
+.support-submit { justify-self: start; border: 0; cursor: pointer; font: inherit; font-weight: 500; }
+.support-submit:disabled { opacity: .6; cursor: progress; }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+@media (max-width: 640px) {
+  .field-row { grid-template-columns: 1fr; }
+}

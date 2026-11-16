@@ -42,3 +42,8 @@ next-env.d.ts
 
 /jekyll/_site/
 /jekyll/.jekyll-cache/
+
+# workers
+/workers/*/node_modules/
+/workers/*/.dev.vars
+/workers/*/.wrangler/

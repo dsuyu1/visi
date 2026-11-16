@@ -1,0 +1,8 @@
+# Copy to .dev.vars for `wrangler dev`. .dev.vars is gitignored.
+# Turnstile test secret: always passes, but only accepts test tokens.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+# Point this at a request bin or a test automation rule, not the real one.
+JIRA_WEBHOOK_URL=https://example.invalid/webhook
+JIRA_WEBHOOK_SECRET=dev-only
+# Local page origin for testing
+ALLOWED_ORIGINS=http://localhost:4000

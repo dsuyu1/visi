@@ -1,0 +1,29 @@
+// Deploy with: npx wrangler deploy   (run from workers/support-intake/)
+{
+  "name": "visi-support-intake",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+
+  // The Worker gets its own hostname. Cloudflare creates the DNS record and
+  // certificate on deploy because visiutrgv.org is already a zone on this account.
+  "routes": [{ "pattern": "intake.visiutrgv.org", "custom_domain": true }],
+
+  // Not secret. The first origin is where redirects go after a no-JS submit.
+  "vars": {
+    "ALLOWED_ORIGINS": "https://visiutrgv.org,https://www.visiutrgv.org",
+    "TURNSTILE_ACTION": "support"
+  },
+
+  // 5 submissions per IP per 60 seconds, counted at each Cloudflare location.
+  // namespace_id is any number you pick; it only has to be unique on the account.
+  "ratelimits": [
+    { "name": "SUPPORT_LIMITER", "namespace_id": "4101", "simple": { "limit": 5, "period": 60 } }
+  ],
+
+  "observability": { "enabled": true }
+
+  // Secrets are NOT in this file. Set them once with:
+  //   npx wrangler secret put TURNSTILE_SECRET
+  //   npx wrangler secret put JIRA_WEBHOOK_URL
+  //   npx wrangler secret put JIRA_WEBHOOK_SECRET
+}
