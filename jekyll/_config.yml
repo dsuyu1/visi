@@ -18,9 +18,9 @@ defaults:
 # /support/ page settings. See workers/support-intake/README.md.
 support:
   intake_url: "https://intake.visiutrgv.org/submit"
-  # Cloudflare's always-pass TEST key. Replace with the real site key from
-  # Turnstile before launch. The Worker rejects test tokens in production.
-  turnstile_sitekey: "1x00000000000000000000AA"
+  # Turnstile site key for visiutrgv.org. Public by design; the secret key
+  # lives only in the Worker (wrangler secret TURNSTILE_SECRET).
+  turnstile_sitekey: "0x4AAAAAAGEpYMliJySXf9Ih"
   portal_url: "https://visiutrgv.atlassian.net/servicedesk/customer/portals"
   response_goal: "3 business days"
   fallback_email: "damian.villarreal01@utrgv.edu"
