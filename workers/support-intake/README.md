@@ -32,6 +32,7 @@ VISI help center queue  →  agents reply by email, visitor tracks in the portal
 |---|---|
 | `src/index.js` | The Worker |
 | `test/index.test.js` | Tests. Run `npm test` (plain Node, no install needed) |
+| `package-lock.json` | Empty npm lockfile so Cloudflare's build uses npm here, not the root pnpm workspace |
 | `wrangler.jsonc` | Worker name, hostname, rate limit, non-secret vars |
 | `.dev.vars.example` | Template for local secrets |
 | `../../jekyll/support.html` | The page. The request type dropdown is built from `jekyll/_data/support_types.yml` |
@@ -107,10 +108,18 @@ The config ships with Cloudflare's always-pass test site key. That's safe to dep
 
 ### 4. Cloudflare: deploy the Worker
 
-From `workers/support-intake/`:
+**From the dashboard (what VISI uses):** Workers & Pages > Create application > Import a repository > `dsuyu1/visi`.
+
+- Project name `visi-support-intake` (must match `name` in `wrangler.jsonc`)
+- Root directory `workers/support-intake`, build command blank, deploy command `npx wrangler deploy`
+- Build watch paths `workers/support-intake/*`, so website changes don't redeploy the Worker
+- Add the three secrets under Settings > Variables and Secrets, type **Secret**
+
+This folder has its own `package-lock.json` on purpose. The repo root has a pnpm workspace file from the Next.js app, and without a local npm lockfile the build runs `pnpm install` and fails with "packages field missing or empty". The Worker has no dependencies; `npx` fetches wrangler at deploy time.
+
+**From a terminal**, in `workers/support-intake/`:
 
 ```bash
-npm install
 npx wrangler login
 npx wrangler secret put TURNSTILE_SECRET
 npx wrangler secret put JIRA_WEBHOOK_URL
@@ -118,7 +127,7 @@ npx wrangler secret put JIRA_WEBHOOK_SECRET
 npx wrangler deploy
 ```
 
-- `npm install` pulls wrangler, Cloudflare's CLI, into this folder only
+- `npx wrangler` downloads Cloudflare's CLI on first use and runs it; nothing is added to the repo
 - `wrangler login` opens a browser to authorize the CLI against your Cloudflare account
 - `wrangler secret put NAME` prompts for a value and stores it encrypted on Cloudflare. It's available to the Worker as `env.NAME`, never shown again, and never in git
 - `wrangler deploy` uploads `src/index.js` with the settings in `wrangler.jsonc`. Because `routes` uses `custom_domain: true` and `visiutrgv.org` is already a zone on your account, Cloudflare creates the `intake` DNS record and certificate for you
