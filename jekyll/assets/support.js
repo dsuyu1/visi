@@ -7,6 +7,8 @@ const status = form.querySelector(".form-status");
 const submit = form.querySelector(".support-submit");
 const typeSelect = form.elements.type;
 const groups = [...form.querySelectorAll(".field-group")];
+const fallback = form.dataset.fallbackEmail;
+const orEmail = fallback ? ` You can also email ${fallback}.` : "";
 
 // Older links used ?topic=discord. Keep them working.
 const TOPIC_ALIASES = { discord: "membership", contact: "general" };
@@ -16,8 +18,8 @@ const MESSAGES = {
   too_large: "That message is too long. Please shorten it.",
   rate_limited: "Too many requests from your network. Wait a minute and try again.",
   verify_failed: "The spam check didn't pass. Please complete it again and resend.",
-  upstream: "We couldn't reach our ticket system. Please try again in a few minutes.",
-  network: "Couldn't send. Check your connection and try again.",
+  upstream: `We couldn't reach our ticket system. Please try again in a few minutes.${orEmail}`,
+  network: `Couldn't send. Check your connection and try again.${orEmail}`,
 };
 
 const FIELD_NAMES = {
