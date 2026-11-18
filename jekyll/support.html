@@ -5,7 +5,7 @@ banner: /assets/photos/laptop.webp
 heading: "How can we help?"
 intro: "Questions, partnerships, clinic requests, and range help all start here. Every request gets a ticket number and a reply by email."
 ---
-<form id="support-form" class="support-form" action="{{ site.support.intake_url }}" method="post" data-sent-url="/support/sent/">
+<form id="support-form" class="support-form" action="{{ site.support.intake_url }}" method="post" data-sent-url="/support/sent/" data-fallback-email="{{ site.support.fallback_email }}">
   <div class="support-fields">
     <label>What do you need help with?
       <select name="type" required>

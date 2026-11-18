@@ -23,4 +23,4 @@ support:
   turnstile_sitekey: "0x4AAAAAAGEpYMliJySXf9Ih"
   portal_url: "https://visiutrgv.atlassian.net/servicedesk/customer/portals"
   response_goal: "3 business days"
-  fallback_email: "damian.villarreal01@utrgv.edu"
+  fallback_email: "contact@visiutrgv.org"
