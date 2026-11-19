@@ -8,17 +8,11 @@
   <meta name="theme-color" content="#09090c">
   <link rel="icon" href="/final_finished_visilogo.png">
   <link rel="stylesheet" href="/assets/site.css">
-  {% unless page.login %}<script src="/assets/motion.js" defer></script>{% endunless %}
+  <script src="/assets/motion.js" defer></script>
 </head>
 {% assign current_url = page.url | replace: "/index.html", "/" %}
-<body{% if page.login %} class="login-page"{% elsif current_url == "/" or page.banner %} class="hero-page"{% endif %}>
+<body{% if current_url == "/" or page.banner %} class="hero-page"{% endif %}>
   <a class="skip" href="#main">Skip to content</a>
-  {% if page.login %}
-  <header class="login-top">
-    <a class="brand" href="/"><img src="/final_finished_visilogo.png" width="38" height="38" alt=""><span>VISI</span></a>
-    <a class="login-back" href="/">{% include arrow.html direction="left" size=15 %} Back to home</a>
-  </header>
-  {% else %}
   <header class="site-header wrap">
     <a class="brand" href="/">
       <img src="/final_finished_visilogo.png" width="38" height="38" alt="">
@@ -31,13 +25,12 @@
       {% endfor %}
     </nav>
     <div class="header-actions">
-      <a class="login-link" href="/login/"{% if current_url == '/login/' %} aria-current="page"{% endif %}>Login</a>
+      <a class="login-link" href="{{ site.login_url }}">Login</a>
       {% include round-link.html url="/support/" label="Contact" %}
     </div>
   </header>
-  {% endif %}
 
-  <main id="main" tabindex="-1"{% if page.login %} class="login-screen"{% elsif page.wide == nil and page.banner == nil %} class="wrap interior"{% endif %}>
+  <main id="main" tabindex="-1"{% if page.wide == nil and page.banner == nil %} class="wrap interior"{% endif %}>
     {% if page.banner %}
     <section class="image-hero page-banner" aria-labelledby="banner-title">
       <img class="backdrop" src="{{ page.banner }}" alt="" fetchpriority="high">
@@ -52,7 +45,6 @@
     {% endif %}
   </main>
 
-  {% unless page.login %}
   <footer class="site-footer">
     <div class="wrap footer-content">
       <div>
@@ -63,11 +55,10 @@
         <p>{{ site.title }}<br>University of Texas Rio Grande Valley</p>
       </div>
       <div class="footer-group"><strong>Explore</strong><a href="/about/">About</a><a href="/events/">Events</a><a href="/our-work/">Our work</a><a href="/shop/">Shop</a></div>
-      <div class="footer-group"><strong>Get involved</strong><a href="/partners/">Partners</a><a href="/support/">Contact and support</a><a href="/login/">Login</a></div>
+      <div class="footer-group"><strong>Get involved</strong><a href="/partners/">Partners</a><a href="/support/">Contact and support</a><a href="{{ site.login_url }}">Login</a></div>
       <div class="footer-group"><strong>Find us online</strong>{% include social.html %}<a href="mailto:{{ site.support.fallback_email }}">{{ site.support.fallback_email }}</a></div>
     </div>
     <div class="wrap footer-bottom">© {{ site.time | date: '%Y' }} {{ site.title }} · Edinburg, TX</div>
   </footer>
-  {% endunless %}
 </body>
 </html>
