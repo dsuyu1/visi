@@ -9,6 +9,10 @@ exclude:
   - build.sh
   - Gemfile
   - Gemfile.lock
+# Sign in. The hub starts the Keycloak flow, so the Keycloak page is the
+# only sign-in page; /login/ redirects here too (see _redirects).
+login_url: "https://hub.visiutrgv.org/auth/login"
+
 defaults:
   - scope:
       path: ""
