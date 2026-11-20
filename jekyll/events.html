@@ -7,8 +7,8 @@ intro: "Bring your questions and ideas to our workshops, student sessions, and c
 ---
 {% assign today = site.time | date: "%Y-%m-%d" %}
 {% assign upcoming = site.data.events | sort: "date", "last" %}
-<section>
-  <h2>Upcoming</h2>
+<section class="event-section" aria-labelledby="upcoming-title">
+  <h2 id="upcoming-title">Upcoming</h2>
   {% assign has_upcoming = false %}
   <div class="event-list">
     {% for event in upcoming %}
@@ -18,13 +18,13 @@ intro: "Bring your questions and ideas to our workshops, student sessions, and c
       {% endif %}
     {% endfor %}
   </div>
-  {% unless has_upcoming %}<p>No upcoming events scheduled yet.</p>{% endunless %}
+  {% unless has_upcoming %}<p class="empty">No upcoming events scheduled yet.</p>{% endunless %}
 </section>
-<section>
-  <h2>Previous</h2>
+<section class="event-section" aria-labelledby="previous-title">
+  <h2 id="previous-title">Previous</h2>
   <div class="event-list">
     {% for event in upcoming reversed %}
-      {% if event.date and event.date < today %}{% include event.html %}{% endif %}
+      {% if event.date and event.date < today %}{% include event.html past=true %}{% endif %}
     {% endfor %}
   </div>
 </section>

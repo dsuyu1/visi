@@ -5,11 +5,11 @@ banner: /assets/photos/desk.webp
 ---
 <div class="grid">
   {% for partner in site.data.partners %}
-  <article class="card">
-    {% if partner.logoSrc %}<img src="{{ partner.logoSrc | escape }}" alt="" width="140">{% endif %}
+  <article class="panel card">
+    {% if partner.logoSrc %}<div class="logo-tile"><img src="{{ partner.logoSrc | escape }}" alt="" width="48" height="48"></div>{% endif %}
     <h2>{{ partner.name | escape }}</h2>
     <p>{{ partner.description | escape }}</p>
-    {% if partner.href %}<a href="{{ partner.href | escape }}">Visit {{ partner.name | escape }}</a>{% endif %}
+    {% if partner.href %}<a class="text-link" href="{{ partner.href | escape }}">Visit {{ partner.name | escape }} {% include arrow.html %}</a>{% endif %}
   </article>
   {% endfor %}
 </div>

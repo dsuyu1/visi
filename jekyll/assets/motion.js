@@ -33,8 +33,14 @@ nav.addEventListener("focusin", positionIndicator);
 nav.addEventListener("focusout", () => requestAnimationFrame(positionIndicator));
 reducedMotion.addEventListener("change", positionIndicator);
 new ResizeObserver(positionIndicator).observe(nav);
-document.fonts.ready.then(positionIndicator);
 positionIndicator();
+// Place the indicator once the web font has set the link widths, then let it
+// animate. Otherwise it slides from its pre-font position on every page load.
+document.fonts.ready.then(() => {
+  positionIndicator();
+  indicator.getBoundingClientRect(); // commit the position before transitions turn on
+  nav.setAttribute("data-motion-settled", "");
+});
 
 if (!reducedMotion.matches && "IntersectionObserver" in window) {
   const observer = new IntersectionObserver((entries) => {
