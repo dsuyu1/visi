@@ -1,0 +1,30 @@
+- label: VISI at UTRGV
+  title: We push progress in cybersecurity.
+  description: We’re a student-led cybersecurity community at UTRGV. Build projects, explore security research, and learn alongside people across the Rio Grande Valley.
+  image: hero.webp
+  small_image: hero-small.webp
+  action: Get involved
+  url: /join
+  secondary_action: Explore events
+  secondary_url: /events/
+
+- label: VISI Hub
+  title: Build and learn in VISI Hub.
+  description: Open a remote lab desktop, practice detection engineering, and find the tools you need for your next security project.
+  image: hub/lab.webp
+  action: Explore Hub services
+  url: /#hub-title
+
+- label: Events
+  title: Learn alongside the VISI community.
+  description: Join a workshop, attend a student meetup, or connect with the cybersecurity community across the Rio Grande Valley.
+  image: workshop-banner.webp
+  action: Explore events
+  url: /events/
+
+- label: VISI News
+  title: Follow what’s happening in security.
+  description: Catch up on cybersecurity reporting, research, and advisories in the VISI Hub.
+  image: hub/news-reading.webp
+  action: Read VISI News
+  hub_path: /news
