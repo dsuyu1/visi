@@ -24,12 +24,15 @@
   --ink: #1c1c1c;
   --muted: #6f6f6f;
   --faint: rgba(28, 28, 28, .4);
-  --button: #1c1c1c;
+  /* VISI orange. Fills use #cc4317 so white text on them clears 4.5:1;
+     as text it needs the deeper #b33a11 to clear 4.5:1 on white, panels
+     and pastel cards. */
+  --button: #cc4317;
   --button-ink: #ffffff;
-  --button-hover: #3d3d3d;
-  --active: #1c1c1c;
-  --link: #5b5dc4;
-  --focus: #5b5dc4;
+  --button-hover: #b23a12;
+  --active: #cc4317;
+  --link: #b33a11;
+  --focus: #b33a11;
   --field: #ffffff;
 
   /* Pastel cards keep dark text in both themes. */
@@ -79,12 +82,12 @@
     --ink: #ffffff;
     --muted: rgba(255, 255, 255, .55);
     --faint: rgba(255, 255, 255, .4);
-    --button: #c6c7f8;
+    --button: #ff9d5c;
     --button-ink: #1c1c1c;
-    --button-hover: #d7d8fa;
-    --active: #c6c7f8;
-    --link: #c6c7f8;
-    --focus: #c6c7f8;
+    --button-hover: #ffb886;
+    --active: #ff9d5c;
+    --link: #ff9d5c;
+    --focus: #ff9d5c;
     --field: #1c1c1c;
     --green: #4aa785;
     --purple: #8a8cd9;
@@ -104,12 +107,12 @@
   --ink: #ffffff;
   --muted: rgba(255, 255, 255, .55);
   --faint: rgba(255, 255, 255, .4);
-  --button: #c6c7f8;
+  --button: #ff9d5c;
   --button-ink: #1c1c1c;
-  --button-hover: #d7d8fa;
-  --active: #c6c7f8;
-  --link: #c6c7f8;
-  --focus: #c6c7f8;
+  --button-hover: #ffb886;
+  --active: #ff9d5c;
+  --link: #ff9d5c;
+  --focus: #ff9d5c;
   --field: #1c1c1c;
   --green: #4aa785;
   --purple: #8a8cd9;
@@ -127,10 +130,10 @@
   --faint: rgba(28, 28, 28, .4);
   --hover: rgba(28, 28, 28, .05);
   --line: rgba(28, 28, 28, .1);
-  --button: #1c1c1c;
+  --button: #cc4317;
   --button-ink: #ffffff;
-  --button-hover: #3d3d3d;
-  --link: #4b4db3;
+  --button-hover: #b23a12;
+  --link: #b33a11;
   --focus: #1c1c1c;
   color: var(--ink);
   background: var(--card-blue);
