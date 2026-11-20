@@ -169,6 +169,8 @@ p a:hover, li a:hover, .field-note a:hover { text-decoration-thickness: 2px; }
 strong { font-weight: 600; color: var(--ink); }
 .lead { font-size: 16px; line-height: 24px; }
 .meta { font-size: 12px; line-height: 18px; color: var(--muted); }
+/* Pieces of metadata spaced by layout rather than joined with "·". */
+.meta-parts { display: flex; flex-wrap: wrap; column-gap: 14px; }
 
 .skip {
   position: absolute;
@@ -511,7 +513,7 @@ strong { font-weight: 600; color: var(--ink); }
 .social-links a { display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--radius-control); }
 .social-links a:hover { background: var(--hover); }
 .social-links svg { width: 18px; height: 18px; }
-.footer-bottom { padding-block: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 18px; }
+.footer-bottom { display: flex; flex-wrap: wrap; column-gap: 14px; padding-block: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 18px; }
 
 /* ---------------------------------------------------------------- motion */
 
