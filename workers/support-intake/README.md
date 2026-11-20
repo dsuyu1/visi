@@ -113,7 +113,8 @@ The config ships with Cloudflare's always-pass test site key. That's safe to dep
 - Project name `visi-support-intake` (must match `name` in `wrangler.jsonc`)
 - Root directory `workers/support-intake`, build command blank, deploy command `npx wrangler deploy`
 - Build watch paths `workers/support-intake/*`, so website changes don't redeploy the Worker
-- Add the three secrets under Settings > Variables and Secrets, type **Secret**
+- Add the three secrets under Settings > Variables and Secrets, type **Secret**. A plain-text variable works too, because `keep_vars` stops deploys from wiping it, but it shows in the dashboard to anyone with access
+- After adding or changing one in the dashboard, check Deployments: the change makes a new version, and the form only uses it once that version is deployed
 
 This folder has its own `package-lock.json` on purpose. The repo root has a pnpm workspace file from the Next.js app, and without a local npm lockfile the build runs `pnpm install` and fails with "packages field missing or empty". The Worker has no dependencies; `npx` fetches wrangler at deploy time.
 

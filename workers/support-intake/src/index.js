@@ -113,6 +113,11 @@ export default {
     if (!verified) return respond("verify_failed");
 
     const payload = buildPayload(parsed.value);
+    // Say so plainly in the logs: without this the request fails as "unreachable".
+    if (!env.JIRA_WEBHOOK_URL || !env.JIRA_WEBHOOK_SECRET) {
+      console.log(JSON.stringify({ event: "jira_config_missing", url: Boolean(env.JIRA_WEBHOOK_URL), secret: Boolean(env.JIRA_WEBHOOK_SECRET) }));
+      return respond("upstream");
+    }
     try {
       const res = await fetch(env.JIRA_WEBHOOK_URL, {
         method: "POST",
