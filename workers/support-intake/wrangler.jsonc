@@ -20,7 +20,12 @@
     { "name": "SUPPORT_LIMITER", "namespace_id": "4101", "simple": { "limit": 5, "period": 60 } }
   ],
 
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+
+  // Deploys replace the dashboard's plain-text variables with "vars" above,
+  // which once wiped JIRA_WEBHOOK_URL and broke the form with a 502. Keep any
+  // variable set in the dashboard. Secrets are kept either way.
+  "keep_vars": true
 
   // Secrets are NOT in this file. Set them once with:
   //   npx wrangler secret put TURNSTILE_SECRET
