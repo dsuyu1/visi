@@ -1,8 +1,9 @@
-<article class="event-row">
+<article class="event-row{% if include.past %} past{% endif %}">
+  <div class="date-tile{% unless include.past %} pastel{% endunless %}" aria-hidden="true">{% if event.date %}<span>{{ event.date | date: "%b" }}</span><strong>{{ event.date | date: "%-d" }}</strong>{% else %}<strong>TBD</strong>{% endif %}</div>
   <div class="event-copy">
     <h3>{{ event.title | escape }}</h3>
     <p class="meta">{% if event.date %}{{ event.date | date: "%b %d, %Y" }}{% else %}{{ event.dateLabel | default: "Date TBD" | escape }}{% endif %}{% if event.time and event.time != "TBD" %} · {{ event.time | escape }}{% endif %} · {{ event.location | escape }}</p>
     <p>{{ event.details | default: event.description | escape | newline_to_br }}</p>
   </div>
-  {% if event.imageSrc %}<img src="{{ event.imageSrc | escape }}" alt="{{ event.imageAlt | escape }}" class="event-image" width="180" loading="lazy">{% endif %}
+  {% if event.imageSrc %}<img src="{{ event.imageSrc | escape }}" alt="{{ event.imageAlt | escape }}" class="event-image" width="160" loading="lazy">{% endif %}
 </article>

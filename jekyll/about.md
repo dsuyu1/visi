@@ -16,5 +16,6 @@ Produce cybersecurity professionals and give back. Members take initiative throu
 - **Dedication.** We aim to produce quality work.
 - **Curiosity.** We ask questions, explore, and share what we find.
 - **Honor.** We act honestly and within the law.
+{: .pillars}
 
-[Contact VISI](/support/?topic=membership)
+[Contact VISI](/support/?topic=membership){: .button}

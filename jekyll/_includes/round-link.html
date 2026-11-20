@@ -1,1 +1,1 @@
-<a class="round-link" href="{{ include.url }}"><span>{{ include.label }}</span><span class="round-arrow" aria-hidden="true">{% include arrow.html %}</span></a>
+<a class="button{% if include.class %} {{ include.class }}{% endif %}" href="{{ include.url }}"><span>{{ include.label }}</span>{% include arrow.html %}</a>

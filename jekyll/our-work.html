@@ -5,11 +5,11 @@ banner: /assets/photos/code.webp
 ---
 <div class="grid">
   {% for project in site.data.projects %}
-  <article class="card">
-    <h2>{{ project.title | escape }}</h2>
+  <article class="panel card">
+    <div class="card-head"><h2>{{ project.title | escape }}</h2>{% if project.status %}<span class="status{% if project.status == 'active' %} green{% endif %}">{{ project.status | capitalize | escape }}</span>{% endif %}</div>
     <p>{{ project.description | escape }}</p>
-    <p class="meta">{{ project.tags | join: " · " | escape }}</p>
-    {% for link in project.links %}<a href="{{ link.href | escape }}">{{ link.label | escape }}</a>{% endfor %}
+    {% if project.tags %}<ul class="tags" aria-label="Topics">{% for tag in project.tags %}<li>{{ tag | escape }}</li>{% endfor %}</ul>{% endif %}
+    <div class="links">{% for link in project.links %}<a class="text-link" href="{{ link.href | escape }}">{{ link.label | escape }} {% include arrow.html %}</a>{% endfor %}</div>
   </article>
   {% endfor %}
 </div>
