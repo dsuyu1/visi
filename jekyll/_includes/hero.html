@@ -1,0 +1,27 @@
+<h1 class="sr-only">{{ site.title }}</h1>
+<section class="hero" aria-label="Featured at VISI" aria-roledescription="carousel" data-hero>
+  <div class="hero-slides" aria-live="off">
+    {% for slide in site.data.hero_slides %}
+      {% assign url = slide.url %}
+      {% if slide.hub_path %}{% assign url = site.hub_url | append: slide.hub_path %}{% endif %}
+      <div class="hero-slide" id="hero-slide-{{ forloop.index }}" role="group" aria-roledescription="slide" aria-label="{{ forloop.index }} of {{ forloop.length }} · {{ slide.label | escape }}"{% unless forloop.first %} hidden{% endunless %}>
+        <img class="hero-photo" src="/assets/photos/{{ slide.image | escape }}"{% if slide.small_image %} srcset="/assets/photos/{{ slide.small_image | escape }} 800w, /assets/photos/{{ slide.image | escape }} 1600w" sizes="100vw"{% endif %} alt="" {% if forloop.first %}fetchpriority="high"{% else %}fetchpriority="low" decoding="async"{% endif %}>
+        <div class="wrap hero-copy">
+          <div>
+            <h2>{{ slide.title | escape }}</h2>
+            <p class="lead">{{ slide.description | escape }}</p>
+            <div class="actions">
+              {% include round-link.html url=url label=slide.action %}
+              {% if slide.secondary_action %}<a class="text-link" href="{{ slide.secondary_url }}">{{ slide.secondary_action | escape }} {% include arrow.html %}</a>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="wrap hero-picker" role="group" aria-label="Choose a feature" hidden>
+    {% for slide in site.data.hero_slides %}
+    <button type="button" aria-controls="hero-slide-{{ forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}>{{ slide.label | escape }}</button>
+    {% endfor %}
+  </div>
+</section>

@@ -1,14 +1,9 @@
 ---
 wide: true
+home_features: true
 ---
-<section class="wrap hero" aria-labelledby="hero-title">
-  <div class="hero-copy">
-    <h1 id="hero-title">We push progress<br>in cybersecurity.</h1>
-    <p class="lead">We’re a student-led cybersecurity community at UTRGV. Build projects, explore security research, and learn alongside people across the Rio Grande Valley.</p>
-    <div class="actions">{% include round-link.html url="/join" label="Get involved" %}<a class="text-link" href="/events/">Explore events {% include arrow.html %}</a></div>
-  </div>
-  <img class="hero-photo" src="/assets/photos/hero.webp" srcset="/assets/photos/hero-small.webp 800w, /assets/photos/hero.webp 1600w" sizes="(max-width: 900px) 100vw, 600px" width="1600" height="1066" alt="" fetchpriority="high">
-</section>
+{% include hero.html %}
+{% include hub-showcase.html %}
 <section class="wrap split section" data-reveal>
   <div>
     <h2>Build something.<br>Share what you learn.</h2>
@@ -24,7 +19,7 @@ wide: true
   </article>
 </section>
 <section class="wrap split section" data-reveal>
-  <img class="photo" src="/home/vuln-workshop.jpg" alt="VISI members at a vulnerability management workshop" loading="lazy">
+  <img class="photo" src="/assets/photos/campus-tabling.webp" width="1000" height="750" alt="Students talking at VISI’s Campus Takeover table" loading="lazy">
   <div>
     <h2>Meet the people<br>behind VISI.</h2>
     <p>From student-led meetups to community events, we bring people together to ask questions, try ideas, and help each other grow.</p>
@@ -38,7 +33,7 @@ wide: true
       <p>Prepare the next generations of cybersecurity talent through research, projects, and mentorship.</p>
       {% include round-link.html url="/about/" label="About VISI" %}
     </div>
-    <img src="/assets/photos/mission.webp" width="1440" height="810" alt="" loading="lazy">
+    <img src="/assets/photos/vaqueros-clubs.webp" width="1080" height="810" alt="UTRGV students gathered beneath a Vaqueros Clubs banner" loading="lazy">
   </div>
 </section>
 <section class="wrap split section faq" data-reveal aria-labelledby="faq-title">

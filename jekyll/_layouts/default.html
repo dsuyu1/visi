@@ -12,6 +12,10 @@
   <script src="/assets/theme.js"></script>
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/motion.js" defer></script>
+  {% if page.home_features %}
+  <script src="/assets/hero.js" defer></script>
+  <script src="/assets/hub-showcase.js" defer></script>
+  {% endif %}
 </head>
 {% assign current_url = page.url | replace: "/index.html", "/" %}
 <body>

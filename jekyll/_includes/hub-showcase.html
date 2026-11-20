@@ -1,0 +1,29 @@
+<section class="wrap section hub-showcase" aria-labelledby="hub-title">
+  <div class="hub-heading">
+    <div>
+      <h2 id="hub-title">Explore VISI Hub</h2>
+      <p>Our member portal brings together hands-on labs, security tools, news, and job listings.</p>
+    </div>
+    <a class="text-link" href="{{ site.hub_url }}/">Open VISI Hub {% include arrow.html %}</a>
+  </div>
+  <div class="hub-controls" data-hub-controls hidden>
+    <button class="icon-button" type="button" aria-label="Previous Hub card" aria-controls="hub-cards">{% include arrow.html direction="left" %}</button>
+    <button class="icon-button" type="button" aria-label="Next Hub card" aria-controls="hub-cards">{% include arrow.html direction="right" %}</button>
+  </div>
+  <ul class="hub-cards" id="hub-cards" tabindex="0" aria-label="Hub services and apps">
+    {% for card in site.data.hub_cards %}
+    {% assign href = card.url | default: site.hub_url %}
+    {% if card.path %}{% assign href = href | append: card.path %}{% endif %}
+    <li class="hub-card">
+      <a href="{{ href | escape }}">
+        <img src="/assets/photos/hub/{{ card.image | escape }}" width="800" height="500" alt="" loading="lazy" decoding="async">
+        <div class="hub-card-copy">
+          <h3>{{ card.title | escape }}</h3>
+          <p>{{ card.description | escape }}</p>
+          <span class="text-link">{{ card.action | escape }} {% include arrow.html %}</span>
+        </div>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

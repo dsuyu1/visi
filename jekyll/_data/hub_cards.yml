@@ -1,0 +1,34 @@
+- title: Lab Access
+  description: Check your lab machine and open a remote desktop through Guacamole.
+  # https://images.unsplash.com/photo-1558494949-ef010cbdcc31
+  image: lab.webp
+  path: /
+  action: Open the lab
+
+- title: Detection Lab
+  description: Test and improve detection rules, explore coverage, and share your findings.
+  # https://images.unsplash.com/photo-1461749280684-dccba630e2f6
+  image: detection.webp
+  url: https://detect.visiutrgv.org/auth/login
+  action: Open Detection Lab
+
+- title: VISI News
+  description: Follow cybersecurity reporting, research, and advisories from across the industry.
+  # Mattias Diesel · https://unsplash.com/photos/3M2cqBRQmjA
+  image: news-reading.webp
+  path: /news
+  action: Read VISI News
+
+- title: Jobs
+  description: Find US security and IT openings, from internships and entry-level jobs to senior roles.
+  # Vitaly Gariev · https://unsplash.com/photos/CXxH2EiX760
+  image: jobs.webp
+  path: /jobs
+  action: Browse jobs
+
+- title: Apps & Tools
+  description: Investigate logs in Splunk, automate workflows with n8n, and find guides in BookStack. The Hub also links to CISO Assistant, Git, and monitoring dashboards.
+  # Marvin Meyer · https://unsplash.com/photos/SYTO3xs06fU
+  image: tools.webp
+  path: /
+  action: Browse Hub apps
