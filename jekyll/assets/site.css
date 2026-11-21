@@ -681,6 +681,7 @@ strong { font-weight: 600; color: var(--ink); }
 .past .date-tile strong { color: var(--ink); }
 .event-copy { display: grid; gap: 4px; }
 .event-copy p:not(.meta) { margin-top: 4px; }
+.event-copy .event-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .event-image { width: 160px; }
 .empty { padding: 16px; border-radius: var(--radius-card); background: var(--panel); max-width: none; }
 .event-row:focus-within { background: var(--hover); }
