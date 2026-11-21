@@ -5,12 +5,12 @@
   path: /
   action: Open the lab
 
-- title: Detection Lab
+- title: VISI Lilac
   description: Test and improve detection rules, explore coverage, and share your findings.
   # https://images.unsplash.com/photo-1461749280684-dccba630e2f6
   image: detection.webp
   url: https://detect.visiutrgv.org/auth/login
-  action: Open Detection Lab
+  action: Open VISI Lilac
 
 - title: VISI News
   description: Follow cybersecurity reporting, research, and advisories from across the industry.
