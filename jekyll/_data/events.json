@@ -9,14 +9,15 @@
     "imageAlt": "BSides RGV logo"
   },
   {
-    "title": "Google Build with AI @ UTRGV",
     "date": "2026-07-15",
     "time": "9:00 AM CST",
-    "location": "UTRGV",
-    "description": "A global event series enabling developers to learn and build with Google's latest AI & ML technologies.",
+    "title": "Google Build with AI @ UTRGV",
     "details": "About this event\n\nCalling all developers in the Rio Grande Valley!\n\nBuild with AI, a global event series enabling developers to learn and build using Google's latest artificial intelligence and machine learning technologies, is coming to the RGV!\n\nJoin us for an exciting day of:\n- Hands-on workshops\n- Networking opportunities and lunch\n- And much more!\n\nDon't miss this chance to:\n- Get hands-on experience with Google AI and ML tools\n- Learn from industry experts\n- Connect with other developers in the RGV tech community\n- Get inspired to build innovative solutions with AI\n\nCome with your personal laptops.\n\n#BuildWithAI #UTRGV #VISI",
+    "logoAlt": "Build with AI 2026",
     "logoSrc": "/bwai-2026.png",
-    "logoAlt": "Build with AI 2026"
+    "imageSrc": "/assets/photos/uploads/2026-11/build-with-ai-at-utrgv-15-cu9giw.webp",
+    "location": "UTRGV",
+    "description": "A global event series enabling developers to learn and build with Google's latest AI & ML technologies."
   },
   {
     "title": "UTRGV CS Spring Social 2026",
