@@ -22,19 +22,21 @@
 }
 .post-byline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; }
 .post-byline > p { color: var(--post-prose); font-weight: 500; }
-.post-share { position: relative; display: flex; flex-wrap: wrap; gap: .375rem; margin-inline-start: auto; }
-.post-share :is(a, button) {
-  padding: .35rem .65rem;
+.post-share { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; margin-inline-start: auto; }
+.post-share-label { margin-inline-end: .375rem; color: var(--post-prose); font-size: .875rem; font-weight: 600; }
+.post-share :is(a, button):not([hidden]) {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius-control);
-  background: var(--page);
+  background: var(--panel);
   color: var(--ink);
-  font: inherit;
-  font-size: .8125rem;
-  text-decoration: none;
   cursor: pointer;
 }
-.post-share :is(a, button):hover { background: var(--hover); }
+.post-share :is(a, button):is(:hover, :focus-visible):not([hidden]) { background: var(--hover); color: var(--link); }
 .post-share-status { position: absolute; inset: 100% 0 auto auto; margin-top: .25rem; text-align: end; }
 
 .post-grid {
