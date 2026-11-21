@@ -69,5 +69,14 @@
     "time": "2:00 PM CST",
     "location": "EIEAB 2.204 (MARS Lab)",
     "description": "Kickoff meeting to meet the community, learn what VISI is, and how to get involved. No experience required, just curiosity."
+  },
+  {
+    "date": "2026-11-13",
+    "time": "2:00 PM CST",
+    "title": "Build Your Skills: Agentic AI on AWS, Pt. 1",
+    "details": "Whether you’re just starting out or already comfortable with the basics, come explore AWS, Builder Center, and your free student benefits, and start building toward your Agentic AI microcredential.\n\nBuild real projects with AWS’s AI tools, learn how to get the most out of Builder Center and your student perks, and meet fellow UTRGV builders.",
+    "imageSrc": "/assets/photos/uploads/2026-11/bys1-xon7u4.png",
+    "location": "EIEAB 1.212",
+    "description": "AWS Builder Center x VISI invite you to our hands-on workshop, kicking off the series at UTRGV."
   }
 ]
