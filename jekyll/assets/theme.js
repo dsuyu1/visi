@@ -1,64 +1,141 @@
-// Picks the colour theme before the first paint, so it loads without defer.
-// A visitor's choice from the header toggle is kept in localStorage; with no
-// choice, or one that matches the OS again, the OS setting wins. Without
-// JavaScript the stylesheet follows prefers-color-scheme on its own.
+// Runs before the stylesheet so the first paint already has the right theme.
+//
+// The choice is kept in a `visi-theme` cookie on the parent domain
+// (visiutrgv.org), which the hub and the Detection Lab both read, so picking
+// a theme in one is picking it in the other. localStorage is the fallback
+// for hosts without a shared parent (localhost). The hub also saves the
+// choice to the member's account so it follows them to other devices; its
+// app.js reconciles the two.
+//
+// Keep this file in sync across VISI apps.
 (function () {
-  var root = document.documentElement;
-  var media = window.matchMedia("(prefers-color-scheme: dark)");
-  var KEY = "visi-theme";
-  var stored = null;
+  var KEY = 'visi-theme';
+  var PALETTES = {
+    porcelain: { label: 'Porcelain', mode: 'light' },
+    sage: { label: 'Sage', mode: 'light' },
+    sand: { label: 'Sand', mode: 'light' },
+    midnight: { label: 'Midnight Blue', mode: 'dark' },
+    pine: { label: 'Pine', mode: 'dark' },
+    violet: { label: 'Violet', mode: 'dark' },
+  };
 
-  try {
-    stored = localStorage.getItem(KEY);
-  } catch (e) {
-    // Storage blocked (private window, strict settings): follow the OS.
+  function valid(value) {
+    return ['system', 'light', 'dark'].includes(value) || Object.hasOwn(PALETTES, value) ? value : null;
   }
 
-  function system() {
-    return media.matches ? "dark" : "light";
+  // "; Domain=visiutrgv.org" on hub.visiutrgv.org and lilac.visiutrgv.org;
+  // nothing on localhost or an IP address, where the cookie stays host-only.
+  function domainAttr() {
+    var host = location.hostname;
+
+    if (host.indexOf('.') === -1 || /^[\d.]+$/.test(host) || host.indexOf(':') !== -1) return '';
+
+    return '; Domain=' + host.split('.').slice(-2).join('.');
   }
 
-  function current() {
-    return root.dataset.theme || system();
+  function readShared() {
+    var match = document.cookie.match(/(?:^|;\s*)visi-theme=([a-z]+)/);
+
+    return match ? valid(match[1]) : null;
   }
 
-  function syncToggle() {
-    var button = document.querySelector("[data-theme-toggle]");
-    if (!button) return;
-    var next = current() === "dark" ? "light" : "dark";
-    button.setAttribute("aria-label", "Switch to " + next + " theme");
-    button.title = "Switch to " + next + " theme";
+  function writeShared(value) {
+    document.cookie =
+      KEY + '=' + value + '; Path=/; Max-Age=31536000; SameSite=Lax' + domainAttr() + (location.protocol === 'https:' ? '; Secure' : '');
   }
 
-  function apply(choice) {
-    var theme = choice === "light" || choice === "dark" ? choice : system();
-    root.dataset.theme = theme;
-    root.dataset.themeChoice = choice === "light" || choice === "dark" ? choice : "system";
-    document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
-      meta.content = theme === "dark" ? "#1c1c1c" : "#ffffff";
-    });
-    syncToggle();
+  var choice = readShared();
+
+  if (!choice) {
+    try {
+      choice = valid(localStorage.getItem(KEY));
+    } catch (e) {
+      // Storage blocked (private window, strict settings) — follow the OS.
+    }
   }
 
-  media.addEventListener("change", function () {
-    if (root.dataset.themeChoice === "system") apply("system");
-  });
+  var media = window.matchMedia('(prefers-color-scheme: light)');
 
-  document.addEventListener("DOMContentLoaded", function () {
-    var button = document.querySelector("[data-theme-toggle]");
-    if (!button) return;
-    button.hidden = false;
-    syncToggle();
-    button.addEventListener("click", function () {
-      var next = current() === "dark" ? "light" : "dark";
-      var choice = next === system() ? "system" : next;
+  function apply(value) {
+    var palette = Object.hasOwn(PALETTES, value) ? PALETTES[value] : null;
+    var resolved = value === 'system' ? (media.matches ? 'light' : 'dark') : palette?.mode || value;
+
+    if (palette) document.documentElement.dataset.palette = value;
+    else delete document.documentElement.dataset.palette;
+    document.documentElement.dataset.theme = resolved;
+    document.documentElement.dataset.themeChoice = value;
+  }
+
+  window.visiTheme = {
+    palettes: PALETTES,
+    modeChoice: function () {
+      var value = this.get();
+      return Object.hasOwn(PALETTES, value) ? PALETTES[value].mode : value;
+    },
+    get: function () {
+      return document.documentElement.dataset.themeChoice || 'system';
+    },
+    /** The choice in the shared cookie, or null when there isn't one yet. */
+    shared: readShared,
+    set: function (value) {
+      value = valid(value) || 'system';
+
       try {
-        if (choice === "system") localStorage.removeItem(KEY);
-        else localStorage.setItem(KEY, choice);
+        localStorage.setItem(KEY, value);
       } catch (e) {}
-      apply(choice);
-    });
+
+      writeShared(value);
+      apply(value);
+      document.dispatchEvent(new CustomEvent('visi:theme'));
+    },
+  };
+
+  media.addEventListener('change', function () {
+    if (window.visiTheme.get() === 'system') {
+      apply('system');
+      document.dispatchEvent(new CustomEvent('visi:theme'));
+    }
   });
 
-  apply(stored);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) return;
+    var shared = readShared();
+    if (shared && shared !== window.visiTheme.get()) {
+      apply(shared);
+      document.dispatchEvent(new CustomEvent('visi:theme'));
+    }
+  });
+
+  apply(choice || 'system');
+})();
+
+// The public site uses a single light/dark button in its header.
+(function () {
+  function update() {
+    var root = document.documentElement;
+    var button = document.querySelector('[data-theme-toggle]');
+    var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    if (button) {
+      button.setAttribute('aria-label', 'Switch to ' + next + ' theme');
+      button.title = 'Switch to ' + next + ' theme';
+    }
+    var color = getComputedStyle(root).getPropertyValue('--page').trim();
+    if (color) document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
+      meta.content = color;
+    });
+  }
+
+  document.addEventListener('visi:theme', update);
+  document.addEventListener('DOMContentLoaded', function () {
+    var button = document.querySelector('[data-theme-toggle]');
+    if (button) {
+      button.hidden = false;
+      button.addEventListener('click', function () {
+        var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        window.visiTheme.set(next === system ? 'system' : next);
+      });
+    }
+    update();
+  });
 })();
