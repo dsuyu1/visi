@@ -1,21 +1,18 @@
 ---
-layout: post
-title: "The VISI Report: Issue #01"
-date: 2026-08-24
-author: Damian Villarreal
-description: Updates from VISI for the week of 8/24/2026.
+date: 2026-08-29
 tags:
   - substack
   - events
 image: /assets/photos/uploads/2026-11/kaitlyn-baker-vzjdyl5jvxy-unsplash-s7xr33.webp
+title: "The VISI Report: Issue #01"
+author: Damian Villarreal
+layout: post
+description: Updates from VISI for the week of 8/24/2026.
 ---
 
 # The VISI Report: Issue #01
 
 ### Updates from VISI for the week of 8/24/2026.
-
-**Authors:** [Diego Z](https://substack.com/@diegoz2), [Viviana Moro-Ochoa](https://substack.com/@vivianamo), and [Damian Villarreal](https://substack.com/@dsuyu)  
-**Published:** August 29, 2026
 
 # Director’s Note
 
