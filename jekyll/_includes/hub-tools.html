@@ -31,7 +31,7 @@
       {% for copy in (1..2) %}
       <ul class="tool-list"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
         {% for tool in site.data.hub_tools %}
-        <li><span class="tool-icon"><img src="/assets/tools/{{ tool.icon | escape }}" width="32" height="32" alt="" decoding="async"></span>{{ tool.name | escape }}</li>
+        <li><span class="tool-icon{% if tool.monochrome %} tool-icon-monochrome{% endif %}"><img src="/assets/tools/{{ tool.icon | escape }}" width="32" height="32" alt="" decoding="async"></span>{{ tool.name | escape }}</li>
         {% endfor %}
       </ul>
       {% endfor %}

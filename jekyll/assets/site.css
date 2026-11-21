@@ -74,6 +74,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
+    --tool-monochrome-filter: invert(1);
     --page: #1c1c1c;
     --panel: #272727;
     --hover: rgba(255, 255, 255, .05);
@@ -99,6 +100,7 @@
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
+  --tool-monochrome-filter: invert(1);
   --page: #1c1c1c;
   --panel: #272727;
   --hover: rgba(255, 255, 255, .05);
@@ -457,9 +459,9 @@ strong { font-weight: 600; color: var(--ink); }
   place-items: center;
   width: 48px;
   height: 48px;
-  background: #fff;
 }
 .tool-icon img { width: 32px; height: 32px; object-fit: contain; }
+.tool-icon-monochrome img { filter: var(--tool-monochrome-filter, none); }
 @media (prefers-reduced-motion: no-preference) {
   .tool-ribbon-toggle {
     display: flex;
