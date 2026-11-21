@@ -7,7 +7,6 @@ const heroMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 let currentSlide = 0;
 let rotating = !heroMotion.matches;
-let hovered = false;
 
 function showHeroSlide(index) {
   if (index === currentSlide) return;
@@ -20,7 +19,7 @@ function showHeroSlide(index) {
 
 function updateHeroPlayback() {
   heroPicker.toggleAttribute('data-rotating', rotating);
-  heroPicker.toggleAttribute('data-rotation-paused', hovered || document.hidden);
+  heroPicker.toggleAttribute('data-rotation-paused', document.hidden);
   heroSlides.setAttribute('aria-live', rotating ? 'off' : 'polite');
 }
 
@@ -40,16 +39,6 @@ heroButtons.forEach((button, index) => {
 
 hero.addEventListener('focusin', () => {
   rotating = false;
-  updateHeroPlayback();
-});
-
-hero.addEventListener('pointerenter', (event) => {
-  if (event.pointerType !== 'mouse') return;
-  hovered = true;
-  updateHeroPlayback();
-});
-hero.addEventListener('pointerleave', () => {
-  hovered = false;
   updateHeroPlayback();
 });
 
