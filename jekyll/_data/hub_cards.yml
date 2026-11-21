@@ -25,10 +25,3 @@
   image: jobs.webp
   path: /jobs
   action: Browse jobs
-
-- title: Apps & Tools
-  description: Investigate logs in Splunk, automate workflows with n8n, and find guides in BookStack. The Hub also links to CISO Assistant, Git, and monitoring dashboards.
-  # Marvin Meyer · https://unsplash.com/photos/SYTO3xs06fU
-  image: tools.webp
-  path: /
-  action: Browse Hub apps

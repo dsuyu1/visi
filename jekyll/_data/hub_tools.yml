@@ -1,0 +1,13 @@
+- { name: Range Access, icon: dashboard.svg }
+- { name: Apache Guacamole, icon: apacheguacamole.svg }
+- { name: Detection Lab, icon: detect.svg }
+- { name: Splunk, icon: splunk.svg }
+- { name: EveBox, icon: evebox.png }
+- { name: Grafana, icon: grafana.svg }
+- { name: Prometheus, icon: prometheus.svg }
+- { name: n8n, icon: n8n.svg }
+- { name: Semaphore, icon: semaphore.svg }
+- { name: CISO Assistant, icon: ciso-assistant.svg }
+- { name: BookStack, icon: bookstack.svg }
+- { name: Git & GitHub, icon: github.svg }
+- { name: Notion, icon: notion.svg }
