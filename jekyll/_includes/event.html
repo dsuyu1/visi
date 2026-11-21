@@ -4,6 +4,8 @@
     <h3>{{ event.title | escape }}</h3>
     <p class="meta meta-parts"><span>{% if event.date %}{{ event.date | date: "%b %d, %Y" }}{% else %}{{ event.dateLabel | default: "Date TBD" | escape }}{% endif %}</span>{% if event.time and event.time != "TBD" %}<span>{{ event.time | escape }}</span>{% endif %}<span>{{ event.location | escape }}</span></p>
     <p>{{ event.details | default: event.description | escape | newline_to_br }}</p>
+    {% assign rsvp = event.rsvpUrl %}{% if include.past %}{% assign rsvp = nil %}{% endif %}
+    {% if rsvp or event.infoUrl %}<p class="event-actions">{% if rsvp %}<a class="button small" href="{{ rsvp | escape }}">{{ event.rsvpLabel | default: "RSVP" | escape }}</a>{% endif %}{% if event.infoUrl %}<a class="button small ghost" href="{{ event.infoUrl | escape }}">More information</a>{% endif %}</p>{% endif %}
   </div>
   {% if event.imageSrc %}<img src="{{ event.imageSrc | escape }}" alt="{{ event.imageAlt | escape }}" class="event-image" width="160" loading="lazy">{% endif %}
 </article>
