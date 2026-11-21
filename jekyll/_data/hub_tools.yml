@@ -1,5 +1,5 @@
 - { name: Apache Guacamole, icon: apacheguacamole.svg }
-- { name: Detection Lab, icon: detect.png, monochrome: true }
+- { name: VISI Lilac, icon: detect.png, monochrome: true }
 - { name: Splunk, icon: splunk.svg, monochrome: true }
 - { name: EveBox, icon: evebox.png }
 - { name: Grafana, icon: grafana.svg }
