@@ -17,7 +17,40 @@
     midnight: { label: 'Midnight Blue', mode: 'dark' },
     pine: { label: 'Pine', mode: 'dark' },
     violet: { label: 'Violet', mode: 'dark' },
+    github: { label: 'GitHub Light', mode: 'light', collection: 'Open themes' },
+    ayu: { label: 'Ayu Mirage', mode: 'dark', collection: 'Open themes' },
+    catppuccin: { label: 'Catppuccin Mocha', mode: 'dark', collection: 'Open themes' },
+    dracula: { label: 'Dracula', mode: 'dark', collection: 'Open themes' },
+    everforest: { label: 'Everforest', mode: 'dark', collection: 'Open themes' },
+    gruvbox: { label: 'Gruvbox Light', mode: 'light', collection: 'Open themes' },
   };
+
+
+function normalizeAppearance(input) {
+  input = input && typeof input === 'object' ? input : {};
+  function theme(value) {
+    value = value && typeof value === 'object' ? value : {};
+    var result = {};
+    for (var key of ['accent', 'background', 'foreground']) {
+      if (typeof value[key] === 'string' && /^#[0-9a-f]{6}$/i.test(value[key])) result[key] = value[key].toLowerCase();
+    }
+    if (['inter', 'system', 'serif', 'mono'].includes(value.font)) result.font = value.font;
+    if (PALETTES[value.preset] && Object.hasOwn(PALETTES, value.preset)) result.preset = value.preset;
+    return result;
+  }
+  function bounded(key, min, max, fallback) {
+    return Number.isInteger(input[key]) ? Math.min(max, Math.max(min, input[key])) : fallback;
+  }
+  return {
+    separate: input.separate === true,
+    shared: theme(input.shared), light: theme(input.light), dark: theme(input.dark),
+    uiSize: bounded('uiSize', 12, 22, 14), contentSize: bounded('contentSize', 13, 25, 15),
+    codeSize: bounded('codeSize', 10, 21, 13), contrast: bounded('contrast', 50, 100, 60),
+    motion: ['on', 'off'].includes(input.motion) ? input.motion : 'system',
+    punctuation: input.punctuation === true, fullWidth: input.fullWidth === true,
+    markers: input.markers === 'symbols' ? 'symbols' : 'color',
+  };
+}
 
   function valid(value) {
     return ['system', 'light', 'dark'].includes(value) || Object.hasOwn(PALETTES, value) ? value : null;
@@ -25,24 +58,30 @@
 
   // "; Domain=visiutrgv.org" on hub.visiutrgv.org and lilac.visiutrgv.org;
   // nothing on localhost or an IP address, where the cookie stays host-only.
-  function domainAttr() {
+  function cookie(name) {
+    var entry = document.cookie.split('; ').find(function (part) { return part.startsWith(name + '='); });
+    return entry ? entry.slice(name.length + 1) : null;
+  }
+
+  function writeCookie(name, value) {
     var host = location.hostname;
-
-    if (host.indexOf('.') === -1 || /^[\d.]+$/.test(host) || host.indexOf(':') !== -1) return '';
-
-    return '; Domain=' + host.split('.').slice(-2).join('.');
+    var domain = host === 'visiutrgv.org' || host.endsWith('.visiutrgv.org') ? '; Domain=visiutrgv.org' : '';
+    document.cookie = name + '=' + value + '; Path=/; Max-Age=31536000; SameSite=Lax' + domain +
+      (location.protocol === 'https:' ? '; Secure' : '');
   }
 
   function readShared() {
-    var match = document.cookie.match(/(?:^|;\s*)visi-theme=([a-z]+)/);
-
-    return match ? valid(match[1]) : null;
+    return valid(cookie(KEY));
   }
 
-  function writeShared(value) {
-    document.cookie =
-      KEY + '=' + value + '; Path=/; Max-Age=31536000; SameSite=Lax' + domainAttr() + (location.protocol === 'https:' ? '; Secure' : '');
+  function readAppearance() {
+    try {
+      var value = cookie('visi-appearance');
+      return value ? normalizeAppearance(JSON.parse(decodeURIComponent(value))) : null;
+    } catch (error) { return null; }
   }
+
+  var appearance = readAppearance() || normalizeAppearance();
 
   var choice = readShared();
 
@@ -55,19 +94,62 @@
   }
 
   var media = window.matchMedia('(prefers-color-scheme: light)');
+  var motionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function apply(value) {
     var palette = Object.hasOwn(PALETTES, value) ? PALETTES[value] : null;
     var resolved = value === 'system' ? (media.matches ? 'light' : 'dark') : palette?.mode || value;
 
-    if (palette) document.documentElement.dataset.palette = value;
-    else delete document.documentElement.dataset.palette;
-    document.documentElement.dataset.theme = resolved;
-    document.documentElement.dataset.themeChoice = value;
+    var root = document.documentElement;
+    var active = appearance.separate ? appearance[resolved] : appearance.shared;
+    var activePreset = appearance.separate ? active.preset : palette ? value : null;
+    if (activePreset && PALETTES[activePreset]?.mode === resolved) root.dataset.palette = activePreset;
+    else delete root.dataset.palette;
+    root.dataset.theme = resolved;
+    root.dataset.themeChoice = value;
+    root.dataset.motion = appearance.motion;
+    root.toggleAttribute('data-reduced-motion', appearance.motion === 'on' || (appearance.motion === 'system' && motionMedia.matches));
+    root.dataset.diffMarkers = appearance.markers;
+    root.toggleAttribute('data-full-width', appearance.fullWidth);
+    root.toggleAttribute('data-appearance-contrast', appearance.contrast !== 60);
+    root.toggleAttribute('data-appearance-ui', appearance.uiSize !== 14);
+    root.toggleAttribute('data-appearance-content', appearance.contentSize !== 15);
+    root.toggleAttribute('data-appearance-code', appearance.codeSize !== 13);
+    for (var key of ['accent', 'background', 'foreground']) {
+      root.toggleAttribute('data-appearance-' + key, Boolean(active[key]));
+      if (active[key]) root.style.setProperty('--appearance-' + key, active[key]);
+      else root.style.removeProperty('--appearance-' + key);
+    }
+    if (active.accent) {
+      var channels = active.accent.slice(1).match(/../g).map(function (hex) {
+        var channel = parseInt(hex, 16) / 255;
+        return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+      });
+      var luminance = channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+      root.style.setProperty('--appearance-accent-ink', luminance > 0.179 ? '#000000' : '#ffffff');
+    } else root.style.removeProperty('--appearance-accent-ink');
+    var fonts = { inter: 'Inter, system-ui, sans-serif', system: 'system-ui, sans-serif',
+      serif: 'Georgia, serif', mono: 'ui-monospace, monospace' };
+    if (active.font) root.style.setProperty('--appearance-font', fonts[active.font]);
+    else root.style.removeProperty('--appearance-font');
+    root.toggleAttribute('data-appearance-font', Boolean(active.font));
+    root.style.setProperty('--appearance-ui', appearance.uiSize + 'px');
+    root.style.setProperty('--appearance-content', appearance.contentSize + 'px');
+    root.style.setProperty('--appearance-code', appearance.codeSize + 'px');
+    root.style.setProperty('--appearance-contrast', Math.max(0, appearance.contrast - 50) + '%');
   }
 
   window.visiTheme = {
     palettes: PALETTES,
+    normalizeAppearance: normalizeAppearance,
+    appearance: function () { return normalizeAppearance(appearance); },
+    sharedAppearance: readAppearance,
+    setAppearance: function (value) {
+      appearance = normalizeAppearance(value);
+      writeCookie('visi-appearance', encodeURIComponent(JSON.stringify(appearance)));
+      apply(this.get());
+      document.dispatchEvent(new CustomEvent('visi:theme'));
+    },
     modeChoice: function () {
       var value = this.get();
       return Object.hasOwn(PALETTES, value) ? PALETTES[value].mode : value;
@@ -84,7 +166,7 @@
         localStorage.setItem(KEY, value);
       } catch (e) {}
 
-      writeShared(value);
+      writeCookie(KEY, value);
       apply(value);
       document.dispatchEvent(new CustomEvent('visi:theme'));
     },
@@ -97,12 +179,35 @@
     }
   });
 
+  motionMedia.addEventListener('change', function () { apply(window.visiTheme.get()); });
+
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) return;
-    var shared = readShared();
-    if (shared && shared !== window.visiTheme.get()) {
-      apply(shared);
-      document.dispatchEvent(new CustomEvent('visi:theme'));
+    var shared = readShared() || window.visiTheme.get();
+    var customization = readAppearance();
+    if (shared === window.visiTheme.get() && (!customization || JSON.stringify(customization) === JSON.stringify(appearance))) return;
+    if (customization) appearance = customization;
+    apply(shared);
+    document.dispatchEvent(new CustomEvent('visi:theme'));
+  });
+
+  document.addEventListener('input', function (event) {
+    var field = event.target;
+    if (!appearance.punctuation || !field.matches('textarea[data-smart-punctuation]') ||
+        event.isComposing || event.inputType !== 'insertText' || field.selectionStart !== field.selectionEnd) return;
+    var end = field.selectionEnd;
+    var before = field.value.slice(0, end);
+    var rules = [
+      [/---$/, '—'], [/--$/, '—'], [/\.\.\.$/, '…'], [/->$/, '→'],
+      [/(^|[\s([])"$/, '“'], [/"$/, '”'],
+      [/(^|[\s([])'$/, '‘'], [/'$/, '’'],
+    ];
+    for (var pair of rules) {
+      var match = pair[0].exec(before);
+      if (!match) continue;
+      var start = end - (match[1] === undefined ? match[0].length : 1);
+      field.setRangeText(pair[1], start, end, 'end');
+      break;
     }
   });
 

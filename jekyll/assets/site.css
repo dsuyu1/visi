@@ -881,3 +881,138 @@ strong { font-weight: 600; color: var(--ink); }
   --link: var(--palette-accent);
   --focus: var(--palette-accent);
 }
+
+/* Open color presets, adapted for the VISI interface. */
+:root[data-palette="github"] {
+  --palette-canvas: #ffffff;
+  --palette-surface: #f6f8fa;
+  --palette-band: #eaeef2;
+  --palette-text: #1f2328;
+  --palette-muted: #57606a;
+  --palette-accent: #0969da;
+  --palette-ink: #ffffff;
+}
+:root[data-palette="ayu"] {
+  --palette-canvas: #1f2430;
+  --palette-surface: #272d39;
+  --palette-band: #313846;
+  --palette-text: #e6e1cf;
+  --palette-muted: #b4ac99;
+  --palette-accent: #ffcc66;
+  --palette-ink: #211d18;
+}
+:root[data-palette="catppuccin"] {
+  --palette-canvas: #1e1e2e;
+  --palette-surface: #27273c;
+  --palette-band: #313244;
+  --palette-text: #cdd6f4;
+  --palette-muted: #bac2de;
+  --palette-accent: #cba6f7;
+  --palette-ink: #21182c;
+}
+:root[data-palette="dracula"] {
+  --palette-canvas: #282a36;
+  --palette-surface: #303241;
+  --palette-band: #44475a;
+  --palette-text: #f8f8f2;
+  --palette-muted: #c7c9d7;
+  --palette-accent: #ff79c6;
+  --palette-ink: #291323;
+}
+:root[data-palette="everforest"] {
+  --palette-canvas: #2d353b;
+  --palette-surface: #343f44;
+  --palette-band: #3d484d;
+  --palette-text: #d3c6aa;
+  --palette-muted: #b4c0b0;
+  --palette-accent: #a7c080;
+  --palette-ink: #273021;
+}
+:root[data-palette="gruvbox"] {
+  --palette-canvas: #fbf1c7;
+  --palette-surface: #fff6d7;
+  --palette-band: #ebdbb2;
+  --palette-text: #3c3836;
+  --palette-muted: #66534b;
+  --palette-accent: #8f3f11;
+  --palette-ink: #ffffff;
+}
+
+
+/* Optional account appearance adjustments. */
+:root[data-appearance-background] {
+  --bg: var(--appearance-background);
+  --canvas: var(--appearance-background);
+  --frame: var(--appearance-background);
+  --page: var(--appearance-background);
+  --chart-surface: var(--appearance-background);
+}
+
+:root[data-appearance-foreground] {
+  --text: var(--appearance-foreground);
+  --ink: var(--appearance-foreground);
+}
+
+:root[data-appearance-accent] {
+  --accent: var(--appearance-accent);
+  --accent-bright: var(--appearance-accent);
+  --accent-hover: var(--appearance-accent);
+  --fill: var(--appearance-accent);
+  --fill-hover: color-mix(in srgb, var(--appearance-accent) 85%, currentColor);
+  --accent-ink: var(--appearance-accent-ink);
+  --on-fill: var(--appearance-accent-ink);
+  --button: var(--appearance-accent);
+  --button-ink: var(--appearance-accent-ink);
+  --button-hover: color-mix(in srgb, var(--appearance-accent) 85%, currentColor);
+  --active: var(--appearance-accent);
+  --link: var(--appearance-accent);
+  --focus: var(--appearance-accent);
+}
+
+:root[data-appearance-font] {
+  --font: var(--appearance-font);
+  font-family: var(--appearance-font);
+}
+
+:root[data-appearance-font] body {
+  font-family: var(--appearance-font);
+}
+
+:root[data-appearance-ui] :is(button, input, select, textarea, .button, .nav-link, .account-btn) {
+  font-size: var(--appearance-ui);
+}
+
+:root[data-appearance-content] main :is(p, li, td, dd, blockquote) {
+  font-size: var(--appearance-content);
+}
+
+:root[data-appearance-code] :is(code, pre, .mono, .evidence) {
+  font-size: var(--appearance-code);
+}
+
+:root[data-appearance-contrast] {
+  --text-dim: color-mix(in srgb, var(--text, var(--ink)) 72%, transparent);
+  --text-faint: color-mix(in srgb, var(--text, var(--ink)) 68%, transparent);
+  --muted: color-mix(in srgb, var(--text, var(--ink)) 72%, transparent);
+  --line: color-mix(in srgb, var(--text, var(--ink)) var(--appearance-contrast), transparent);
+  --line-strong: color-mix(in srgb, var(--text, var(--ink)) var(--appearance-contrast), transparent);
+}
+
+:root[data-appearance-contrast] :is(.muted, .faint, .hint) {
+  color: color-mix(in srgb, var(--text, var(--ink)) calc(65% + var(--appearance-contrast) / 2), transparent);
+}
+
+:root[data-full-width] :is(main, main > [data-view], #page, .public-main, main > .container, main > .wrap) {
+  max-width: none;
+}
+
+:root[data-reduced-motion] *,
+:root[data-reduced-motion] *::before,
+:root[data-reduced-motion] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+:root[data-full-width] .wrap { max-width: none; }
