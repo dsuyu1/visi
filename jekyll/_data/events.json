@@ -95,5 +95,13 @@
     "imageSrc": "/assets/photos/uploads/2026-11/foodbankvisi-onb1wp.png",
     "location": "724 N Cage Blvd, Pharr, TX 78577",
     "description": "Be part of something meaningful by participating in our volunteer event."
+  },
+  {
+    "date": "2026-09-25",
+    "time": "5:15 PM CST",
+    "title": "VISI Fall 2026 General Meeting",
+    "imageSrc": "/assets/photos/uploads/2026-11/visi-1st-general-meeting-flyer1-ti7655.webp",
+    "location": "ESTAC 1.102",
+    "description": "Here is a tentative agenda of what we'll cover:\n\nOur Fall calendar\nCybersecurity awareness month\nOur org homelab server (Kali containers, IDS/IPS, DevOps, IAM, etc.)\nAFL++ Fuzzing pilot\nDetection engineering track (tentative)\nSkills matrix activity/publication\nContact portal and website\nRoles, ownership, and teams\nQ&A"
   }
 ]
