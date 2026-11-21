@@ -404,7 +404,7 @@ strong { font-weight: 600; color: var(--ink); }
   content: "";
 }
 .hero-picker[data-rotating] button[aria-current="true"]::before {
-  animation: hero-progress 5s linear both;
+  animation: hero-progress 5.5s linear both;
 }
 .hero-picker[data-rotation-paused] button[aria-current="true"]::before {
   animation-play-state: paused;
