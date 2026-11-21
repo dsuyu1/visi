@@ -693,22 +693,6 @@ strong { font-weight: 600; color: var(--ink); }
 .post-row h2 { font-size: 1.05rem; line-height: 1.35; letter-spacing: -.015em; }
 .post-row h2 a { color: inherit; text-decoration: none; }
 .post-row h2 a:hover, .post-row h2 a:focus-visible { text-decoration: underline; }
-.post .page-head, .post-body { max-width: 72ch; }
-.post-cover { max-width: 72ch; height: clamp(160px, 22vw, 320px); }
-.post-body > h2 { margin: 32px 0 8px; font-size: 20px; line-height: 28px; }
-.post-body > h3 { margin: 24px 0 6px; font-size: 16px; line-height: 24px; }
-.post-body > :is(p, ul, ol, blockquote, pre, table, div) { margin: 0 0 14px; }
-.post-body > :is(ul, ol) { padding-left: 22px; color: inherit; }
-.post-body li + li { margin-top: 4px; }
-.post-body a { color: var(--link); }
-.post-body img { max-width: 100%; height: auto; border-radius: 12px; }
-.post-body blockquote { padding: 2px 0 2px 16px; border-left: 3px solid var(--line); color: var(--muted); }
-.post-body code { font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace; font-size: .9em; padding: 1px 5px; border-radius: 6px; background: var(--panel); }
-.post-body pre { overflow-x: auto; margin: 0; padding: 14px 16px; border-radius: 12px; background: var(--panel); line-height: 1.5; }
-.post-body pre code { padding: 0; background: none; }
-.post-body table { display: block; overflow-x: auto; border-collapse: collapse; }
-.post-body :is(th, td) { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: left; }
-.post-back { margin-top: 32px; }
 
 /* Contact and support page */
 .support-form { max-width: 760px; }
@@ -799,6 +783,7 @@ strong { font-weight: 600; color: var(--ink); }
 @media (max-width: 640px) {
   .wrap { width: calc(100% - 32px); }
   .site-nav { gap: 0; }
+  .site-nav a { padding-inline: clamp(4px, calc(6vw - 16px), 8px); }
   .hero-copy { min-height: 355px; padding-block: 38px; }
   .hero-slide::after { background: linear-gradient(0deg, #101217, rgba(10, 12, 16, .68)); }
   .hero-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; padding-bottom: 20px; }

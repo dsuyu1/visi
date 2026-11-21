@@ -1,14 +1,94 @@
 ---
 layout: default
 ---
-<article class="wrap page post">
-  <div class="page-head">
-    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">VISI</a><span aria-hidden="true">/</span><a href="/blog/">Blog</a></nav>
-    <h1 id="page-title">{{ page.title | escape }}</h1>
-    <p class="meta meta-parts"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %}<span>{{ page.author | escape }}</span>{% endif %}</p>
-    {% if page.tags.size > 0 %}<ul class="tags" aria-label="Tags">{% for tag in page.tags %}<li>{{ tag | escape }}</li>{% endfor %}</ul>{% endif %}
+{%- assign post_body = content | strip -%}
+{%- assign first_element = post_body | split: '</h1>' | first -%}
+{%- assign first_tag = first_element | slice: 0, 3 -%}
+{%- assign first_title = first_element | strip_html | strip | escape_once -%}
+{%- assign post_title = page.title | escape_once -%}
+{%- if first_tag == '<h1' and first_title == post_title -%}
+  {%- assign duplicate_title = first_element | append: '</h1>' -%}
+  {%- assign post_body = post_body | remove_first: duplicate_title | strip -%}
+{%- endif -%}
+{%- comment -%}Imported Markdown can use H1 for sections. Reserve H1 for the page title and keep the section hierarchy below it.{%- endcomment -%}
+{%- if post_body contains '<h1>' or post_body contains '<h1 ' -%}
+  {%- assign post_body = post_body
+    | replace: '<h5', '<h6' | replace: '</h5>', '</h6>'
+    | replace: '<h4', '<h5' | replace: '</h4>', '</h5>'
+    | replace: '<h3', '<h4' | replace: '</h3>', '</h4>'
+    | replace: '<h2', '<h3' | replace: '</h2>', '</h3>'
+    | replace: '<h1', '<h2' | replace: '</h1>', '</h2>' -%}
+{%- endif -%}
+{%- assign reading_time = post_body | strip_html | number_of_words | plus: 219 | divided_by: 220 | at_least: 1 -%}
+{%- assign post_url = page.url | prepend: 'https://visiutrgv.org' -%}
+{%- assign share_url = post_url | uri_escape | url_encode -%}
+{%- assign other_posts = site.posts | where_exp: 'post', 'post.url != page.url' -%}
+{%- assign primary_tag = page.tags | first -%}
+{%- assign related_posts = other_posts -%}
+{%- if primary_tag -%}
+  {%- assign tagged_posts = other_posts | where_exp: 'post', 'post.tags contains primary_tag' -%}
+  {%- assign related_posts = tagged_posts | concat: other_posts | uniq -%}
+{%- endif -%}
+
+<article class="post" aria-labelledby="page-title">
+  <header class="post-header">
+    <div class="post-wrap">
+      <nav class="breadcrumb post-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">VISI</a><span aria-hidden="true">/</span>
+        <a href="{{ '/blog/' | relative_url }}">Blog</a>
+      </nav>
+      <div class="post-meta">
+        {% if page.tags.size > 0 %}
+        <ul class="tags" aria-label="Tags">
+          {% for tag in page.tags %}<li>{{ tag | escape }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+        <p class="meta meta-parts">
+          <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%b %-d, %Y' }}</time>
+          <span>{{ reading_time }} min read</span>
+        </p>
+      </div>
+      <h1 id="page-title">{{ post_title }}</h1>
+      <div class="post-byline">
+        {% if page.author and page.author != empty %}<p>By {{ page.author | escape }}</p>{% endif %}
+        <div class="post-share" role="group" aria-label="Share this post">
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url }}" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:?subject={{ page.title | url_encode | replace: '+', '%20' }}&amp;body={{ share_url }}">Email</a>
+          <button type="button" data-copy-post="{{ post_url | escape }}" hidden>Copy link</button>
+          <span class="post-share-status meta" role="status"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="post-wrap post-grid">
+    <nav class="post-toc" aria-label="Table of contents" hidden>
+      <details>
+        <summary>On this page</summary>
+        <ul></ul>
+      </details>
+    </nav>
+
+    <div class="post-main">
+      {% if page.image %}
+      <img class="post-cover" src="{{ page.image | escape }}" alt="{{ page.image_alt | escape }}" fetchpriority="high">
+      {% endif %}
+      <div class="post-body">{{ post_body }}</div>
+    </div>
+
+    <aside class="post-explore" aria-labelledby="post-explore-title">
+      <h2 id="post-explore-title">More from VISI</h2>
+      {% if related_posts.size > 0 %}
+      <ul>
+        {% for post in related_posts limit: 3 %}
+        <li>
+          <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          <time class="meta" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %-d, %Y' }}</time>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <a class="text-link" href="{{ '/blog/' | relative_url }}">All posts {% include arrow.html %}</a>
+    </aside>
   </div>
-  {% if page.image %}<img class="page-banner post-cover" src="{{ page.image | escape }}" alt="{{ page.image_alt | escape }}">{% endif %}
-  <div class="page-body post-body">{{ content }}</div>
-  <p class="post-back"><a class="text-link" href="/blog/">All posts {% include arrow.html %}</a></p>
 </article>
