@@ -104,5 +104,15 @@
     "imageSrc": "/assets/photos/uploads/2026-11/visi-1st-general-meeting-flyer1-ti7655.webp",
     "location": "ESTAC 1.102",
     "description": "Here is a tentative agenda of what we'll cover:\n\nOur Fall calendar\nCybersecurity awareness month\nOur org homelab server (Kali containers, IDS/IPS, DevOps, IAM, etc.)\nAFL++ Fuzzing pilot\nDetection engineering track (tentative)\nSkills matrix activity/publication\nContact portal and website\nRoles, ownership, and teams\nQ&A"
+  },
+  {
+    "date": "2026-12-12",
+    "time": "8 AM - 12 PM CST",
+    "title": "OWASP McAllen Kickoff",
+    "details": "Kick off OWASP McAllen with breakfast tacos, technical talks, and a red vs. blue application security CTF with prizes. Free RSVP.\n\nJoin us for the first OWASP McAllen meetup! We’re bringing together students, developers, and IT and security professionals from across the Rio Grande Valley for breakfast tacos provided by Fortinet, short technical talks, and a hands-on application security challenge.\n\nHave a technical demo, a case study, or a practical security lesson to share? Email your proposed talk title, a short abstract, and a brief speaker bio to damian.villarreal@owasp.org.\n\n📅 Saturday, December 12, 2026\n📍 South Texas College, Pecan Campus, 3201 W. Pecan Blvd., McAllen, TX 78501\nWe’ll email registered attendees the building, room number, and arrival details once the room is confirmed.\n\nAdmission is free. Please RSVP so we can plan seating and breakfast.",
+    "imageAlt": "OWASP McAllen Kickoff flyer",
+    "imageSrc": "/assets/photos/uploads/2026-11/owasp-mcallen-kickoff-2-vyxcto.webp",
+    "location": "South Texas College - Pecan Campus McAllen, TX",
+    "description": "https://www.eventbrite.com/e/owasp-mcallen-kickoff-tickets-2004667181504?utm_campaign=social&utm_content=attendeeshare&utm_medium=discovery&utm_term=es1-listing-c&aff=ebdsshcopyurl"
   }
 ]
