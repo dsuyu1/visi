@@ -1,0 +1,159 @@
+.post {
+  --post-rail-top: 6.5rem;
+  --post-prose: color-mix(in srgb, var(--ink) 79%, var(--page));
+  overflow-wrap: anywhere;
+}
+.post-wrap { width: min(88rem, calc(100% - clamp(2rem, 7vw, 8rem))); margin-inline: auto; }
+.post-header { padding-block: clamp(1.5rem, 4vw, 3.75rem) 2rem; border-bottom: 1px solid var(--line); }
+.post-breadcrumb { margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+.post-meta .meta { color: var(--post-prose); }
+.post-meta .tags li {
+  background: color-mix(in srgb, var(--link) 10%, var(--page));
+  color: var(--link);
+  font-weight: 600;
+}
+.post-header h1 {
+  margin-block: .75rem 1.25rem;
+  max-width: 30ch;
+  font-size: clamp(2.125rem, 1.45rem + 2.5vw, 4rem);
+  letter-spacing: -.045em;
+  line-height: 1.09;
+}
+.post-byline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; }
+.post-byline > p { color: var(--post-prose); font-weight: 500; }
+.post-share { position: relative; display: flex; flex-wrap: wrap; gap: .375rem; margin-inline-start: auto; }
+.post-share :is(a, button) {
+  padding: .35rem .65rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--page);
+  color: var(--ink);
+  font: inherit;
+  font-size: .8125rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.post-share :is(a, button):hover { background: var(--hover); }
+.post-share-status { position: absolute; inset: 100% 0 auto auto; margin-top: .25rem; text-align: end; }
+
+.post-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  max-width: 46rem;
+  padding-block: clamp(1.75rem, 4.5vw, 4rem) clamp(3rem, 6vw, 6rem);
+}
+.post-main, .post-toc, .post-explore { min-width: 0; }
+.post-cover {
+  width: 100%;
+  max-height: 23rem;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  margin-bottom: 2rem;
+}
+
+.post-toc summary, .post-explore h2 { color: var(--ink); font-size: 1rem; font-weight: 600; }
+.post-toc summary { cursor: pointer; }
+.post-toc ul, .post-explore ul { margin: 1rem 0 0; padding: 0; list-style: none; }
+.post-toc ul { border-inline-start: 1px solid var(--line); }
+.post-toc a {
+  display: block;
+  margin-inline-start: -1px;
+  border-inline-start: 2px solid transparent;
+  padding: .35rem .75rem;
+  color: var(--post-prose);
+  line-height: 1.4;
+  text-decoration: none;
+}
+.post-toc a:is(:hover, [aria-current="location"]) { color: var(--link); }
+.post-toc a[aria-current="location"] {
+  border-color: var(--link);
+  background: color-mix(in srgb, var(--link) 7%, transparent);
+  font-weight: 600;
+}
+.post-explore {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 1.125rem;
+  background: var(--panel);
+  align-self: start;
+}
+.post-explore h2 { text-wrap: initial; }
+.post-explore li + li { margin-top: .75rem; padding-top: .75rem; border-top: 1px solid var(--line); }
+.post-explore li a { color: var(--ink); font-weight: 600; line-height: 1.45; text-decoration: none; }
+.post-explore li a:hover { color: var(--link); text-decoration: underline; }
+.post-explore time { display: block; margin-top: .25rem; }
+.post-explore .text-link { margin-top: .875rem; }
+
+.post-body { color: var(--post-prose); font-size: clamp(1rem, .94rem + .25vw, 1.125rem); line-height: 1.8; }
+.post-body p { color: inherit; max-width: none; }
+.post-body > * + * { margin-block-start: 1.25em; }
+.post-body > :first-child { margin-block-start: 0; }
+.post-body > :last-child { margin-block-end: 0; }
+.post-body :is(h2, h3, h4, h5, h6) { line-height: 1.25; scroll-margin-top: 1.25rem; text-wrap: pretty; }
+.post-body > :is(h2, h3, h4, h5, h6) + :is(p, ul, ol) { margin-block-start: .7em; }
+.post-body h2 { font-size: clamp(1.625rem, 1.1rem + 1.1vw, 2.25rem); letter-spacing: -.035em; }
+.post-body h3 { font-size: 1.25em; }
+.post-body :is(h4, h5, h6) { font-size: 1em; }
+.post-body :is(ul, ol) { padding-inline-start: 1.4em; }
+.post-body li + li { margin-top: .25em; }
+.post-body li::marker, .post-body a { color: var(--link); }
+.post-body img { border-radius: var(--radius-control); }
+.post-body blockquote { margin-inline: 0; padding-inline-start: 1rem; border-inline-start: 3px solid var(--link); }
+.post-body code {
+  padding: .12em .3em;
+  border-radius: .25rem;
+  background: var(--panel);
+  font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+  font-size: .875em;
+}
+.post-body pre {
+  overflow-x: auto;
+  padding: .9rem 1rem;
+  border-radius: var(--radius-control);
+  background: var(--panel);
+  line-height: 1.5;
+}
+.post-body pre code { padding: 0; background: none; }
+.post-body table { display: block; overflow-x: auto; border-collapse: collapse; }
+.post-body :is(th, td) { padding: .375rem .625rem; border-bottom: 1px solid var(--line); text-align: start; }
+.post-body hr { border: 0; border-top: 1px solid var(--line); }
+
+@media (min-width: 64rem) {
+  .post-grid {
+    max-width: 65rem;
+    gap: 2.5rem;
+    grid-template-columns: minmax(10rem, 1fr) minmax(0, 3fr);
+    grid-template-areas: "contents article" ". explore";
+  }
+  .post-toc {
+    grid-area: contents;
+    position: sticky;
+    top: var(--post-rail-top);
+    align-self: start;
+    max-height: calc(100dvh - var(--post-rail-top) - 1rem);
+    overflow-y: auto;
+    padding: 3px;
+    margin: -3px;
+  }
+  .post-main { grid-area: article; }
+  .post-explore { grid-area: explore; }
+}
+@media (min-width: 75rem) {
+  .post-grid {
+    max-width: none;
+    gap: clamp(1.5rem, 2.8vw, 3rem);
+    grid-template-columns: minmax(10rem, 1fr) minmax(0, 3.15fr) minmax(12.5rem, 1.1fr);
+    grid-template-areas: "contents article explore";
+  }
+  .post-explore { position: sticky; top: var(--post-rail-top); }
+}
+@media (max-width: 760px) {
+  .post-body :is(h2, h3, h4, h5, h6) { scroll-margin-top: 3rem; }
+}
+@media (max-width: 640px) {
+  .post-byline { align-items: flex-start; flex-direction: column; }
+  .post-share { margin-inline-start: 0; }
+  .post-body :is(h2, h3, h4, h5, h6) { scroll-margin-top: .75rem; }
+}
