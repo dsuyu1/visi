@@ -8,7 +8,6 @@ const heroMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let currentSlide = 0;
 let rotating = !heroMotion.matches;
 let hovered = false;
-let timer;
 
 function showHeroSlide(index) {
   if (index === currentSlide) return;
@@ -20,13 +19,16 @@ function showHeroSlide(index) {
 }
 
 function updateHeroPlayback() {
-  clearInterval(timer);
+  heroPicker.toggleAttribute('data-rotating', rotating);
+  heroPicker.toggleAttribute('data-rotation-paused', hovered || document.hidden);
   heroSlides.setAttribute('aria-live', rotating ? 'off' : 'polite');
-
-  if (rotating && !hovered && !document.hidden) {
-    timer = setInterval(() => showHeroSlide((currentSlide + 1) % heroPanels.length), 8000);
-  }
 }
+
+heroPicker.addEventListener('animationend', (event) => {
+  if (rotating && event.animationName === 'hero-progress' && event.target === heroButtons[currentSlide]) {
+    showHeroSlide((currentSlide + 1) % heroPanels.length);
+  }
+});
 
 heroButtons.forEach((button, index) => {
   button.addEventListener('click', () => {

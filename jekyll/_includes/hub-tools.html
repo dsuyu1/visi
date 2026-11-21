@@ -1,0 +1,40 @@
+<section class="home-section hub-tools" aria-labelledby="tools-title">
+  <div class="wrap">
+    <div class="split">
+      <h2 id="tools-title">Apps &amp; Tools</h2>
+      <div>
+        <p class="lead">Through VISI Hub, students can connect to remote lab desktops, work with security data, and collaborate on projects using the tools below.</p>
+        <a class="text-link" href="{{ site.hub_url }}/">Explore tools in VISI Hub {% include arrow.html %}</a>
+      </div>
+    </div>
+    <dl class="tool-skills">
+      <div>
+        <dt>Detection and investigation</dt>
+        <dd>Write and tune detection rules, search logs in Splunk, and triage network alerts in EveBox.</dd>
+      </div>
+      <div>
+        <dt>Monitoring and automation</dt>
+        <dd>Track lab metrics with Prometheus and Grafana, build workflows in n8n, and run repeatable tasks with Semaphore.</dd>
+      </div>
+      <div>
+        <dt>Governance and teamwork</dt>
+        <dd>Practice documenting risks and controls in CISO Assistant. Track code changes in Git and share project notes in BookStack or Notion.</dd>
+      </div>
+    </dl>
+    <label class="tool-ribbon-toggle">
+      <input type="checkbox" id="show-all-tools" aria-controls="tool-ribbon">
+      Show all tools
+    </label>
+  </div>
+  <div class="tool-ribbon" id="tool-ribbon" role="region" aria-label="Tools available through VISI Hub">
+    <div class="tool-track">
+      {% for copy in (1..2) %}
+      <ul class="tool-list"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
+        {% for tool in site.data.hub_tools %}
+        <li><span class="tool-icon{% if tool.monochrome %} tool-icon-monochrome{% endif %}"><img src="/assets/tools/{{ tool.icon | escape }}" width="32" height="32" alt="" decoding="async"></span>{{ tool.name | escape }}</li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </div>
+  </div>
+</section>
