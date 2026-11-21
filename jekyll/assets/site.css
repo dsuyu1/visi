@@ -475,22 +475,27 @@ strong { font-weight: 600; color: var(--ink); }
     cursor: pointer;
   }
   .tool-ribbon-toggle input { accent-color: var(--button); }
-  .hub-tools:not(:has(#show-all-tools:checked)) .tool-ribbon { overflow: clip; }
+  .hub-tools:not(:has(#show-all-tools:checked)) .tool-ribbon {
+    --tool-fade: clamp(24px, 6%, 80px);
+    container-type: inline-size;
+    overflow: clip;
+    mask-image: linear-gradient(to right, transparent, #000 var(--tool-fade), #000 calc(100% - var(--tool-fade)), transparent);
+  }
   .hub-tools:not(:has(#show-all-tools:checked)) .tool-track {
     display: flex;
     width: max-content;
     animation: tool-ribbon-scroll 42s linear infinite;
   }
-  .tool-ribbon:hover .tool-track { animation-play-state: paused; }
+  .hub-tools:not(:has(#show-all-tools:checked)) .tool-ribbon:hover .tool-track { animation-play-state: paused; }
   .hub-tools:not(:has(#show-all-tools:checked)) .tool-list {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
-    min-width: 100vw;
+    min-width: 100cqw;
   }
 }
 @keyframes tool-ribbon-scroll {
-  to { transform: translateX(-50%); }
+  from { transform: translateX(-50%); }
 }
 
 .about-hero h1 {

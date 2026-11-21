@@ -26,7 +26,7 @@
       Show all tools
     </label>
   </div>
-  <div class="tool-ribbon" id="tool-ribbon" role="region" aria-label="Tools available through VISI Hub">
+  <div class="wrap tool-ribbon" id="tool-ribbon" role="region" aria-label="Tools available through VISI Hub">
     <div class="tool-track">
       {% for copy in (1..2) %}
       <ul class="tool-list"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
