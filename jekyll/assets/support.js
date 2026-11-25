@@ -55,6 +55,10 @@ if (topic) {
   const wanted = TOPIC_ALIASES[topic] || topic;
   if ([...typeSelect.options].some((o) => o.value === wanted)) typeSelect.value = wanted;
 }
+// Links from other VISI pages (e.g. a paused app's page on the hub) can
+// suggest a subject. Plain text only, and the visitor can change it.
+const subject = params.get("subject");
+if (subject && !form.elements.subject.value) form.elements.subject.value = subject.slice(0, 150);
 const error = params.get("error");
 if (error && MESSAGES[error]) showStatus(MESSAGES[error]);
 
