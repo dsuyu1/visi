@@ -36,7 +36,7 @@ VISI help center queue  →  agents reply by email, visitor tracks in the portal
 | `wrangler.jsonc` | Worker name, hostname, rate limit, non-secret vars |
 | `.dev.vars.example` | Template for local secrets |
 | `../../jekyll/support.html` | The page. The request type dropdown is built from `jekyll/_data/support_types.yml` |
-| `../../jekyll/assets/support.js` | Preselects `?topic=`, hides unrelated fields, submits with fetch |
+| `../../jekyll/assets/support.js` | Preselects `?topic=`, fills `?subject=`, hides unrelated fields, submits with fetch |
 | `../../jekyll/_headers` | CSP for `/support/*` that allows Turnstile and nothing else external |
 
 The request type ids (`general`, `membership`, `partnership`, `research`, `clinic`, `event`, `range`, `security`, `other`) appear in three places: `REQUEST_TYPES` in `src/index.js`, `_data/support_types.yml`, and the branches of the Jira rule. Change all three together.
