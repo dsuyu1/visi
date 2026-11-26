@@ -12,7 +12,7 @@ intro: "Workshop write-ups, lab notes and research from VISI members."
     <div class="date-tile pastel" aria-hidden="true"><span>{{ post.date | date: "%b" }}</span><strong>{{ post.date | date: "%-d" }}</strong></div>
     <div class="event-copy">
       <h2><a href="{{ post.url }}">{{ post.title | escape }}</a></h2>
-      <p class="meta meta-parts"><span>{{ post.date | date: "%b %d, %Y" }}</span>{% if post.author %}<span>{{ post.author | escape }}</span>{% endif %}</p>
+      <p class="meta meta-parts"><span>{{ post.date | date: "%b %d, %Y" }}</span>{% if post.author %}<span>{% include author.html name=post.author %}</span>{% endif %}</p>
       {% if post.description %}<p>{{ post.description | escape }}</p>{% endif %}
     </div>
     {% if post.image %}<img src="{{ post.image | escape }}" alt="" class="event-image" width="160" loading="lazy">{% endif %}

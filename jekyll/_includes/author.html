@@ -1,0 +1,2 @@
+{%- comment -%}An author's name. Hovering or focusing it shows their member profile card (assets/author-card.js). Without JavaScript, or for a name that is not a member, it is plain text.{%- endcomment -%}
+<span class="author-name" data-author="{{ include.name | escape }}" data-hub="{{ site.hub_url }}" tabindex="0">{{ include.name | escape }}</span>
