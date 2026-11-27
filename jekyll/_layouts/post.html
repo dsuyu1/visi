@@ -50,7 +50,7 @@ layout: default
       </div>
       <h1 id="page-title">{{ post_title }}</h1>
       <div class="post-byline">
-        {% if page.author and page.author != empty %}<p>By {{ page.author | escape }}</p>{% endif %}
+        {% if page.author and page.author != empty %}<p>By {% include author.html name=page.author %}</p>{% endif %}
         <div class="post-share" role="group" aria-labelledby="post-share-label">
           <span id="post-share-label" class="post-share-label">Share</span>
           <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url }}" target="_blank" rel="noopener" aria-label="Share on LinkedIn" title="Share on LinkedIn">

@@ -1,0 +1,26 @@
+.author-name:not(.author-plain) { cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.author-name:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+.author-card {
+  position: absolute;
+  z-index: 50;
+  width: min(20rem, calc(100vw - 16px));
+  padding: 1rem;
+  background: var(--page);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .14);
+  font-size: 14px;
+  line-height: 20px;
+}
+.author-card-head { display: flex; align-items: center; gap: .75rem; }
+.author-card-head > div { display: flex; flex-direction: column; min-width: 0; }
+.author-card-head img, .author-card-initial {
+  width: 48px; height: 48px; flex: none; border-radius: 50%; object-fit: cover;
+}
+.author-card-initial { display: grid; place-items: center; background: var(--panel); color: var(--ink); font-weight: 600; font-size: 18px; border: 1px solid var(--line); }
+.author-card p { margin-top: .625rem; max-width: none; }
+.author-card-headline { color: var(--ink); font-weight: 500; }
+.author-card-bio { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.author-card-links { display: flex; flex-wrap: wrap; gap: .25rem 1rem; margin-top: .75rem; list-style: none; padding: 0; }
+.author-card-links a { color: var(--link); font-weight: 500; }
