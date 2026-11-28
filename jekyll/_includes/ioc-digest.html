@@ -1,0 +1,9 @@
+{%- assign d = include.digest -%}
+<article class="event-row post-row">
+  <div class="date-tile pastel" aria-hidden="true"><span>{{ d.date | date: "%b" }}</span><strong>{{ d.date | date: "%-d" }}</strong></div>
+  <div class="event-copy">
+    <h3><a href="{{ d.pdf | escape }}">{{ d.title | escape }}</a></h3>
+    <p class="meta meta-parts"><span>{{ d.date | date: "%b %-d, %Y" }}</span>{% if d.indicators %}<span>{{ d.indicators }} indicators</span>{% endif %}<span>PDF{% if d.size_kb %}, {{ d.size_kb }} KB{% endif %}</span></p>
+    {% if d.summary %}<p>{{ d.summary | escape }}</p>{% endif %}
+  </div>
+</article>
