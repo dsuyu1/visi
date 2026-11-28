@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "date": "2026-11-26",
+    "title": "IoC digest Nov. 26, 2026",
+    "summary": "618 indicators with a score of 70 or more, dated by their source in the 24 hours before 2026-11-26 07:00 Central. The most common labels are Mozi, mirai, SalatStealer. These families have been reported targeting education, energy, finance and other sectors.",
+    "pdf": "/assets/threat-intel/ioc-digest-2026-11-26.pdf",
+    "size_kb": 83
+  }
+]
