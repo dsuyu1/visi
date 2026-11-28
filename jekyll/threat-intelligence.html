@@ -1,0 +1,28 @@
+---
+title: Threat Intelligence
+permalink: /threat-intelligence/
+section: /resources/
+parent: { title: Resources, url: /resources/ }
+banner: /assets/photos/prism-lines.webp
+intro: "Indicators of compromise and threat reporting, collected and reviewed in OpenCTI."
+---
+{% assign digests = site.data.ioc_digests | sort: "date" | reverse %}
+<section class="panel ti-panel" aria-labelledby="daily-digests">
+  <div class="card-head"><h2 id="daily-digests">Daily IoC digests</h2><span class="status green">TLP:CLEAR</span></div>
+  <p>Each digest covers the 24 hours ending at 7:00 a.m. Central: high-scoring indicators from public feeds, the most common malware tags, and the sectors those families have targeted before. Added here automatically every morning. Free to share.</p>
+  {% if digests.size > 0 %}
+  <div class="event-list post-list">
+    {% for d in digests limit: 14 %}{% include ioc-digest.html digest=d %}{% endfor %}
+  </div>
+  {% if digests.size > 14 %}
+  <details class="ti-older">
+    <summary>Older digests</summary>
+    <div class="event-list post-list">
+      {% for d in digests offset: 14 %}{% include ioc-digest.html digest=d %}{% endfor %}
+    </div>
+  </details>
+  {% endif %}
+  {% else %}
+  <p class="empty">The first digest appears here after 7:00 a.m. Central.</p>
+  {% endif %}
+</section>

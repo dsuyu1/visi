@@ -27,6 +27,7 @@ defaults:
     values:
       layout: post
       wide: true
+      section: /resources/
       permalink: /blog/:year/:title/
 
 # /support/ page settings. See workers/support-intake/README.md.

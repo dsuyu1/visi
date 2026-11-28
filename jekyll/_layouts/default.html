@@ -36,7 +36,7 @@
       <nav class="site-nav" aria-label="Main navigation">
         <span class="nav-indicator" aria-hidden="true"></span>
         {% for item in site.data.navigation %}
-        <a href="{{ item.url }}"{% if current_url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+        <a href="{{ item.url }}"{% if current_url == item.url or page.section == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
         {% endfor %}
       </nav>
       <div class="header-actions">
@@ -51,7 +51,7 @@
     {% if page.banner %}
     <div class="wrap page">
       <div class="page-head">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">VISI</a><span aria-hidden="true">/</span><span aria-current="page">{{ page.title | escape }}</span></nav>
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">VISI</a><span aria-hidden="true">/</span>{% if page.parent %}<a href="{{ page.parent.url }}">{{ page.parent.title | escape }}</a><span aria-hidden="true">/</span>{% endif %}<span aria-current="page">{{ page.title | escape }}</span></nav>
         <h1 id="page-title">{{ page.heading | default: page.title | escape }}</h1>
         {% if page.intro %}<p class="lead">{{ page.intro | escape }}</p>{% endif %}
       </div>
