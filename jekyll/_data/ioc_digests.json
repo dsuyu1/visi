@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026-11-28",
+    "title": "IoC digest Nov. 28, 2026",
+    "summary": "Sources reported 767 URLs that scored 70 or higher in the 24 hours ending at 7:00 a.m. Central on Nov. 28. SmartLoader, SalatStealer and mirai were the most common feed tags. The Highlights section lists 25 URLs for review.",
+    "pdf": "/assets/threat-intel/ioc-digest-2026-11-28.pdf",
+    "size_kb": 61,
+    "indicators": 767
+  },
+  {
     "date": "2026-11-27",
     "title": "IoC digest Nov. 27, 2026",
     "summary": "Sources reported 679 URLs that scored 70 or higher in the 24 hours ending at 7:00 a.m. Central on Nov. 27. SmartLoader, luajit and mirai were the most common feed tags. The Highlights section lists 25 URLs for review.",
